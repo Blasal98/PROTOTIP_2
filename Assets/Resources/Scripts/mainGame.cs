@@ -16,14 +16,13 @@ public class mainGame : MonoBehaviour
     [SerializeField] private GameObject cursorObject = null;
     private Vector3 cursorPositionUI = new Vector3(0, 0, 0);
     private Vector3 cursorPositionWorld = new Vector3(0, 0, 0);
-    //[SerializeField] private GameObject cursorCollider = null;
+    private GameObject cursorCollider = null;
 
 
-    
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject PAUSE;
 
-   
+    Camino fixa;
 
     bool pause = false;
     bool ended = false;
@@ -38,8 +37,14 @@ public class mainGame : MonoBehaviour
         mainCameraWidth = mainCamera.orthographicSize * 2 * mainCamera.aspect;
         Cursor.visible = false;
         mainCamera.transform.position = new Vector3(Constants.General.CameraStart_x, Constants.General.CameraStart_y, mainCamera.transform.position.z);
+        cursorCollider = new GameObject("CursorCollider");
+        cursorCollider.AddComponent<CircleCollider2D>();
+        cursorCollider.GetComponent<CircleCollider2D>().radius = 0.01f;
+        cursorCollider.GetComponent<CircleCollider2D>().isTrigger = false;
+        gameObject.AddComponent<Rigidbody2D>();
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
 
-        
+        fixa = new Camino();
 
         //PAUSE.SetActive(false);
         
@@ -69,6 +74,7 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
+        //Debug.Log(fixa.getObject().GetComponent<Trigger>().getTriggered());
     }
 
 
@@ -90,6 +96,7 @@ public class mainGame : MonoBehaviour
         float auxY = Utilities.Maths.mapping(cursorPositionWorld.y, mainCamera.transform.position.y - mainCameraHeight / 2, mainCamera.transform.position.y + mainCameraHeight / 2, -auxResolution.height / 2, auxResolution.height / 2);
         cursorPositionUI = new Vector3(auxX, auxY, 0);
         cursorObject.transform.localPosition = cursorPositionUI + Constants.General.cursorCorrector;
+        cursorCollider.transform.position = cursorPositionWorld;
 
     }
 

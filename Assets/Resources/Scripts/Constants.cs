@@ -21,6 +21,14 @@ namespace Constants
     public class Entity
     {
         public static float imgDfltPiXUnit = 100;
+        public class Ficha
+        {
+            public static float h = 1;
+            public static float w = 1.06f;
+
+            public static float hPix = 100;
+            public static float wPix = 106;
+        }
 
     }
 }
