@@ -23,19 +23,12 @@ public class mainGame : MonoBehaviour
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject PAUSE;
 
-    int selectedBuilding;
-    List<int> selectedHumans;
-
-    bool villagerBuilding;
-    bool targetSetting;
+   
 
     bool pause = false;
     bool ended = false;
     bool victory = false;
 
-
-    float initialZombieDelay;
-    float initialZombieDelay_Count;
 
     // Start is called before the first frame update
     void Start()
@@ -54,8 +47,7 @@ public class mainGame : MonoBehaviour
         victory = false;
         pause = false;
 
-        initialZombieDelay_Count = 0;
-        initialZombieDelay = 30;
+       
     }
 
 
@@ -94,8 +86,8 @@ public class mainGame : MonoBehaviour
     {
         Resolution auxResolution = Screen.currentResolution;
         cursorPositionWorld = new Vector3(mainCamera.ScreenToWorldPoint(Input.mousePosition).x, mainCamera.ScreenToWorldPoint(Input.mousePosition).y, 0);
-        float auxX = mapping(cursorPositionWorld.x, mainCamera.transform.position.x - mainCameraWidth / 2, mainCamera.transform.position.x + mainCameraWidth / 2, -auxResolution.width / 2, auxResolution.width / 2);
-        float auxY = mapping(cursorPositionWorld.y, mainCamera.transform.position.y - mainCameraHeight / 2, mainCamera.transform.position.y + mainCameraHeight / 2, -auxResolution.height / 2, auxResolution.height / 2);
+        float auxX = Utilities.Maths.mapping(cursorPositionWorld.x, mainCamera.transform.position.x - mainCameraWidth / 2, mainCamera.transform.position.x + mainCameraWidth / 2, -auxResolution.width / 2, auxResolution.width / 2);
+        float auxY = Utilities.Maths.mapping(cursorPositionWorld.y, mainCamera.transform.position.y - mainCameraHeight / 2, mainCamera.transform.position.y + mainCameraHeight / 2, -auxResolution.height / 2, auxResolution.height / 2);
         cursorPositionUI = new Vector3(auxX, auxY, 0);
         cursorObject.transform.localPosition = cursorPositionUI + Constants.General.cursorCorrector;
 
@@ -103,21 +95,15 @@ public class mainGame : MonoBehaviour
 
     
 
-    float mapping(float x, float in_min, float in_max, float out_min, float out_max)
-    {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
+    
+
+
     public void exitGame()
     {
         Application.Quit();
     }
 
 
-
-
-
-    
-    ///////////////////////////////////////////////////////////
     
     public void returnMenu()
     {
