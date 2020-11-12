@@ -37,12 +37,13 @@ public class mainGame : MonoBehaviour
         mainCameraWidth = mainCamera.orthographicSize * 2 * mainCamera.aspect;
         Cursor.visible = false;
         mainCamera.transform.position = new Vector3(Constants.General.CameraStart_x, Constants.General.CameraStart_y, mainCamera.transform.position.z);
+        
         cursorCollider = new GameObject("CursorCollider");
-        cursorCollider.AddComponent<CircleCollider2D>();
-        cursorCollider.GetComponent<CircleCollider2D>().radius = 0.01f;
-        cursorCollider.GetComponent<CircleCollider2D>().isTrigger = false;
-        gameObject.AddComponent<Rigidbody2D>();
-        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        cursorCollider.AddComponent<BoxCollider2D>();
+        cursorCollider.GetComponent<BoxCollider2D>().size = new Vector2( 0.01f, 0.01f);
+        cursorCollider.GetComponent<BoxCollider2D>().isTrigger = false;
+        cursorCollider.AddComponent<Rigidbody2D>();
+        cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
         fixa = new Camino();
 

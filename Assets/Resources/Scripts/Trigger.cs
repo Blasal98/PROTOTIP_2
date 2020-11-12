@@ -15,12 +15,11 @@ class Trigger : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         isTriggered = true;
-        Debug.Log("HOLAAA");
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         isTriggered = false;
     }
