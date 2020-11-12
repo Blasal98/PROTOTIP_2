@@ -24,6 +24,7 @@ public class FichaSelector
 
         gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
         gameObject.AddComponent<Trigger>();
+        gameObject.GetComponent<Trigger>().isTriggered = false;
 
         gameObject.transform.SetParent(_parent.transform);
     }

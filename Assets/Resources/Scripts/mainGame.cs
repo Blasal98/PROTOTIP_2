@@ -72,6 +72,7 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
+        mainMap.update();
         //Debug.Log(fixa.getObject().GetComponent<Trigger>().getTriggered());
     }
 
