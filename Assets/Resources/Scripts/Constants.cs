@@ -20,7 +20,7 @@ namespace Constants
         public static float CameraRatio = 16 / 9;
 
         public static float scrnDfltHeightU = 5.4f * 2;
-        public static float scrnDfltWidthU = scrnDfltHeightU * CameraRatio;
+        public static float scrnDfltWidthU = 5.4f * 2 * 16 / 9;
 
         public class PhotoShop
         {
@@ -33,12 +33,13 @@ namespace Constants
     {
         public static int w = 16;
         public static int h = 7;
+        
 
         public class Local
         {
             public static int x_min = Constants.Entity.Ficha.wPix * 3 / 4;
             public static int y_max = Constants.General.scrnDfltHeight - Constants.General.PhotoShop.h_player + Constants.Entity.Ficha.hPix / 2;
-            
+            public static int w_separation = 78;
         }
     }
     public class Entity

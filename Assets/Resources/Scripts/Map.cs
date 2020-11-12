@@ -19,14 +19,21 @@ class Map
         {
             for(int j = 0; j < Constants.Map.h; j++)
             {
-
                 Vector2 auxVec = new Vector2(
-                    Utilities.Maths.photoshopTOunity(Constants.Map.Local.x_min) + Constants.Entity.Ficha.wU * i,
-                    Utilities.Maths.photoshopTOunity(Constants.Map.Local.y_max) - Constants.Entity.Ficha.hU * j
+                    Utilities.Maths.mapping(106 * (3 / 4), 0, Constants.General.scrnDfltWidth, -Constants.General.scrnDfltWidthU / 2, Constants.General.scrnDfltWidthU / 2) 
+                    + Utilities.Maths.mapping(Constants.Map.Local.w_separation,0,1920, 0, Constants.General.scrnDfltWidthU) * (i+1),
+                    Utilities.Maths.mapping(1080 - 700 + 50, 0, Constants.General.scrnDfltHeight, Constants.General.scrnDfltHeightU / 2, -Constants.General.scrnDfltHeightU / 2) - Constants.Entity.Ficha.hU * j
                     );
 
-                map[i][j] = new FichaSelector(mapFolder);
-                map[i][j].position = auxVec;
+
+
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1)) {
+                    if(i % 2 == 0)
+                        auxVec = new Vector2(auxVec.x, auxVec.y - Utilities.Maths.mapping(Constants.Entity.Ficha.hPix / 2, 0, 1920, 0, Constants.General.scrnDfltWidthU));
+                    map[i][j] = new FichaSelector(mapFolder);
+                    map[i][j].position = auxVec;
+                }
+                    
 
             }
         }

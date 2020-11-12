@@ -14,13 +14,6 @@ namespace Utilities
         {
             return a + f * (b - a);
         }
-        public static int unityTOphotoshop(float x)
-        {
-            return (int)mapping(x, -Constants.General.scrnDfltWidthU / 2, Constants.General.scrnDfltWidthU / 2, 0, Constants.General.scrnDfltWidth);
-        }
-        public static float photoshopTOunity(int x)
-        {
-            return mapping(x, 0, Constants.General.scrnDfltWidth, -Constants.General.scrnDfltWidthU / 2, Constants.General.scrnDfltWidthU / 2); 
-        }
+
     }
 }
