@@ -11,7 +11,6 @@ public class mainGame : MonoBehaviour
     private Camera mainCamera = null;
     private float mainCameraWidth;
     private float mainCameraHeight;
-    private float camVel_UtsXFrm = 0.2f;
 
     [SerializeField] private GameObject cursorObject = null;
     private Vector3 cursorPositionUI = new Vector3(0, 0, 0);
@@ -22,7 +21,7 @@ public class mainGame : MonoBehaviour
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject PAUSE;
 
-    Camino fixa;
+    Map mainMap;
 
     bool pause = false;
     bool ended = false;
@@ -45,9 +44,7 @@ public class mainGame : MonoBehaviour
         cursorCollider.AddComponent<Rigidbody2D>();
         cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
-        fixa = new Camino();
-
-        //PAUSE.SetActive(false);
+        mainMap = new Map();
         
         ended = false;
         victory = false;

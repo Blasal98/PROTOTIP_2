@@ -18,6 +18,19 @@ namespace Constants
         public static float scrnDfltWidth = 1920;
 
     }
+    public class Map
+    {
+        public static int w = 16;
+        public static int h = 7;
+
+        public class Local
+        {
+            public static int x_min;
+            public static int x_max;
+            public static int y_min;
+            public static int y_max;
+        }
+    }
     public class Entity
     {
         public static float imgDfltPiXUnit = 100;
