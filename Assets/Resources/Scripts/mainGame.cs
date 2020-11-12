@@ -11,19 +11,17 @@ public class mainGame : MonoBehaviour
     private Camera mainCamera = null;
     private float mainCameraWidth;
     private float mainCameraHeight;
-    private float camVel_UtsXFrm = 0.2f;
 
     [SerializeField] private GameObject cursorObject = null;
     private Vector3 cursorPositionUI = new Vector3(0, 0, 0);
     private Vector3 cursorPositionWorld = new Vector3(0, 0, 0);
-    //[SerializeField] private GameObject cursorCollider = null;
+    private GameObject cursorCollider = null;
 
 
-    
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject PAUSE;
 
-   
+    Map mainMap;
 
     bool pause = false;
     bool ended = false;
@@ -38,10 +36,15 @@ public class mainGame : MonoBehaviour
         mainCameraWidth = mainCamera.orthographicSize * 2 * mainCamera.aspect;
         Cursor.visible = false;
         mainCamera.transform.position = new Vector3(Constants.General.CameraStart_x, Constants.General.CameraStart_y, mainCamera.transform.position.z);
-
         
+        cursorCollider = new GameObject("CursorCollider");
+        cursorCollider.AddComponent<BoxCollider2D>();
+        cursorCollider.GetComponent<BoxCollider2D>().size = new Vector2( 0.01f, 0.01f);
+        cursorCollider.GetComponent<BoxCollider2D>().isTrigger = false;
+        cursorCollider.AddComponent<Rigidbody2D>();
+        cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
-        //PAUSE.SetActive(false);
+        mainMap = new Map();
         
         ended = false;
         victory = false;
@@ -69,6 +72,7 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
+        //Debug.Log(fixa.getObject().GetComponent<Trigger>().getTriggered());
     }
 
 
@@ -90,6 +94,7 @@ public class mainGame : MonoBehaviour
         float auxY = Utilities.Maths.mapping(cursorPositionWorld.y, mainCamera.transform.position.y - mainCameraHeight / 2, mainCamera.transform.position.y + mainCameraHeight / 2, -auxResolution.height / 2, auxResolution.height / 2);
         cursorPositionUI = new Vector3(auxX, auxY, 0);
         cursorObject.transform.localPosition = cursorPositionUI + Constants.General.cursorCorrector;
+        cursorCollider.transform.position = cursorPositionWorld;
 
     }
 

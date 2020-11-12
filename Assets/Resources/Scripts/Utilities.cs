@@ -14,5 +14,6 @@ namespace Utilities
         {
             return a + f * (b - a);
         }
+
     }
 }
