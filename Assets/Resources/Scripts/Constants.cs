@@ -14,9 +14,20 @@ namespace Constants
         public static Vector3 cursorCorrector = new Vector3(25, -25, 0);
         public static float cursorBorderError = 0.1f;
 
-        public static float scrnDfltHeight = 1080;
-        public static float scrnDfltWidth = 1920;
+        public static int scrnDfltHeight = 1080;
+        public static int scrnDfltWidth = 1920;
 
+        public static float CameraRatio = 16 / 9;
+
+        public static float scrnDfltHeightU = 5.4f * 2;
+        public static float scrnDfltWidthU = scrnDfltHeightU * CameraRatio;
+
+        public class PhotoShop
+        {
+            public static int h_enemy = 350;
+            public static int h_border = 30;
+            public static int h_player = 700;
+        }
     }
     public class Map
     {
@@ -25,10 +36,9 @@ namespace Constants
 
         public class Local
         {
-            public static int x_min;
-            public static int x_max;
-            public static int y_min;
-            public static int y_max;
+            public static int x_min = Constants.Entity.Ficha.wPix * 3 / 4;
+            public static int y_max = Constants.General.scrnDfltHeight - Constants.General.PhotoShop.h_player + Constants.Entity.Ficha.hPix / 2;
+            
         }
     }
     public class Entity
@@ -36,11 +46,11 @@ namespace Constants
         public static float imgDfltPiXUnit = 100;
         public class Ficha
         {
-            public static float h = 1;
-            public static float w = 1.06f;
+            public static float hU = 1;
+            public static float wU = 1.06f;
 
-            public static float hPix = 100;
-            public static float wPix = 106;
+            public static int hPix = 100;
+            public static int wPix = 106;
         }
 
     }

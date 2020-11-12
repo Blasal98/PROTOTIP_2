@@ -5,7 +5,8 @@ using UnityEngine;
 
 class Trigger : MonoBehaviour
 {
-    private bool isTriggered;
+    private bool _isTriggered;
+
     private void Start()
     {
         isTriggered = false;
@@ -23,9 +24,11 @@ class Trigger : MonoBehaviour
     {
         isTriggered = false;
     }
-    public bool getTriggered()
+
+    public bool isTriggered
     {
-        return isTriggered;
+        get { return _isTriggered; }
+        set { _isTriggered = value; }
     }
 }
 
