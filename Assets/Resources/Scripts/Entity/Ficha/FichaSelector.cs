@@ -6,6 +6,7 @@ public class FichaSelector
 {
     private Vector2 _position;
     private GameObject _gameObject;
+    private Trigger _trigger;
 
     public FichaSelector(GameObject _parent)
     {
@@ -24,7 +25,7 @@ public class FichaSelector
 
         gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
         gameObject.AddComponent<Trigger>();
-        gameObject.GetComponent<Trigger>().isTriggered = false;
+        _trigger = gameObject.GetComponent<Trigger>();
 
         gameObject.transform.SetParent(_parent.transform);
     }
@@ -42,5 +43,11 @@ public class FichaSelector
     {
         get { return _gameObject; }
         set { _gameObject = value; }
+    }
+
+    public bool isTriggered
+    {
+        get { return _trigger.isTriggered; }
+        set { _trigger.isTriggered = value; }
     }
 }

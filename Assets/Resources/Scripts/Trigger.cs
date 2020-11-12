@@ -19,7 +19,7 @@ class Trigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         isTriggered = true;
-        Debug.Log("g");
+        
     }
     private void OnTriggerExit2D(Collider2D other)
     {
