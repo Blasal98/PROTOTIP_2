@@ -62,14 +62,20 @@ class Map
         {
             for (int j = 0; j < Constants.Map.h; j++)
             {
-                if (selectorMap[i][j].isTriggered)
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
                 {
-                    //localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+                    
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
+                    {
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+                    }
+                    else
+                    {
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+                    }
                 }
-                else
-                {
-                    //localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-                }
+                
+
             }
         }
     }
