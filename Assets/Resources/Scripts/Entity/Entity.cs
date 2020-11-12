@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Entity 
 {
-    protected GameObject gameObject;
+    protected GameObject _gameObject;
+    protected Vector2 _position;
     protected Entity()
     {
         gameObject = new GameObject();
@@ -15,5 +16,19 @@ public class Entity
     public GameObject getObject()
     {
         return gameObject;
+    }
+    public Vector2 position
+    {
+        get { return _position; }
+        set
+        {
+            _position = value;
+            gameObject.transform.position = new Vector3(position.x, position.y, gameObject.transform.position.z);
+        }
+    }
+    public GameObject gameObject
+    {
+        get { return _gameObject; }
+        set { _gameObject = value; }
     }
 }

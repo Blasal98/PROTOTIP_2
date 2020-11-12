@@ -41,6 +41,10 @@ namespace Constants
             public static int y_max = Constants.General.scrnDfltHeight - Constants.General.PhotoShop.h_player + Constants.Entity.Ficha.hPix / 2;
             public static int w_separation = 78;
         }
+        public class Others
+        {
+            public static int w_separation = 42;
+        }
     }
     public class Entity
     {
