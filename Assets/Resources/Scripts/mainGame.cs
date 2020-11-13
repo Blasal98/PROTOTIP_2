@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class mainGame : MonoBehaviour
 {
 
-
+    #region Variables
     private Camera mainCamera = null;
     private float mainCameraWidth;
     private float mainCameraHeight;
@@ -23,10 +23,13 @@ public class mainGame : MonoBehaviour
 
     Map mainMap;
 
-    bool pause = false;
-    bool ended = false;
-    bool victory = false;
+    bool pause;
+    bool ended;
+    bool victory;
 
+    bool clicked_right;
+    bool clicked_left;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +53,8 @@ public class mainGame : MonoBehaviour
         victory = false;
         pause = false;
 
-       
+        clicked_right = false;
+        clicked_left = false;
     }
 
 
@@ -72,8 +76,46 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
-        mainMap.update();
-        //Debug.Log(fixa.getObject().GetComponent<Trigger>().getTriggered());
+
+        #region Input
+        if (Input.GetMouseButtonDown(0))
+        {
+            clicked_left = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            clicked_left = false;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            clicked_right = true;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            clicked_right = false;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+
+        }
+        #endregion
+
+        if (!ended)
+        {
+            if (!pause)
+            {
+                if (!mainMap.created)
+                {
+                    mainMap.update();
+                    if (clicked_left)
+                    {
+                        
+                        mainMap.selectFicha();
+                        clicked_left = false;
+                    }
+                }
+            }
+        }
     }
 
 

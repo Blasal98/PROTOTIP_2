@@ -4,14 +4,19 @@ using UnityEngine;
 
 class Map
 {
+    #region Variables
     private FichaSelector[][] selectorMap;
     private Ficha[][] localMap;
     private List<Ficha[][]> othersMap;
 
     private GameObject mapFolder;
+    private bool _created;
+    #endregion
 
+    #region Map Initialization
     public Map() {
-
+        created = false;
+        
         selectorMap = new FichaSelector[Constants.Map.w][];
         for (int i = 0; i < Constants.Map.w; i++) { selectorMap[i] = new FichaSelector[Constants.Map.h]; }
         localMap = new Ficha[Constants.Map.w][];
@@ -56,7 +61,10 @@ class Map
 
             }
         }
+        
     }
+    #endregion
+
     public void update() {
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -79,4 +87,34 @@ class Map
             }
         }
     }
+
+    public void selectFicha()
+    {
+        bool selected = false;
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1) && !selected)
+                { 
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
+                    {
+                        Vector2 auxPos = localMap[i][j].position;
+                        Object.Destroy(localMap[i][j].gameObject);
+                        localMap[i][j] = new Camino();
+                        localMap[i][j].position = auxPos;
+                        selected = true;
+                    }
+                }
+            }
+        }
+    }
+
+    #region properties
+    public bool created
+    {
+        get { return _created; }
+        set { _created = value; }
+    }
+    #endregion
 }
