@@ -33,7 +33,7 @@ namespace Constants
     {
         public static int w = 16;
         public static int h = 7;
-        
+        public static int path_size = 15;
 
         public class Local
         {

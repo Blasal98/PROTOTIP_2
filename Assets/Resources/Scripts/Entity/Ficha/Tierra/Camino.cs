@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camino : Ficha
+public class Camino : Tierra
 {
     public Camino()
     {

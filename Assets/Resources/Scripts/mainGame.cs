@@ -104,9 +104,10 @@ public class mainGame : MonoBehaviour
         {
             if (!pause)
             {
+                mainMap.update();
                 if (!mainMap.created)
                 {
-                    mainMap.update();
+                    
                     if (clicked_left)
                     {
                         
