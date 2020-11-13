@@ -9,10 +9,12 @@ class Map
     private Ficha[][] localMap;
     private List<Ficha[][]> othersMap;
     private List<Ficha> localPath;
+    private List<List<Ficha>> othersPath;
 
     private int pathCount;
 
     private GameObject mapFolder;
+    private GameObject pathFolder;
     private bool _created;
     #endregion
 
@@ -22,6 +24,8 @@ class Map
         pathCount = 0;
 
         localPath = new List<Ficha>();
+        othersPath = new List<List<Ficha>>();
+        othersPath.Add(new List<Ficha>());
 
         selectorMap = new FichaSelector[Constants.Map.w][];
         for (int i = 0; i < Constants.Map.w; i++) { selectorMap[i] = new FichaSelector[Constants.Map.h]; }
@@ -32,6 +36,7 @@ class Map
         for (int i = 0; i < Constants.Map.w; i++) { othersMap[0][i] = new Ficha[Constants.Map.h]; }
 
         mapFolder = new GameObject("mapFolder");
+        pathFolder = new GameObject("pathFolder");
 
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -73,12 +78,12 @@ class Map
     }
     public void selectFicha()
     {
-        bool selected = false;
+        bool onlyOne = false;
         for (int i = 0; i < Constants.Map.w; i++)
         {
             for (int j = 0; j < Constants.Map.h; j++)
             {
-                if (!(i % 2 == 0 && j == Constants.Map.h - 1) && !selected)
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1) && !onlyOne)
                 {
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
                     {
@@ -88,15 +93,15 @@ class Map
                             Object.Destroy(localMap[i][j].gameObject);
                             if (pathCount == 0) //decideixes quin nou objecte el substituira
                             {
-                                localMap[i][j] = new Start();
+                                localMap[i][j] = new Start(pathFolder,true);
                             }
                             else if (pathCount == Constants.Map.path_size - 1)
                             {
-                                localMap[i][j] = new End();
+                                localMap[i][j] = new End(pathFolder, true);
                             }
                             else
                             {
-                                localMap[i][j] = new Camino();
+                                localMap[i][j] = new Camino(pathFolder, true);
                             }
                             localMap[i][j].position = auxPos; //actualitzes posicio e index
                             localMap[i][j].i = i; localMap[i][j].j = j;
@@ -104,10 +109,17 @@ class Map
                             localPath.Add(localMap[i][j]); //afegeix a Path
                             pathCount++;
 
-                            selected = true;
+                            onlyOne = true;
                         }
-                        else
+                        if (pathCount == Constants.Map.path_size) { //aqui predeterminem el del enemic
+                            Vector2 auxPos = othersMap[0][1][3].position; Object.Destroy(othersMap[0][1][3].gameObject);
+                            othersMap[0][1][3] = new Start(pathFolder, false); othersPath[0].Add(othersMap[0][1][3]); othersMap[0][1][3].position = auxPos;
+
+                            auxPos = othersMap[0][2][3].position; Object.Destroy(othersMap[0][2][3].gameObject);
+                            othersMap[0][2][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][2][3]); othersMap[0][2][3].position = auxPos;
+
                             created = true;
+                        }
                     }
                 }
             }
