@@ -111,18 +111,66 @@ class Map
 
                             onlyOne = true;
                         }
-                        if (pathCount == Constants.Map.path_size) { //aqui predeterminem el del enemic
-                            Vector2 auxPos = othersMap[0][1][3].position; Object.Destroy(othersMap[0][1][3].gameObject);
-                            othersMap[0][1][3] = new Start(pathFolder, false); othersPath[0].Add(othersMap[0][1][3]); othersMap[0][1][3].position = auxPos;
-
-                            auxPos = othersMap[0][2][3].position; Object.Destroy(othersMap[0][2][3].gameObject);
-                            othersMap[0][2][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][2][3]); othersMap[0][2][3].position = auxPos;
-
-                            created = true;
-                        }
+                        
                     }
                 }
             }
+        }
+        if (pathCount == Constants.Map.path_size)
+        { //aqui predeterminem el del enemic
+            Vector2 auxPos = othersMap[0][1][3].position; Object.Destroy(othersMap[0][1][3].gameObject);
+            othersMap[0][1][3] = new Start(pathFolder, false); othersPath[0].Add(othersMap[0][1][3]); othersMap[0][1][3].position = auxPos;
+
+            auxPos = othersMap[0][2][2].position; Object.Destroy(othersMap[0][2][2].gameObject);
+            othersMap[0][2][2] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][2][2]); othersMap[0][2][2].position = auxPos;
+
+            auxPos = othersMap[0][3][2].position; Object.Destroy(othersMap[0][3][2].gameObject);
+            othersMap[0][3][2] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][3][2]); othersMap[0][3][2].position = auxPos;
+
+            auxPos = othersMap[0][4][2].position; Object.Destroy(othersMap[0][4][2].gameObject);
+            othersMap[0][4][2] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][4][2]); othersMap[0][4][2].position = auxPos;
+
+            auxPos = othersMap[0][5][3].position; Object.Destroy(othersMap[0][5][3].gameObject);
+            othersMap[0][5][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][5][3]); othersMap[0][5][3].position = auxPos;
+
+            auxPos = othersMap[0][6][3].position; Object.Destroy(othersMap[0][6][3].gameObject);
+            othersMap[0][6][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][6][3]); othersMap[0][6][3].position = auxPos;
+
+            auxPos = othersMap[0][7][4].position; Object.Destroy(othersMap[0][7][4].gameObject);
+            othersMap[0][7][4] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][7][4]); othersMap[0][7][4].position = auxPos;
+
+            auxPos = othersMap[0][8][4].position; Object.Destroy(othersMap[0][8][4].gameObject);
+            othersMap[0][8][4] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][8][4]); othersMap[0][8][4].position = auxPos;
+
+            auxPos = othersMap[0][9][4].position; Object.Destroy(othersMap[0][9][4].gameObject);
+            othersMap[0][9][4] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][9][4]); othersMap[0][9][4].position = auxPos;
+
+            auxPos = othersMap[0][10][3].position; Object.Destroy(othersMap[0][10][3].gameObject);
+            othersMap[0][10][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][10][3]); othersMap[0][10][3].position = auxPos;
+
+            auxPos = othersMap[0][11][3].position; Object.Destroy(othersMap[0][11][3].gameObject);
+            othersMap[0][11][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][11][3]); othersMap[0][11][3].position = auxPos;
+
+            auxPos = othersMap[0][12][2].position; Object.Destroy(othersMap[0][12][2].gameObject);
+            othersMap[0][12][2] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][12][2]); othersMap[0][12][2].position = auxPos;
+
+            auxPos = othersMap[0][13][3].position; Object.Destroy(othersMap[0][13][3].gameObject);
+            othersMap[0][13][3] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][13][3]); othersMap[0][13][3].position = auxPos;
+
+            auxPos = othersMap[0][13][4].position; Object.Destroy(othersMap[0][13][4].gameObject);
+            othersMap[0][13][4] = new Camino(pathFolder, false); othersPath[0].Add(othersMap[0][13][4]); othersMap[0][13][4].position = auxPos;
+
+            auxPos = othersMap[0][13][5].position; Object.Destroy(othersMap[0][13][5].gameObject);
+            othersMap[0][13][5] = new End(pathFolder, false); othersPath[0].Add(othersMap[0][13][5]); othersMap[0][13][5].position = auxPos;
+
+            for(int i = 0; i< Constants.Map.path_size; i++)
+            {
+                localPath[i].gameObject.transform.SetParent(pathFolder.transform);
+                othersPath[0][i].gameObject.transform.SetParent(pathFolder.transform);
+            }
+
+
+            created = true;
         }
     }
     #endregion
