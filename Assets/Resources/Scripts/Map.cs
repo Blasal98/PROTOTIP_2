@@ -83,41 +83,50 @@ class Map
         {
             for (int j = 0; j < Constants.Map.h; j++)
             {
-                if (!(i % 2 == 0 && j == Constants.Map.h - 1) && !onlyOne)
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1) && !onlyOne) //condicio basica del mapa + nomes una escollida
                 {
-                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered) // esta trigerejada pel ratoli
                     {
                         if (pathCount < Constants.Map.path_size && localMap[i][j].type == Ficha.Ficha_Type.VACIO) // te que estar vuida i tenir path disponible
                         {
-                            Vector2 auxPos = localMap[i][j].position; //guardes posicio, destrueixes objecte
-                            Object.Destroy(localMap[i][j].gameObject);
-                            if (pathCount == 0) //decideixes quin nou objecte el substituira
+                            bool auxBool = true;
+                            if (pathCount > 0) //
                             {
-                                localMap[i][j] = new Start(pathFolder,true);
+                                auxBool = isTouching(localPath[localPath.Count - 1], localMap[i][j]);
+                                
                             }
-                            else if (pathCount == Constants.Map.path_size - 1)
+                            if (auxBool)
                             {
-                                localMap[i][j] = new End(pathFolder, true);
-                            }
-                            else
-                            {
-                                localMap[i][j] = new Camino(pathFolder, true);
-                            }
-                            localMap[i][j].position = auxPos; //actualitzes posicio e index
-                            localMap[i][j].i = i; localMap[i][j].j = j;
 
-                            localPath.Add(localMap[i][j]); //afegeix a Path
-                            pathCount++;
+                                Vector2 auxPos = localMap[i][j].position; //guardes posicio, destrueixes objecte
+                                Object.Destroy(localMap[i][j].gameObject);
+                                if (pathCount == 0) //decideixes quin nou objecte el substituira
+                                {
+                                    localMap[i][j] = new Start(pathFolder, true);
+                                }
+                                else if (pathCount == Constants.Map.path_size - 1)
+                                {
+                                    localMap[i][j] = new End(pathFolder, true);
+                                }
+                                else
+                                {
+                                    localMap[i][j] = new Camino(pathFolder, true);
+                                }
+                                localMap[i][j].position = auxPos; //actualitzes posicio e index
+                                localMap[i][j].i = i; localMap[i][j].j = j;
+                                localPath.Add(localMap[i][j]); //afegeix a Path
+                                pathCount++;
 
-                            onlyOne = true;
+                                onlyOne = true;
+                            }
                         }
                         
                     }
                 }
             }
         }
-        if (pathCount == Constants.Map.path_size)
-        { //aqui predeterminem el del enemic
+        if (pathCount == Constants.Map.path_size)//aqui predeterminem el del enemic
+        { 
             Vector2 auxPos = othersMap[0][1][3].position; Object.Destroy(othersMap[0][1][3].gameObject);
             othersMap[0][1][3] = new Start(pathFolder, false); othersPath[0].Add(othersMap[0][1][3]); othersMap[0][1][3].position = auxPos;
 
@@ -198,7 +207,22 @@ class Map
         }
     }
 
-    
+    public bool isTouching(Ficha _f1, Ficha _f2)
+    {
+        if(_f2.i == _f1.i || _f2.i == _f1.i + 1 || _f2.i == _f1.i - 1)
+        {
+            if(_f1.i % 2 == 0)
+            {
+                if (_f2.j == _f1.j || _f2.j == _f1.j + 1 || (_f2.j == _f1.j - 1 && _f2.i == _f1.i)) return true;
+            }
+            else
+            {
+                if (_f2.j == _f1.j || _f2.j == _f1.j - 1 || (_f2.j == _f1.j + 1 && _f2.i == _f1.i)) return true;
+            }
+        }
+
+        return false;
+    }
 
     #region properties
     public bool created
