@@ -13,6 +13,10 @@ public class Entity
         gameObject.AddComponent<SpriteRenderer>();
 
     }
+    ~Entity()
+    {
+        Object.Destroy(gameObject);
+    }
     public GameObject getObject()
     {
         return gameObject;

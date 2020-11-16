@@ -33,12 +33,11 @@ namespace Constants
     {
         public static int w = 16;
         public static int h = 7;
-        
+        public static int path_size = 15;
 
         public class Local
         {
-            public static int x_min = Constants.Entity.Ficha.wPix * 3 / 4;
-            public static int y_max = Constants.General.scrnDfltHeight - Constants.General.PhotoShop.h_player + Constants.Entity.Ficha.hPix / 2;
+            
             public static int w_separation = 78;
         }
         public class Others
@@ -56,6 +55,14 @@ namespace Constants
 
             public static int hPix = 100;
             public static int wPix = 106;
+        }
+        public class Ficha_Pequeña
+        {
+            public static float hU = 0.5f;
+            public static float wU = 0.58f;
+
+            public static int hPix = 50;
+            public static int wPix = 58;
         }
 
     }

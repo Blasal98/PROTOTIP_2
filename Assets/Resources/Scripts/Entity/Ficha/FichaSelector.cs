@@ -42,4 +42,5 @@ public class FichaSelector
         get { return _gameObject; }
         set { _gameObject = value; }
     }
+
 }
