@@ -37,13 +37,17 @@ namespace Constants
 
         public class Local
         {
-            
+            public static float path_width = 0.25f;
+            public static Color path_color = new Color(1, 0, 0, 1);
             public static int w_separation = 78;
         }
         public class Others
         {
+            public static float path_width = 0.125f;
+            public static Color path_color = new Color(1, 0, 0, 1);
             public static int w_separation = 42;
         }
+
     }
     public class Entity
     {

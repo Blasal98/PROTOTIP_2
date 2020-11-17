@@ -15,6 +15,9 @@ class Map
 
     private GameObject mapFolder;
     private GameObject pathFolder;
+    private GameObject localPathFolder;
+    private GameObject othersPathFolder;
+
     private bool _created;
     #endregion
 
@@ -37,6 +40,10 @@ class Map
 
         mapFolder = new GameObject("mapFolder");
         pathFolder = new GameObject("pathFolder");
+        localPathFolder = new GameObject("localPath");
+        localPathFolder.transform.SetParent(pathFolder.transform);
+        othersPathFolder = new GameObject("othersPath");
+        othersPathFolder.transform.SetParent(pathFolder.transform);
 
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -172,11 +179,34 @@ class Map
             auxPos = othersMap[0][13][5].position; Object.Destroy(othersMap[0][13][5].gameObject);
             othersMap[0][13][5] = new End(pathFolder, false); othersPath[0].Add(othersMap[0][13][5]); othersMap[0][13][5].position = auxPos;
 
-            for(int i = 0; i< Constants.Map.path_size; i++)
+            localPathFolder.AddComponent<LineRenderer>();
+            localPathFolder.GetComponent<LineRenderer>().startWidth = localPathFolder.GetComponent<LineRenderer>().endWidth = Constants.Map.Local.path_width;
+            localPathFolder.GetComponent<LineRenderer>().material = new Material(Shader.Find("Sprites/Default"));
+            localPathFolder.GetComponent<LineRenderer>().startColor = new Color(0, 0, 1);
+            localPathFolder.GetComponent<LineRenderer>().endColor = new Color(1, 1, 0);
+            localPathFolder.GetComponent<LineRenderer>().positionCount = Constants.Map.path_size;
+
+            othersPathFolder.AddComponent<LineRenderer>();
+            othersPathFolder.GetComponent<LineRenderer>().startWidth = othersPathFolder.GetComponent<LineRenderer>().endWidth = Constants.Map.Others.path_width;
+            othersPathFolder.GetComponent<LineRenderer>().material = new Material(Shader.Find("Sprites/Default"));
+            othersPathFolder.GetComponent<LineRenderer>().startColor = new Color(0, 0, 1);
+            othersPathFolder.GetComponent<LineRenderer>().endColor = new Color(1, 1, 0);
+            othersPathFolder.GetComponent<LineRenderer>().positionCount = Constants.Map.path_size;
+
+            Vector3[] localPoints = new Vector3[Constants.Map.path_size];
+            Vector3[] othersPoints = new Vector3[Constants.Map.path_size];
+
+            for (int i = 0; i< Constants.Map.path_size; i++)
             {
-                localPath[i].gameObject.transform.SetParent(pathFolder.transform);
-                othersPath[0][i].gameObject.transform.SetParent(pathFolder.transform);
+                localPath[i].gameObject.transform.SetParent(localPathFolder.transform);
+                othersPath[0][i].gameObject.transform.SetParent(othersPathFolder.transform);
+
+                localPoints[i] = localPath[i].gameObject.transform.position;
+                othersPoints[i] = othersPath[0][i].gameObject.transform.position;
             }
+            localPathFolder.GetComponent<LineRenderer>().SetPositions(localPoints);
+            othersPathFolder.GetComponent<LineRenderer>().SetPositions(othersPoints);
+
 
 
             created = true;
@@ -184,6 +214,7 @@ class Map
     }
     #endregion
 
+    #region Public Methods
     public void update() {
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -223,6 +254,7 @@ class Map
 
         return false;
     }
+    #endregion
 
     #region properties
     public bool created
