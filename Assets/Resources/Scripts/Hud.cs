@@ -10,19 +10,15 @@ public class Hud : MonoBehaviour
 
     public GameObject SOLDIER_BUTTON;
     public GameObject SOLDIER_PRICE;
-    public GameObject SOLDIER_QUANT;
 
     public GameObject CAR_BUTTON;
     public GameObject CAR_PRICE;
-    public GameObject CAR_QUANT;
 
     public GameObject TANK_BUTTON;
     public GameObject TANK_PRICE;
-    public GameObject TANK_QUANT;
 
     public GameObject PLANE_BUTTON;
     public GameObject PLANE_PRICE;
-    public GameObject PLANE_QUANT;
 
     //BUILDINGS
     public GameObject BUILDINGS;
@@ -39,6 +35,26 @@ public class Hud : MonoBehaviour
     public GameObject ANTIAIR_BUTTON;
     public GameObject ANTIAIR_PRICE;
 
+    //CITY 
+    public GameObject MAIN;
+
+    public GameObject FCARS_BUTTON;
+    public GameObject FCARS_PRICE;
+
+    public GameObject FTANKS_BUTTON;
+    public GameObject FTANKS_PRICE;
+
+    public GameObject FPLANES_BUTTON;
+    public GameObject FPLANES_PRICE;
+
+    public GameObject MBLINDAJE_BUTTON;
+    public GameObject MBLINDAJE_PRICE;
+
+    public GameObject MCAMMO_BUTTON;
+    public GameObject MCAMMO_PRICE;
+
+    public GameObject MAIR_BUTTON;
+    public GameObject MAIR_PRICE;
 
     //OTHERS
     public GameObject PAUSE_SCREEN;
@@ -70,6 +86,14 @@ public class Hud : MonoBehaviour
         SNIPER_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = Constants.Entity.Building.Sniper.cost.ToString() + "$";
         ANTITANK_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = Constants.Entity.Building.AntiTank.cost.ToString() + "$";
         ANTIAIR_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = Constants.Entity.Building.AntiAir.cost.ToString() + "$";
+
+        FCARS_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "CarFactory: " + Constants.Entity.City.FCars_Cost.ToString() + "$";
+        FTANKS_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "TankFactory: " + Constants.Entity.City.FTanks_Cost.ToString() + "$";
+        FPLANES_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "PlaneFactory: " + Constants.Entity.City.FPlanes_Cost.ToString() + "$";
+
+        MCAMMO_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "CammoUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
+        MBLINDAJE_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "ArmorUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
+        MAIR_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "AirUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
 
         switchTroopsAndBuildings();
     }

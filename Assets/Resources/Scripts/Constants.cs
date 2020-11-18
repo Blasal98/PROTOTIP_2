@@ -117,7 +117,20 @@ namespace Constants
                 public static int cost = 2000;
             }
         }
+        public class City
+        {
+            public static int FCars_Cost = 500;
+            public static int FCars_Plus = 50;
 
+            public static int FTanks_Cost = 1000;
+            public static int FTanks_Plus = 150;
+
+            public static int FPlanes_Cost = 2000;
+            public static int FPlanes_Plus = 300;
+
+            public static int Milloras = 750;
+
+        }
     }
     public class Layers
     {
