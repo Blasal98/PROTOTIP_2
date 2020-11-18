@@ -9,6 +9,8 @@ public class Ficha : Entity {
     private Ficha_Type _type;
 
     private int _i, _j;
+
+
     protected Ficha()
     {
 

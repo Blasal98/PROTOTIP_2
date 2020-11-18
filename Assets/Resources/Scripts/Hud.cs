@@ -14,13 +14,15 @@ public class Hud : MonoBehaviour
     public GameObject TURN;
     public GameObject TURN_TIME_LEFT;
 
-    
 
     // Start is called before the first frame update
     void Start()
     {
         PATH.GetComponent<Button>().interactable = false;
         SKIP.GetComponent<Button>().interactable = false;
+
+
+
     }
 
     // Update is called once per frame

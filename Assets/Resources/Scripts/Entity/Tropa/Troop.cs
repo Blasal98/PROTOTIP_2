@@ -6,6 +6,8 @@ public class Troop : Entity
 {
     private int _health;
 
+   
+
     public Troop()
     {
 
