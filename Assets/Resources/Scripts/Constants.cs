@@ -75,6 +75,14 @@ namespace Constants
             public static int wPix = 58;
         }
 
+        public class Troop
+        {
+            public class Soldier
+            {
+                public static int cost = 100;
+            }
+        }
+
     }
 }
 

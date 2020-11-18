@@ -12,6 +12,7 @@ public class Entity
         gameObject.transform.position = new Vector3(0,0, gameObject.transform.position.z);
         gameObject.AddComponent<SpriteRenderer>();
 
+
     }
     ~Entity()
     {

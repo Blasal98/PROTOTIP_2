@@ -19,11 +19,13 @@ class Map
     private GameObject othersPathFolder;
 
     private bool _created;
+    private bool _justCreated;
     #endregion
 
     #region Map Initialization
     public Map() {
         created = false;
+        justCreated = true;
         pathCount = 0;
 
         localPath = new List<Ficha>();
@@ -275,6 +277,11 @@ class Map
     {
         get { return _created; }
         set { _created = value; }
+    }
+    public bool justCreated
+    {
+        get { return _justCreated; }
+        set { _justCreated = value; }
     }
     #endregion
 }

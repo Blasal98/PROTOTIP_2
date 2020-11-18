@@ -17,16 +17,12 @@ public class mainGame : MonoBehaviour
     private Vector3 cursorPositionWorld = new Vector3(0, 0, 0);
     private GameObject cursorCollider = null;
 
-    
-
     [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject PAUSE_SCREEN;
-
-    [SerializeField] private GameObject MONEY;
-    [SerializeField] private GameObject TURN;
-    [SerializeField] private GameObject TURN_TIME_LEFT;
+    private Hud hud;
+ 
 
     Map mainMap;
+
     private Player localPlayer;
     private List<Player> othersPlayer;
     private int turnIndex;
@@ -59,6 +55,7 @@ public class mainGame : MonoBehaviour
         cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
         mainMap = new Map();
+  
         
         ended = false;
         victory = false;
@@ -74,6 +71,8 @@ public class mainGame : MonoBehaviour
         turnIndex = 0;
         turnTimeLeft = Constants.General.timeXTurn;
         turnEnded = false;
+
+        hud = HUD.GetComponent<Hud>();
     }
 
 
@@ -133,13 +132,23 @@ public class mainGame : MonoBehaviour
                         clicked_left = false;
                     }
                 }
-                else if(!turnEnded)//si ja esta creat el mapa i turn no ha acabat
+                else if (mainMap.justCreated) //una interaccio al crearlo
                 {
+
+                    hud.PATH.GetComponent<Button>().interactable = true;
+                    hud.SKIP.GetComponent<Button>().interactable = true;
+                    mainMap.justCreated = false;
+                }
+                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
+                {
+
+
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
                 }
                 else //acaba turno
                 {
+
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
@@ -177,9 +186,9 @@ public class mainGame : MonoBehaviour
 
     public void updateInfo()
     {
-        MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString() + "$";
-        TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
-        TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
+        hud.MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString() + "$";
+        hud.TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
+        hud.TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
 
     }
 
@@ -201,12 +210,12 @@ public class mainGame : MonoBehaviour
     public void pauseBttn()
     {
         pause = true;
-        PAUSE_SCREEN.SetActive(true);
+        hud.PAUSE_SCREEN.SetActive(true);
     }
     public void resumeBttn()
     {
         pause = false;
-        PAUSE_SCREEN.SetActive(false);
+        hud.PAUSE_SCREEN.SetActive(false);
     }
     public void switchPathVisibility()
     {

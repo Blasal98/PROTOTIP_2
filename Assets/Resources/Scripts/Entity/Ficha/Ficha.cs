@@ -11,9 +11,6 @@ public class Ficha : Entity {
     private int _i, _j;
     protected Ficha()
     {
-        if(!gameObject.GetComponent<SpriteRenderer>())
-            gameObject.AddComponent<SpriteRenderer>();
-                
 
 
     }

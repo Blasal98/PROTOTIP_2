@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Troop : MonoBehaviour
+public class Troop : Entity
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _health;
+
+    public Troop()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public int health
     {
-        
+        get { return _health; }
+        set { _health = value; }
     }
 }
