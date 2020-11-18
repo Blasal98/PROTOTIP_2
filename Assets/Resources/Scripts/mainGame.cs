@@ -31,6 +31,7 @@ public class mainGame : MonoBehaviour
     private List<Player> othersPlayer;
     private int turnIndex;
     private float turnTimeLeft;
+    private bool turnEnded;
 
     bool pause;
     bool ended;
@@ -72,6 +73,7 @@ public class mainGame : MonoBehaviour
 
         turnIndex = 0;
         turnTimeLeft = Constants.General.timeXTurn;
+        turnEnded = false;
     }
 
 
@@ -125,17 +127,22 @@ public class mainGame : MonoBehaviour
                 updateInfo();
                 if (!mainMap.created) //si no esta creat el mapa
                 {
-                    
                     if (clicked_left)
                     {
-                        
                         mainMap.selectFicha();
                         clicked_left = false;
                     }
                 }
-                else //si ja esta creat el mapa
+                else if(!turnEnded)//si ja esta creat el mapa i turn no ha acabat
                 {
-
+                    turnTimeLeft -= Time.deltaTime;
+                    if (turnTimeLeft <= 0) turnEnded = true;
+                }
+                else //acaba turno
+                {
+                    turnIndex++;
+                    turnEnded = false;
+                    turnTimeLeft = Constants.General.timeXTurn;
                 }
             }
         }
@@ -170,9 +177,9 @@ public class mainGame : MonoBehaviour
 
     public void updateInfo()
     {
-        MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString();
+        MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString() + "$";
         TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
-        TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft;
+        TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
 
     }
 
@@ -204,6 +211,11 @@ public class mainGame : MonoBehaviour
     public void switchPathVisibility()
     {
         mainMap.switchPathVisibility();
+    }
+
+    public void skipTurn()
+    {
+        turnTimeLeft = 0;
     }
 
     #endregion
