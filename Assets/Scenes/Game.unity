@@ -1561,6 +1561,9 @@ MonoBehaviour:
   cursorObject: {fileID: 544167396}
   HUD: {fileID: 759403945}
   PAUSE_SCREEN: {fileID: 646270488}
+  MONEY: {fileID: 856203954}
+  TURN: {fileID: 2109263382}
+  TURN_TIME_LEFT: {fileID: 363087218}
 --- !u!4 &323539719
 Transform:
   m_ObjectHideFlags: 0
