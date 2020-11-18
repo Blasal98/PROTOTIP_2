@@ -32,9 +32,10 @@ public class Tierra : Ficha
         soldierIndicator.AddComponent<SpriteRenderer>();
         soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[0];
         soldierIndicator.transform.SetParent(gameObject.transform);
-        soldierIndicator.transform.position = new Vector3(soldierIndicator.transform.position.x, soldierIndicator.transform.position.y, Constants.Layers.zFichaIndicator);
+        soldierIndicator.transform.position = new Vector3(soldierIndicator.transform.position.x - Constants.Entity.Troop.scale / 2,
+                                                          soldierIndicator.transform.position.y + Constants.Entity.Troop.scale / 2, Constants.Layers.zFichaIndicator);
 
-
+        soldierIndicator.transform.localScale = new Vector3(Constants.Entity.Troop.scale, Constants.Entity.Troop.scale, 1);
 
 
 

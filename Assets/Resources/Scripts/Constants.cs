@@ -79,6 +79,7 @@ namespace Constants
         {
             public static int hPix = 90;
             public static int wPix = 90;
+            public static float scale = 0.4f;
 
             public class Soldier
             {
