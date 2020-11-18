@@ -65,6 +65,11 @@ public class Tierra : Ficha
                                                         planeIndicator.transform.position.y - Constants.Entity.Troop.scale / 2.5f, Constants.Layers.zFichaIndicator);
         planeIndicator.transform.localScale = new Vector3(Constants.Entity.Troop.scale, Constants.Entity.Troop.scale, 1);
 
+        soldierIndicator.SetActive(false);
+        carIndicator.SetActive(false);
+        tankIndicator.SetActive(false);
+        planeIndicator.SetActive(false);
+
         type = Ficha_Type.TIERRA;
         troops = new List<Troop>();
     }

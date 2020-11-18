@@ -140,6 +140,7 @@ public class mainGame : MonoBehaviour
                     hud.PATH.GetComponent<Button>().interactable = true;
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
+                    hud.switchTroopsAndBuildings();
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
                 {

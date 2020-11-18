@@ -83,7 +83,38 @@ namespace Constants
 
             public class Soldier
             {
-                public static int cost = 100;
+                public static int cost = 50;
+            }
+            public class Car
+            {
+                public static int cost = 200;
+            }
+            public class Tank
+            {
+                public static int cost = 800;
+            }
+            public class Plane
+            {
+                public static int cost = 1600;
+            }
+        }
+        public class Building
+        {
+            public class Trinchera
+            {
+                public static int cost = 250;
+            }
+            public class Sniper
+            {
+                public static int cost = 500;
+            }
+            public class AntiTank
+            {
+                public static int cost = 1000;
+            }
+            public class AntiAir
+            {
+                public static int cost = 2000;
             }
         }
 
