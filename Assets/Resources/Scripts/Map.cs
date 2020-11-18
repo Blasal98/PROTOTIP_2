@@ -254,6 +254,20 @@ class Map
 
         return false;
     }
+    public void switchPathVisibility()
+    {
+        if (localPathFolder.GetComponent<LineRenderer>().enabled)
+        {
+            localPathFolder.GetComponent<LineRenderer>().enabled = false;
+            othersPathFolder.GetComponent<LineRenderer>().enabled = false;
+        }
+        else
+        {
+            localPathFolder.GetComponent<LineRenderer>().enabled = true;
+            othersPathFolder.GetComponent<LineRenderer>().enabled = true;
+        }
+    }
+
     #endregion
 
     #region properties

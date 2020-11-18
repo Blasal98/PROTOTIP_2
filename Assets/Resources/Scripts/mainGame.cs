@@ -17,11 +17,20 @@ public class mainGame : MonoBehaviour
     private Vector3 cursorPositionWorld = new Vector3(0, 0, 0);
     private GameObject cursorCollider = null;
 
+    
 
     [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject PAUSE;
+    [SerializeField] private GameObject PAUSE_SCREEN;
+
+    [SerializeField] private GameObject MONEY;
+    [SerializeField] private GameObject TURN;
+    [SerializeField] private GameObject TURN_TIME_LEFT;
 
     Map mainMap;
+    private Player localPlayer;
+    private List<Player> othersPlayer;
+    private int turnIndex;
+    private float turnTimeLeft;
 
     bool pause;
     bool ended;
@@ -31,6 +40,7 @@ public class mainGame : MonoBehaviour
     bool clicked_left;
     #endregion
 
+    #region Methods
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +65,13 @@ public class mainGame : MonoBehaviour
 
         clicked_right = false;
         clicked_left = false;
+
+        localPlayer = new Player(-1,Constants.Player.starting_money);
+        othersPlayer = new List<Player>();
+        othersPlayer.Add(new Player(othersPlayer.Count,Constants.Player.starting_money));
+
+        turnIndex = 0;
+        turnTimeLeft = Constants.General.timeXTurn;
     }
 
 
@@ -100,12 +117,13 @@ public class mainGame : MonoBehaviour
         }
         #endregion
 
-        if (!ended)
+        if (!ended) //si no sa acabat la partida
         {
-            if (!pause)
+            if (!pause) //si no estem en pausa
             {
                 mainMap.update();
-                if (!mainMap.created)
+                updateInfo();
+                if (!mainMap.created) //si no esta creat el mapa
                 {
                     
                     if (clicked_left)
@@ -114,6 +132,10 @@ public class mainGame : MonoBehaviour
                         mainMap.selectFicha();
                         clicked_left = false;
                     }
+                }
+                else //si ja esta creat el mapa
+                {
+
                 }
             }
         }
@@ -142,55 +164,47 @@ public class mainGame : MonoBehaviour
 
     }
 
-    
+    #endregion
 
-    
+    #region Hud
 
+    public void updateInfo()
+    {
+        MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString();
+        TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
+        TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft;
+
+    }
+
+    #endregion
+
+    #region Buttons
 
     public void exitGame()
     {
         Application.Quit();
     }
 
-
-    
-    public void returnMenu()
+    public void returnMenuBttn()
     {
         SceneManager.LoadScene(0);
     }
 
-    
 
-    public void resume()
+    public void pauseBttn()
+    {
+        pause = true;
+        PAUSE_SCREEN.SetActive(true);
+    }
+    public void resumeBttn()
     {
         pause = false;
-        PAUSE.SetActive(false);
+        PAUSE_SCREEN.SetActive(false);
+    }
+    public void switchPathVisibility()
+    {
+        mainMap.switchPathVisibility();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //LAYERS ORDENADES PELS HEALTHbars
-
+    #endregion
 }

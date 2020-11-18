@@ -22,6 +22,8 @@ namespace Constants
         public static float scrnDfltHeightU = 5.4f * 2;
         public static float scrnDfltWidthU = 5.4f * 2 * 16 / 9;
 
+        public static float timeXTurn = 30;
+
         public class PhotoShop
         {
             public static int h_enemy = 350;
@@ -48,6 +50,10 @@ namespace Constants
             public static int w_separation = 42;
         }
 
+    }
+    public class Player
+    {
+        public static int starting_money = 500;
     }
     public class Entity
     {
