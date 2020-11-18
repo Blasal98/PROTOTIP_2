@@ -19,7 +19,7 @@ public class mainGame : MonoBehaviour
 
 
     [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject PAUSE;
+    [SerializeField] private GameObject PAUSE_SCREEN;
 
     Map mainMap;
 
@@ -152,19 +152,21 @@ public class mainGame : MonoBehaviour
         Application.Quit();
     }
 
-
-    
-    public void returnMenu()
+    public void returnMenuBttn()
     {
         SceneManager.LoadScene(0);
     }
 
-    
 
-    public void resume()
+    public void pauseBttn()
+    {
+        pause = true;
+        PAUSE_SCREEN.SetActive(true);
+    }
+    public void resumeBttn()
     {
         pause = false;
-        PAUSE.SetActive(false);
+        PAUSE_SCREEN.SetActive(false);
     }
 
 
