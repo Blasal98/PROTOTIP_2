@@ -201,6 +201,10 @@ public class mainGame : MonoBehaviour
         pause = false;
         PAUSE_SCREEN.SetActive(false);
     }
+    public void switchPathVisibility()
+    {
+        mainMap.switchPathVisibility();
+    }
 
     #endregion
 }
