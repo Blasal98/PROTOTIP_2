@@ -13,7 +13,7 @@ public class Ficha : Entity {
 
     protected Ficha()
     {
-
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zFicha);
 
     }
     public int i

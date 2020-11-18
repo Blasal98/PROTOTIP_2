@@ -73,6 +73,8 @@ public class mainGame : MonoBehaviour
         turnEnded = false;
 
         hud = HUD.GetComponent<Hud>();
+
+        GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
     }
 
 

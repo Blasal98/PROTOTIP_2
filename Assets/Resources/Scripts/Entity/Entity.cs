@@ -9,9 +9,9 @@ public class Entity
     protected Entity()
     {
         gameObject = new GameObject();
-        gameObject.transform.position = new Vector3(0,0, gameObject.transform.position.z);
+        gameObject.transform.position = new Vector3(0,0,0);
         gameObject.AddComponent<SpriteRenderer>();
-
+        _position = new Vector2(0,0);
 
     }
     ~Entity()

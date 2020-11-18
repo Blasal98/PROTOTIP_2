@@ -24,14 +24,15 @@ public class Tierra : Ficha
 
             for(int i= 0; i < 10; i++)
             {
-                soldier_sprites.Add(UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Troop/Soldier/soldier" + i.ToString()), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit));
+                soldier_sprites.Add(UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Troop/Soldier/soldier" + i.ToString()), new Rect(0, 0, Constants.Entity.Troop.wPix, Constants.Entity.Troop.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit));
             }
         }
 
-        soldierIndicator = new GameObject("Indicator"); soldierIndicator.AddComponent<SpriteRenderer>();
+        soldierIndicator = new GameObject("SoldierIndicator");
+        soldierIndicator.AddComponent<SpriteRenderer>();
+        soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[0];
         soldierIndicator.transform.SetParent(gameObject.transform);
-
-
+        soldierIndicator.transform.position = new Vector3(soldierIndicator.transform.position.x, soldierIndicator.transform.position.y, Constants.Layers.zFichaIndicator);
 
 
 

@@ -84,6 +84,7 @@ class Map
             }
         }
         
+        
     }
     public void selectFicha()
     {
@@ -203,8 +204,8 @@ class Map
                 localPath[i].gameObject.transform.SetParent(localPathFolder.transform);
                 othersPath[0][i].gameObject.transform.SetParent(othersPathFolder.transform);
 
-                localPoints[i] = localPath[i].gameObject.transform.position;
-                othersPoints[i] = othersPath[0][i].gameObject.transform.position;
+                localPoints[i] = localPath[i].position;
+                othersPoints[i] = othersPath[0][i].position;
             }
             localPathFolder.GetComponent<LineRenderer>().SetPositions(localPoints);
             othersPathFolder.GetComponent<LineRenderer>().SetPositions(othersPoints);

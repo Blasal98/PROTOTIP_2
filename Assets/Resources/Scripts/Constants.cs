@@ -77,12 +77,21 @@ namespace Constants
 
         public class Troop
         {
+            public static int hPix = 90;
+            public static int wPix = 90;
+
             public class Soldier
             {
                 public static int cost = 100;
             }
         }
 
+    }
+    public class Layers
+    {
+        public static int zBackGround = 10;
+        public static int zFicha = 2;
+        public static int zFichaIndicator = 1;
     }
 }
 

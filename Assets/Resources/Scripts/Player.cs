@@ -7,6 +7,8 @@ public class Player
     int _id;
     int _money;
 
+
+
     public Player()
     {
 
