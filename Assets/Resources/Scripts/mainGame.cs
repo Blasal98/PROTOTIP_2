@@ -141,6 +141,7 @@ public class mainGame : MonoBehaviour
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
                     hud.switchTroopsAndBuildings();
+                    enemyStrategy();
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
                 {
@@ -151,14 +152,20 @@ public class mainGame : MonoBehaviour
                 }
                 else //acaba turno
                 {
+                    
+
+
                     localPlayer.money += localPlayer.moneyXTurn;
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
+                    Debug.Log(othersPlayer[0].money);
 
-                    enemyStrategy();
+
 
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
+
+                    enemyStrategy();
                 }
             }
         }
@@ -171,28 +178,30 @@ public class mainGame : MonoBehaviour
         switch (turnIndex)
         {
             case 0:
-
+                addTroopEnemy(Troop.troopType.SOLDIER);
                 break;
         }
     }
 
-    private void addTroopEnemy(int _t)
+    private void addTroopEnemy(Troop.troopType _t)
     {
         switch (_t)
         {
-            case (int)Troop.troopType.SOLDIER:
-                
+            case Troop.troopType.SOLDIER:
+                othersPlayer[0].troops.Add(new Soldier());
+                othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
+                mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
                 break;
-            case (int)Troop.troopType.CAR:
+            case Troop.troopType.CAR:
                 break;
-            case (int)Troop.troopType.TANK:
+            case Troop.troopType.TANK:
                 break;
-            case (int)Troop.troopType.PLANE:
+            case Troop.troopType.PLANE:
                 break;
             default:
                 break;
         }
-
+        mainMap.getLocalPath[0].updateFicha();
     }
 
 
