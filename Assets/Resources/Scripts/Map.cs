@@ -204,8 +204,8 @@ class Map
                 localPath[i].gameObject.transform.SetParent(localPathFolder.transform);
                 othersPath[0][i].gameObject.transform.SetParent(othersPathFolder.transform);
 
-                localPoints[i] = localPath[i].position;
-                othersPoints[i] = othersPath[0][i].position;
+                localPoints[i] = new Vector3 (localPath[i].position.x, localPath[i].position.y, Constants.Layers.zPath);
+                othersPoints[i] = new Vector3(othersPath[0][i].position.x, othersPath[0][i].position.y, Constants.Layers.zPath); 
             }
             localPathFolder.GetComponent<LineRenderer>().SetPositions(localPoints);
             othersPathFolder.GetComponent<LineRenderer>().SetPositions(othersPoints);
@@ -271,6 +271,7 @@ class Map
         }
     }
 
+
     #endregion
 
     #region properties
@@ -287,6 +288,10 @@ class Map
     public List<Ficha> getLocalPath
     {
         get { return localPath; }
+    }
+    public List<List<Ficha>> getOthersPath
+    {
+        get { return othersPath; }
     }
     #endregion
 }

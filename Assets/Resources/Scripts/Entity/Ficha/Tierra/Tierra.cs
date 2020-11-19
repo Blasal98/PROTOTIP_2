@@ -93,12 +93,15 @@ public class Tierra : Ficha
                 break;
             case Troop.troopType.CAR:
                 troops.Add(_t);
+                carCount++;
                 break;
             case Troop.troopType.TANK:
                 troops.Add(_t);
+                tankCount++;
                 break;
             case Troop.troopType.PLANE:
                 troops.Add(_t);
+                planeCount++;
                 break;
             default:
                 break;
@@ -111,6 +114,33 @@ public class Tierra : Ficha
         else
         {
             soldierIndicator.SetActive(false);
+        }
+        if (carCount > 0)
+        {
+            carIndicator.SetActive(true);
+            carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[carCount];
+        }
+        else
+        {
+            carIndicator.SetActive(false);
+        }
+        if (tankCount > 0)
+        {
+            tankIndicator.SetActive(true);
+            tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[tankCount];
+        }
+        else
+        {
+            tankIndicator.SetActive(false);
+        }
+        if (planeCount > 0)
+        {
+            planeIndicator.SetActive(true);
+            planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[planeCount];
+        }
+        else
+        {
+            planeIndicator.SetActive(false);
         }
     }
 }

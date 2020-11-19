@@ -153,6 +153,9 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.money += localPlayer.moneyXTurn;
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
+
+                    enemyStrategy();
+
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
@@ -163,14 +166,45 @@ public class mainGame : MonoBehaviour
 
 
 
+    private void enemyStrategy()
+    {
+        switch (turnIndex)
+        {
+            case 0:
+
+                break;
+        }
+    }
+
+    private void addTroopEnemy(int _t)
+    {
+        switch (_t)
+        {
+            case (int)Troop.troopType.SOLDIER:
+                if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
+                {
+                    localPlayer.troops.Add(new Soldier());
+                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
+                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                }
+                break;
+            case (int)Troop.troopType.CAR:
+                break;
+            case (int)Troop.troopType.TANK:
+                break;
+            case (int)Troop.troopType.PLANE:
+                break;
+            default:
+                break;
+        }
+
+    }
 
 
-  
 
 
 
 
-    
 
     void cursorMovement()
     {
@@ -242,21 +276,39 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.troops.Add(new Soldier());
                     localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
-                    mainMap.getLocalPath[0].updateFicha(localPlayer.troops[localPlayer.troops.Count-1],true);
+                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count-1],true);
                 }
                 break;
             case (int)Troop.troopType.CAR:
+                if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
+                {
+                    localPlayer.troops.Add(new Car());
+                    localPlayer.money -= Constants.Entity.Troop.Car.cost;
+                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                }
                 break;
             case (int)Troop.troopType.TANK:
+                if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
+                {
+                    localPlayer.troops.Add(new Tank());
+                    localPlayer.money -= Constants.Entity.Troop.Tank.cost;
+                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                }
                 break;
             case (int)Troop.troopType.PLANE:
+                if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
+                {
+                    localPlayer.troops.Add(new Plane());
+                    localPlayer.money -= Constants.Entity.Troop.Plane.cost;
+                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                }
                 break;
             default:
                 break;
         }
         
     }
-   
 
+    
     #endregion
 }

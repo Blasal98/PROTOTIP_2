@@ -53,7 +53,7 @@ namespace Constants
     }
     public class Player
     {
-        public static int starting_money = 500;
+        public static int starting_money = 5000;
         public static int starting_moneyXTurn = 500;
     }
     public class Entity
@@ -137,7 +137,8 @@ namespace Constants
     {
         public static int zBackGround = 10;
         public static int zFicha = 2;
-        public static int zFichaIndicator = 1;
+        public static int zFichaIndicator = 0;
+        public static int zPath = 1;
     }
 }
 
