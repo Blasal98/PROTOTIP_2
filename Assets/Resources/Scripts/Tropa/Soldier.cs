@@ -6,7 +6,7 @@ public class Soldier : Troop
 {
     public Soldier()
     {
-        
+        type = troopType.SOLDIER;
     }
    
 }

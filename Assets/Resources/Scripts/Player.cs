@@ -7,17 +7,17 @@ public class Player
     int _id;
     int _money;
     int _moneyXTurn;
+    List<Troop> _troops;
 
-
-    public Player()
-    {
-
-    }
+    public Player(){}
+    
     public Player(int _id)
     {
         money = Constants.Player.starting_money;
         moneyXTurn = Constants.Player.starting_moneyXTurn;
         id = _id;
+
+        troops = new List<Troop>();
     }
     public int id
     {
@@ -33,5 +33,10 @@ public class Player
     {
         get { return _moneyXTurn; }
         set { _moneyXTurn = value; }
+    }
+    public List<Troop> troops
+    {
+        get { return _troops; }
+        set { _troops = value; }
     }
 }

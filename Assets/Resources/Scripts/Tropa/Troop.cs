@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Troop
 {
-    enum troopType { SOLDIER,CAR,TANK,PLANE }
-    troopType type;
+    public enum troopType { SOLDIER,CAR,TANK,PLANE }
+    protected troopType _type;
     private int _health;
 
    
@@ -19,5 +19,10 @@ public class Troop
     {
         get { return _health; }
         set { _health = value; }
+    }
+    public troopType type
+    {
+        get { return _type; }
+        set { _type = value; }
     }
 }

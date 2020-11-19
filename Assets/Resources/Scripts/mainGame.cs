@@ -233,6 +233,29 @@ public class mainGame : MonoBehaviour
         turnTimeLeft = 0;
     }
 
+    public void addTroop(int _t)
+    {
+        switch (_t)
+        {
+            case (int)Troop.troopType.SOLDIER:
+                if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
+                {
+                    localPlayer.troops.Add(new Soldier());
+                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
+                    mainMap.getLocalPath[0].updateFicha(localPlayer.troops[localPlayer.troops.Count-1],true);
+                }
+                break;
+            case (int)Troop.troopType.CAR:
+                break;
+            case (int)Troop.troopType.TANK:
+                break;
+            case (int)Troop.troopType.PLANE:
+                break;
+            default:
+                break;
+        }
+        
+    }
    
 
     #endregion

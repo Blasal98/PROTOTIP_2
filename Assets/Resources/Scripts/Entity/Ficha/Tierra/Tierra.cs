@@ -10,6 +10,12 @@ public class Tierra : Ficha
     private GameObject tankIndicator;
     private GameObject planeIndicator;
 
+    private int soldierCount;
+    private int carCount;
+    private int tankCount;
+    private int planeCount;
+
+
     public static List<Sprite> soldier_sprites;
     public static List<Sprite> car_sprites;
     public static List<Sprite> tank_sprites;
@@ -72,5 +78,39 @@ public class Tierra : Ficha
 
         type = Ficha_Type.TIERRA;
         troops = new List<Troop>();
+
+        soldierCount = 0;
+        carCount = 0;
+        tankCount = 0;
+        planeCount = 0;
+    }
+    public override void updateFicha(Troop _t, bool add) {
+        switch (_t.type)
+        {
+            case Troop.troopType.SOLDIER:
+                troops.Add(_t);
+                soldierCount++;
+                break;
+            case Troop.troopType.CAR:
+                troops.Add(_t);
+                break;
+            case Troop.troopType.TANK:
+                troops.Add(_t);
+                break;
+            case Troop.troopType.PLANE:
+                troops.Add(_t);
+                break;
+            default:
+                break;
+        }
+        if(soldierCount > 0)
+        {
+            soldierIndicator.SetActive(true);
+            soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[soldierCount];
+        }
+        else
+        {
+            soldierIndicator.SetActive(false);
+        }
     }
 }

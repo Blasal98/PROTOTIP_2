@@ -284,5 +284,9 @@ class Map
         get { return _justCreated; }
         set { _justCreated = value; }
     }
+    public List<Ficha> getLocalPath
+    {
+        get { return localPath; }
+    }
     #endregion
 }

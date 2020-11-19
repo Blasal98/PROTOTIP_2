@@ -31,4 +31,6 @@ public class Ficha : Entity {
         get { return _type; }
         set { _type = value; }
     }
+
+    public virtual void updateFicha(Troop _t, bool add) { }
 }
