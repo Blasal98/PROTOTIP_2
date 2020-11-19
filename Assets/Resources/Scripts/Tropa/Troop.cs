@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Troop : Entity
+public class Troop
 {
+    enum troopType { SOLDIER,CAR,TANK,PLANE }
+    troopType type;
     private int _health;
 
    

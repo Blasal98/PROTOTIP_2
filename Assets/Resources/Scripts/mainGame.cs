@@ -64,9 +64,9 @@ public class mainGame : MonoBehaviour
         clicked_right = false;
         clicked_left = false;
 
-        localPlayer = new Player(-1,Constants.Player.starting_money);
+        localPlayer = new Player(-1);
         othersPlayer = new List<Player>();
-        othersPlayer.Add(new Player(othersPlayer.Count,Constants.Player.starting_money));
+        othersPlayer.Add(new Player(othersPlayer.Count));
 
         turnIndex = 0;
         turnTimeLeft = Constants.General.timeXTurn;
@@ -151,7 +151,8 @@ public class mainGame : MonoBehaviour
                 }
                 else //acaba turno
                 {
-
+                    localPlayer.money += localPlayer.moneyXTurn;
+                    othersPlayer[0].money += othersPlayer[0].moneyXTurn;
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
@@ -190,8 +191,10 @@ public class mainGame : MonoBehaviour
     public void updateInfo()
     {
         hud.MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString() + "$";
+        hud.MONEYXTURN.GetComponent<TMPro.TextMeshProUGUI>().text = "MoneyPerTurn: " + localPlayer.moneyXTurn.ToString() + "$";
         hud.TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
         hud.TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
+
 
     }
 
@@ -229,6 +232,8 @@ public class mainGame : MonoBehaviour
     {
         turnTimeLeft = 0;
     }
+
+   
 
     #endregion
 }

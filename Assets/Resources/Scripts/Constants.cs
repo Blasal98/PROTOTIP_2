@@ -54,6 +54,7 @@ namespace Constants
     public class Player
     {
         public static int starting_money = 500;
+        public static int starting_moneyXTurn = 500;
     }
     public class Entity
     {

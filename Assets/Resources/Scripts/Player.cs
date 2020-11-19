@@ -6,16 +6,17 @@ public class Player
 {
     int _id;
     int _money;
-
+    int _moneyXTurn;
 
 
     public Player()
     {
 
     }
-    public Player(int _id,int _mny)
+    public Player(int _id)
     {
-        money = _mny;
+        money = Constants.Player.starting_money;
+        moneyXTurn = Constants.Player.starting_moneyXTurn;
         id = _id;
     }
     public int id
@@ -27,5 +28,10 @@ public class Player
     {
         get { return _money; }
         set { _money = value; }
+    }
+    public int moneyXTurn
+    {
+        get { return _moneyXTurn; }
+        set { _moneyXTurn = value; }
     }
 }

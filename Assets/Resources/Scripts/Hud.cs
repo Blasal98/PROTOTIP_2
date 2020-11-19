@@ -62,7 +62,8 @@ public class Hud : MonoBehaviour
     public GameObject SKIP;
 
     //INFO
-    public GameObject MONEY; 
+    public GameObject MONEY;
+    public GameObject MONEYXTURN;
     public GameObject TURN;
     public GameObject TURN_TIME_LEFT;
 
@@ -117,6 +118,14 @@ public class Hud : MonoBehaviour
             SNIPER_BUTTON.GetComponent<Button>().interactable = false;
             ANTITANK_BUTTON.GetComponent<Button>().interactable = false;
             ANTIAIR_BUTTON.GetComponent<Button>().interactable = false;
+
+            FCARS_BUTTON.GetComponent<Button>().interactable = false;
+            FTANKS_BUTTON.GetComponent<Button>().interactable = false;
+            FPLANES_BUTTON.GetComponent<Button>().interactable = false;
+
+            MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
+            MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
+            MAIR_BUTTON.GetComponent<Button>().interactable = false;
         }
         else
         {
@@ -129,6 +138,14 @@ public class Hud : MonoBehaviour
             SNIPER_BUTTON.GetComponent<Button>().interactable = true;
             ANTITANK_BUTTON.GetComponent<Button>().interactable = true;
             ANTIAIR_BUTTON.GetComponent<Button>().interactable = true;
+
+            FCARS_BUTTON.GetComponent<Button>().interactable = true;
+            FTANKS_BUTTON.GetComponent<Button>().interactable = true;
+            FPLANES_BUTTON.GetComponent<Button>().interactable = true;
+
+            MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
+            MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
+            MAIR_BUTTON.GetComponent<Button>().interactable = true;
         }
     }
 }
