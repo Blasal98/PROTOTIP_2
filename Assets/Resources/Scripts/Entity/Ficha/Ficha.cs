@@ -32,5 +32,6 @@ public class Ficha : Entity {
         set { _type = value; }
     }
 
-    public virtual void updateFicha(Troop _t, bool add) { }
+    public virtual void addTroopToFicha(Troop _t) { }
+    public virtual void updateFicha() { }
 }

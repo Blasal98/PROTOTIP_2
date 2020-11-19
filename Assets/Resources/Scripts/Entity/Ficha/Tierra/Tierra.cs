@@ -84,7 +84,8 @@ public class Tierra : Ficha
         tankCount = 0;
         planeCount = 0;
     }
-    public override void updateFicha(Troop _t, bool add) {
+    public override void addTroopToFicha(Troop _t)
+    {
         switch (_t.type)
         {
             case Troop.troopType.SOLDIER:
@@ -106,6 +107,9 @@ public class Tierra : Ficha
             default:
                 break;
         }
+    }
+    public override void updateFicha() {
+        
         if(soldierCount > 0)
         {
             soldierIndicator.SetActive(true);

@@ -181,12 +181,7 @@ public class mainGame : MonoBehaviour
         switch (_t)
         {
             case (int)Troop.troopType.SOLDIER:
-                if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
-                {
-                    localPlayer.troops.Add(new Soldier());
-                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
-                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
-                }
+                
                 break;
             case (int)Troop.troopType.CAR:
                 break;
@@ -276,7 +271,7 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.troops.Add(new Soldier());
                     localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
-                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count-1],true);
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
                 }
                 break;
             case (int)Troop.troopType.CAR:
@@ -284,7 +279,7 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.troops.Add(new Car());
                     localPlayer.money -= Constants.Entity.Troop.Car.cost;
-                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
                 }
                 break;
             case (int)Troop.troopType.TANK:
@@ -292,7 +287,7 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.troops.Add(new Tank());
                     localPlayer.money -= Constants.Entity.Troop.Tank.cost;
-                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
                 }
                 break;
             case (int)Troop.troopType.PLANE:
@@ -300,13 +295,13 @@ public class mainGame : MonoBehaviour
                 {
                     localPlayer.troops.Add(new Plane());
                     localPlayer.money -= Constants.Entity.Troop.Plane.cost;
-                    mainMap.getOthersPath[0][0].updateFicha(localPlayer.troops[localPlayer.troops.Count - 1], true);
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
                 }
                 break;
             default:
                 break;
         }
-        
+        mainMap.getOthersPath[0][0].updateFicha();
     }
 
     
