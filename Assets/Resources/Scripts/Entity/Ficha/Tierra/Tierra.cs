@@ -30,7 +30,7 @@ public class Tierra : Ficha
             tank_sprites = new List<Sprite>();
             plane_sprites = new List<Sprite>();
 
-            for (int i= 0; i < 10; i++)
+            for (int i= 0; i < 11; i++)
             {
                 soldier_sprites.Add(UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Troop/Soldier/soldier" + i.ToString()), new Rect(0, 0, Constants.Entity.Troop.wPix, Constants.Entity.Troop.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit));
                 car_sprites.Add(UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Troop/Car/car" + i.ToString()), new Rect(0, 0, Constants.Entity.Troop.wPix, Constants.Entity.Troop.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit));
@@ -113,34 +113,41 @@ public class Tierra : Ficha
         if(soldierCount > 0)
         {
             soldierIndicator.SetActive(true);
-            soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[soldierCount];
+            if(soldierCount > 9) soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[10];
+            else soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[soldierCount];
         }
         else
         {
             soldierIndicator.SetActive(false);
         }
+        /////////////////////////////////////////////////////////////////////////
         if (carCount > 0)
         {
             carIndicator.SetActive(true);
-            carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[carCount];
+            if (carCount > 9) carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[10];
+            else carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[carCount];
         }
         else
         {
             carIndicator.SetActive(false);
         }
+        /////////////////////////////////////////////////////////////////////////
         if (tankCount > 0)
         {
             tankIndicator.SetActive(true);
-            tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[tankCount];
+            if (tankCount > 9) tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[10];
+            else tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[tankCount];
         }
         else
         {
             tankIndicator.SetActive(false);
         }
+        /////////////////////////////////////////////////////////////////////////
         if (planeCount > 0)
         {
             planeIndicator.SetActive(true);
-            planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[planeCount];
+            if (planeCount > 9) planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[10];
+            else planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[planeCount];
         }
         else
         {
