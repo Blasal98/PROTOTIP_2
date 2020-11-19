@@ -179,6 +179,9 @@ public class mainGame : MonoBehaviour
         {
             case 0:
                 addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.TANK);
+                addTroopEnemy(Troop.troopType.PLANE);
                 break;
         }
     }
@@ -190,17 +193,27 @@ public class mainGame : MonoBehaviour
             case Troop.troopType.SOLDIER:
                 othersPlayer[0].troops.Add(new Soldier());
                 othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
-                mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
+                
                 break;
             case Troop.troopType.CAR:
+                othersPlayer[0].troops.Add(new Car());
+                othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
+                
                 break;
             case Troop.troopType.TANK:
+                othersPlayer[0].troops.Add(new Tank());
+                othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
+                
                 break;
             case Troop.troopType.PLANE:
+                othersPlayer[0].troops.Add(new Plane());
+                othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
+                
                 break;
             default:
                 break;
         }
+        mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
         mainMap.getLocalPath[0].updateFicha();
     }
 

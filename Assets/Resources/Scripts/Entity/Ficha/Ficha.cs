@@ -34,4 +34,5 @@ public class Ficha : Entity {
 
     public virtual void addTroopToFicha(Troop _t) { }
     public virtual void updateFicha() { }
+
 }

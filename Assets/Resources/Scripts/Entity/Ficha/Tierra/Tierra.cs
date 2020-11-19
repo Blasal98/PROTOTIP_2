@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tierra : Ficha
 {
-    private List<Troop> troops;
+    private List<Troop> _troops;
     private GameObject soldierIndicator;
     private GameObject carIndicator;
     private GameObject tankIndicator;
@@ -77,7 +77,7 @@ public class Tierra : Ficha
         planeIndicator.SetActive(false);
 
         type = Ficha_Type.TIERRA;
-        troops = new List<Troop>();
+        _troops = new List<Troop>();
 
         soldierCount = 0;
         carCount = 0;
@@ -89,19 +89,19 @@ public class Tierra : Ficha
         switch (_t.type)
         {
             case Troop.troopType.SOLDIER:
-                troops.Add(_t);
+                _troops.Add(_t);
                 soldierCount++;
                 break;
             case Troop.troopType.CAR:
-                troops.Add(_t);
+                _troops.Add(_t);
                 carCount++;
                 break;
             case Troop.troopType.TANK:
-                troops.Add(_t);
+                _troops.Add(_t);
                 tankCount++;
                 break;
             case Troop.troopType.PLANE:
-                troops.Add(_t);
+                _troops.Add(_t);
                 planeCount++;
                 break;
             default:
@@ -153,5 +153,10 @@ public class Tierra : Ficha
         {
             planeIndicator.SetActive(false);
         }
+    }
+
+    public List<Troop> troops
+    {
+        get { return _troops; }
     }
 }

@@ -271,6 +271,14 @@ class Map
         }
     }
 
+    public void nextFicha()
+    {
+        //List<Troop> auxList = localPath[Constants.Map.path_size-1].troops;
+        for(int i = Constants.Map.path_size - 2; i >= 0 ; i++)
+        {
+            
+        }
+    }
 
     #endregion
 
