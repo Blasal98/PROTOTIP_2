@@ -139,6 +139,7 @@ namespace Constants
         public static int zFicha = 2;
         public static int zFichaIndicator = 0;
         public static int zPath = 1;
+        public static int zBuilding = -1;
     }
 }
 

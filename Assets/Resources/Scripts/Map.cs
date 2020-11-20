@@ -308,6 +308,11 @@ class Map
         othersPath[0][Constants.Map.path_size - 1].updateFicha();
     }
 
+    public void setBuilding()
+    {
+
+    }
+
     #endregion
 
     #region properties

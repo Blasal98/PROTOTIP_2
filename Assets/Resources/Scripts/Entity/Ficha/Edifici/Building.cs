@@ -28,6 +28,8 @@ public class Building : Ficha
 
             aair = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/aair"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
         }
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zBuilding);
     }
-
+    public virtual void nextSprite() { }
+    public virtual void previousSprite() { }
 }

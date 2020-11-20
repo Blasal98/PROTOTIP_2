@@ -155,7 +155,8 @@ public class mainGame : MonoBehaviour
                 {
                     if (building)
                     {
-
+                        buildProcess();
+                        mainMap.setBuilding();
                     }
 
                     turnTimeLeft -= Time.deltaTime;
@@ -347,6 +348,7 @@ public class mainGame : MonoBehaviour
                     buildingType = Building.BuildingType.TRENCH;
                     localPlayer.money -= Constants.Entity.Building.Trinchera.cost;
                     building = true;
+                    localPlayer.buildings.Add(new Trench());
                 }
                 break;
             case (int)Building.BuildingType.SNIPER:
@@ -375,6 +377,19 @@ public class mainGame : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void buildProcess()
+    {
+        localPlayer.buildings[localPlayer.buildings.Count - 1].position = cursorPositionWorld;
+        if(Input.mouseScrollDelta.y == 1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].nextSprite();
+        }
+        else if (Input.mouseScrollDelta.y == -1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].previousSprite();
         }
     }
     #endregion
