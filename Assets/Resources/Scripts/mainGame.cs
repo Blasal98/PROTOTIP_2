@@ -134,7 +134,7 @@ public class mainGame : MonoBehaviour
             {
                 mainMap.update();
                 updateInfo();
-                if (!mainMap.created) //si no esta creat el mapa
+                if (!mainMap.created) //si no esta creat el mapa-----------------------------------------------------------------------------------------------------------------------------------------
                 {
                     if (clicked_left)
                     {
@@ -142,7 +142,7 @@ public class mainGame : MonoBehaviour
                         clicked_left = false;
                     }
                 }
-                else if (mainMap.justCreated) //una interaccio al crearlo
+                else if (mainMap.justCreated) //una interaccio al crearlo-------------------------------------------------------------------------------------------------------------------------------
                 {
 
                     hud.PATH.GetComponent<Button>().interactable = true;
@@ -151,7 +151,7 @@ public class mainGame : MonoBehaviour
                     hud.switchTroopsAndBuildings();
                     enemyStrategy();
                 }
-                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
+                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
                     if (building)
                     {
@@ -166,8 +166,10 @@ public class mainGame : MonoBehaviour
 
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
+
+                    if(turnEnded && building) buildCancel();
                 }
-                else //acaba turno
+                else //acaba turno-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 {
                     
 
@@ -399,6 +401,32 @@ public class mainGame : MonoBehaviour
         {
             localPlayer.buildings[localPlayer.buildings.Count - 1].previousSprite();
         }
+    }
+    private void buildCancel()
+    {
+        switch (buildingType)
+        {
+            case Building.BuildingType.TRENCH:
+                localPlayer.money += Constants.Entity.Building.Trinchera.cost;
+                
+                break;
+            case Building.BuildingType.SNIPER:
+                localPlayer.money += Constants.Entity.Building.Sniper.cost;
+
+                break;
+            case Building.BuildingType.ATANK:
+                localPlayer.money += Constants.Entity.Building.AntiTank.cost;
+
+                break;
+            case Building.BuildingType.AAIR:
+                localPlayer.money += Constants.Entity.Building.AntiAir.cost;
+                
+                break;
+
+        }
+        Destroy(localPlayer.buildings[localPlayer.buildings.Count - 1].gameObject);
+        localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
+        building = false;
     }
     #endregion
 }
