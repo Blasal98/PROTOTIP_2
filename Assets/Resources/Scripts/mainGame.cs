@@ -237,7 +237,44 @@ public class mainGame : MonoBehaviour
     }
 
 
+    private void buildProcess()
+    {
+        localPlayer.buildings[localPlayer.buildings.Count - 1].position = cursorPositionWorld;
+        if (Input.mouseScrollDelta.y == 1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].nextSprite();
+        }
+        else if (Input.mouseScrollDelta.y == -1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].previousSprite();
+        }
+    }
+    private void buildCancel()
+    {
+        switch (buildingType)
+        {
+            case Building.BuildingType.TRENCH:
+                localPlayer.money += Constants.Entity.Building.Trinchera.cost;
 
+                break;
+            case Building.BuildingType.SNIPER:
+                localPlayer.money += Constants.Entity.Building.Sniper.cost;
+
+                break;
+            case Building.BuildingType.ATANK:
+                localPlayer.money += Constants.Entity.Building.AntiTank.cost;
+
+                break;
+            case Building.BuildingType.AAIR:
+                localPlayer.money += Constants.Entity.Building.AntiAir.cost;
+
+                break;
+
+        }
+        Destroy(localPlayer.buildings[localPlayer.buildings.Count - 1].gameObject);
+        localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
+        building = false;
+    }
 
 
 
@@ -390,43 +427,6 @@ public class mainGame : MonoBehaviour
         }
     }
 
-    private void buildProcess()
-    {
-        localPlayer.buildings[localPlayer.buildings.Count - 1].position = cursorPositionWorld;
-        if(Input.mouseScrollDelta.y == 1)
-        {
-            localPlayer.buildings[localPlayer.buildings.Count - 1].nextSprite();
-        }
-        else if (Input.mouseScrollDelta.y == -1)
-        {
-            localPlayer.buildings[localPlayer.buildings.Count - 1].previousSprite();
-        }
-    }
-    private void buildCancel()
-    {
-        switch (buildingType)
-        {
-            case Building.BuildingType.TRENCH:
-                localPlayer.money += Constants.Entity.Building.Trinchera.cost;
-                
-                break;
-            case Building.BuildingType.SNIPER:
-                localPlayer.money += Constants.Entity.Building.Sniper.cost;
-
-                break;
-            case Building.BuildingType.ATANK:
-                localPlayer.money += Constants.Entity.Building.AntiTank.cost;
-
-                break;
-            case Building.BuildingType.AAIR:
-                localPlayer.money += Constants.Entity.Building.AntiAir.cost;
-                
-                break;
-
-        }
-        Destroy(localPlayer.buildings[localPlayer.buildings.Count - 1].gameObject);
-        localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
-        building = false;
-    }
+    
     #endregion
 }

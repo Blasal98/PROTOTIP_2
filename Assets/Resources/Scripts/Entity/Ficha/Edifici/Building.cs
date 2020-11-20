@@ -11,6 +11,8 @@ public class Building : Ficha
     protected static Sprite atank0, atank1, atank2;
     protected static Sprite aair;
 
+    protected List<Camino> _targets;
+
     protected Building()
     {
         if(aair == null)
@@ -30,7 +32,14 @@ public class Building : Ficha
         }
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zBuilding);
         type = Ficha_Type.EDIFICIO;
+        targets = new List<Camino>();
     }
     public virtual void nextSprite() { }
     public virtual void previousSprite() { }
+
+    public List<Camino> targets
+    {
+        get { return _targets; }
+        set { _targets = value; }
+    }
 }

@@ -257,6 +257,14 @@ class Map
 
         return false;
     }
+    public List<Camino> getTouchingCaminos()
+    {
+        List<Camino> returnList = new List<Camino>();
+
+
+        return returnList;
+    }
+
     public void switchPathVisibility()
     {
         if (localPathFolder.GetComponent<LineRenderer>().enabled)
@@ -329,6 +337,7 @@ class Map
                             Object.Destroy(localMap[i][j].gameObject);
                             _b.position = localMap[i][j].position;
                             localMap[i][j] = _b;
+                            localMap[i][j].i = i; localMap[i][j].j = j;
                             returnBool = true;
                         }
                     }
@@ -337,6 +346,7 @@ class Map
         }
         return returnBool;
     }
+
     #endregion
 
     #region properties
