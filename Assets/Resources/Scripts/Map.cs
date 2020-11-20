@@ -273,11 +273,39 @@ class Map
 
     public void nextFicha()
     {
-        //List<Troop> auxList = localPath[Constants.Map.path_size-1].troops;
-        for(int i = Constants.Map.path_size - 2; i >= 0 ; i++)
+        List<Troop> auxListL = localPath[Constants.Map.path_size - 1].getTroops();
+        localPath[Constants.Map.path_size - 1].setTroops(null);
+        localPath[Constants.Map.path_size - 1].countTroops();
+        List<Troop> auxListO = othersPath[0][Constants.Map.path_size - 1].getTroops();
+        othersPath[0][Constants.Map.path_size - 1].setTroops(null);
+        othersPath[0][Constants.Map.path_size - 1].countTroops();
+
+        for (int i = Constants.Map.path_size - 1; i > 0 ; i--)
         {
-            
+            localPath[i].setTroops(localPath[i - 1].getTroops());
+            localPath[i].countTroops();
+            localPath[i].updateFicha();
+            othersPath[0][i].setTroops(othersPath[0][i - 1].getTroops());
+            othersPath[0][i].countTroops();
+            othersPath[0][i].updateFicha();
         }
+        localPath[0].setTroops(null);
+        localPath[0].countTroops();
+        localPath[0].updateFicha();
+        othersPath[0][0].setTroops(null);
+        othersPath[0][0].countTroops();
+        othersPath[0][0].updateFicha();
+
+        for (int i = 0; i < auxListL.Count; i++)
+        {
+            localPath[Constants.Map.path_size - 1].addTroopToFicha(auxListL[i]);
+        }
+        for (int i = 0; i < auxListO.Count; i++)
+        {
+            othersPath[0][Constants.Map.path_size - 1].addTroopToFicha(auxListO[i]);
+        }
+        localPath[Constants.Map.path_size - 1].updateFicha();
+        othersPath[0][Constants.Map.path_size - 1].updateFicha();
     }
 
     #endregion

@@ -157,15 +157,15 @@ public class mainGame : MonoBehaviour
 
                     localPlayer.money += localPlayer.moneyXTurn;
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
-                    Debug.Log(othersPlayer[0].money);
+                    //Debug.Log(othersPlayer[0].money);
 
-
+                    mainMap.nextFicha();
 
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
 
-                    enemyStrategy();
+                    enemyStrategy();//aixo al final sempre -> enemic crea troops per seguent ronda
                 }
             }
         }

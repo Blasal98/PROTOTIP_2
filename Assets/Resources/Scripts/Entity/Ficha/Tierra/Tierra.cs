@@ -86,6 +86,7 @@ public class Tierra : Ficha
     }
     public override void addTroopToFicha(Troop _t)
     {
+        if (_troops == null) _troops = new List<Troop>();
         switch (_t.type)
         {
             case Troop.troopType.SOLDIER:
@@ -107,6 +108,37 @@ public class Tierra : Ficha
             default:
                 break;
         }
+    }
+    public override void countTroops()
+    {
+        soldierCount = 0;
+        carCount = 0;
+        tankCount = 0;
+        planeCount = 0;
+
+
+        if(_troops != null) { 
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                switch (_troops[i].type)
+                {
+                    case Troop.troopType.SOLDIER:
+                        soldierCount++;
+                        break;
+                    case Troop.troopType.CAR:
+                        carCount++;
+                        break;
+                    case Troop.troopType.TANK:
+                        tankCount++;
+                        break;
+                    case Troop.troopType.PLANE:
+                        planeCount++;
+                        break;
+
+                }
+            }
+        }
+
     }
     public override void updateFicha() {
         
@@ -155,8 +187,15 @@ public class Tierra : Ficha
         }
     }
 
-    public List<Troop> troops
+    #region get/set ers
+
+    public override List<Troop> getTroops()
     {
-        get { return _troops; }
+        return _troops;
     }
+    public override void setTroops(List<Troop> _t)
+    {
+        _troops = _t;
+    }
+    #endregion
 }

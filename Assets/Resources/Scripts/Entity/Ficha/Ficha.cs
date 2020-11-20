@@ -33,6 +33,8 @@ public class Ficha : Entity {
     }
 
     public virtual void addTroopToFicha(Troop _t) { }
+    public virtual void countTroops() { }
     public virtual void updateFicha() { }
-
+    public virtual List<Troop> getTroops() { return null; }
+    public virtual void setTroops(List<Troop> _t) { }
 }
