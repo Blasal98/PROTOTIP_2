@@ -9,12 +9,11 @@ public class Ficha : Entity {
     private Ficha_Type _type;
 
     private int _i, _j;
+
+
     protected Ficha()
     {
-        if(!gameObject.GetComponent<SpriteRenderer>())
-            gameObject.AddComponent<SpriteRenderer>();
-                
-
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zFicha);
 
     }
     public int i
@@ -32,4 +31,10 @@ public class Ficha : Entity {
         get { return _type; }
         set { _type = value; }
     }
+
+    public virtual void addTroopToFicha(Troop _t) { }
+    public virtual void countTroops() { }
+    public virtual void updateFicha() { }
+    public virtual List<Troop> getTroops() { return null; }
+    public virtual void setTroops(List<Troop> _t) { }
 }

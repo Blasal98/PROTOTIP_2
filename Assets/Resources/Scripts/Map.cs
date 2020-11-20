@@ -19,11 +19,13 @@ class Map
     private GameObject othersPathFolder;
 
     private bool _created;
+    private bool _justCreated;
     #endregion
 
     #region Map Initialization
     public Map() {
         created = false;
+        justCreated = true;
         pathCount = 0;
 
         localPath = new List<Ficha>();
@@ -81,6 +83,7 @@ class Map
 
             }
         }
+        
         
     }
     public void selectFicha()
@@ -201,8 +204,8 @@ class Map
                 localPath[i].gameObject.transform.SetParent(localPathFolder.transform);
                 othersPath[0][i].gameObject.transform.SetParent(othersPathFolder.transform);
 
-                localPoints[i] = localPath[i].gameObject.transform.position;
-                othersPoints[i] = othersPath[0][i].gameObject.transform.position;
+                localPoints[i] = new Vector3 (localPath[i].position.x, localPath[i].position.y, Constants.Layers.zPath);
+                othersPoints[i] = new Vector3(othersPath[0][i].position.x, othersPath[0][i].position.y, Constants.Layers.zPath); 
             }
             localPathFolder.GetComponent<LineRenderer>().SetPositions(localPoints);
             othersPathFolder.GetComponent<LineRenderer>().SetPositions(othersPoints);
@@ -268,6 +271,43 @@ class Map
         }
     }
 
+    public void nextFicha()
+    {
+        List<Troop> auxListL = localPath[Constants.Map.path_size - 1].getTroops();
+        localPath[Constants.Map.path_size - 1].setTroops(null);
+        localPath[Constants.Map.path_size - 1].countTroops();
+        List<Troop> auxListO = othersPath[0][Constants.Map.path_size - 1].getTroops();
+        othersPath[0][Constants.Map.path_size - 1].setTroops(null);
+        othersPath[0][Constants.Map.path_size - 1].countTroops();
+
+        for (int i = Constants.Map.path_size - 1; i > 0 ; i--)
+        {
+            localPath[i].setTroops(localPath[i - 1].getTroops());
+            localPath[i].countTroops();
+            localPath[i].updateFicha();
+            othersPath[0][i].setTroops(othersPath[0][i - 1].getTroops());
+            othersPath[0][i].countTroops();
+            othersPath[0][i].updateFicha();
+        }
+        localPath[0].setTroops(null);
+        localPath[0].countTroops();
+        localPath[0].updateFicha();
+        othersPath[0][0].setTroops(null);
+        othersPath[0][0].countTroops();
+        othersPath[0][0].updateFicha();
+
+        for (int i = 0; i < auxListL.Count; i++)
+        {
+            localPath[Constants.Map.path_size - 1].addTroopToFicha(auxListL[i]);
+        }
+        for (int i = 0; i < auxListO.Count; i++)
+        {
+            othersPath[0][Constants.Map.path_size - 1].addTroopToFicha(auxListO[i]);
+        }
+        localPath[Constants.Map.path_size - 1].updateFicha();
+        othersPath[0][Constants.Map.path_size - 1].updateFicha();
+    }
+
     #endregion
 
     #region properties
@@ -275,6 +315,19 @@ class Map
     {
         get { return _created; }
         set { _created = value; }
+    }
+    public bool justCreated
+    {
+        get { return _justCreated; }
+        set { _justCreated = value; }
+    }
+    public List<Ficha> getLocalPath
+    {
+        get { return localPath; }
+    }
+    public List<List<Ficha>> getOthersPath
+    {
+        get { return othersPath; }
     }
     #endregion
 }

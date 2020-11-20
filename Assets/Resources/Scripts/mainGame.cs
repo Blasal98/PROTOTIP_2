@@ -17,20 +17,17 @@ public class mainGame : MonoBehaviour
     private Vector3 cursorPositionWorld = new Vector3(0, 0, 0);
     private GameObject cursorCollider = null;
 
-    
-
     [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject PAUSE_SCREEN;
-
-    [SerializeField] private GameObject MONEY;
-    [SerializeField] private GameObject TURN;
-    [SerializeField] private GameObject TURN_TIME_LEFT;
+    private Hud hud;
+ 
 
     Map mainMap;
+
     private Player localPlayer;
     private List<Player> othersPlayer;
     private int turnIndex;
     private float turnTimeLeft;
+    private bool turnEnded;
 
     bool pause;
     bool ended;
@@ -58,6 +55,7 @@ public class mainGame : MonoBehaviour
         cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
         mainMap = new Map();
+  
         
         ended = false;
         victory = false;
@@ -66,12 +64,17 @@ public class mainGame : MonoBehaviour
         clicked_right = false;
         clicked_left = false;
 
-        localPlayer = new Player(-1,Constants.Player.starting_money);
+        localPlayer = new Player(-1);
         othersPlayer = new List<Player>();
-        othersPlayer.Add(new Player(othersPlayer.Count,Constants.Player.starting_money));
+        othersPlayer.Add(new Player(othersPlayer.Count));
 
         turnIndex = 0;
         turnTimeLeft = Constants.General.timeXTurn;
+        turnEnded = false;
+
+        hud = HUD.GetComponent<Hud>();
+
+        GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
     }
 
 
@@ -125,17 +128,44 @@ public class mainGame : MonoBehaviour
                 updateInfo();
                 if (!mainMap.created) //si no esta creat el mapa
                 {
-                    
                     if (clicked_left)
                     {
-                        
                         mainMap.selectFicha();
                         clicked_left = false;
                     }
                 }
-                else //si ja esta creat el mapa
+                else if (mainMap.justCreated) //una interaccio al crearlo
                 {
 
+                    hud.PATH.GetComponent<Button>().interactable = true;
+                    hud.SKIP.GetComponent<Button>().interactable = true;
+                    mainMap.justCreated = false;
+                    hud.switchTroopsAndBuildings();
+                    enemyStrategy();
+                }
+                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
+                {
+
+
+                    turnTimeLeft -= Time.deltaTime;
+                    if (turnTimeLeft <= 0) turnEnded = true;
+                }
+                else //acaba turno
+                {
+                    
+
+
+                    localPlayer.money += localPlayer.moneyXTurn;
+                    othersPlayer[0].money += othersPlayer[0].moneyXTurn;
+                    //Debug.Log(othersPlayer[0].money);
+
+                    mainMap.nextFicha();
+
+                    turnIndex++;
+                    turnEnded = false;
+                    turnTimeLeft = Constants.General.timeXTurn;
+
+                    enemyStrategy();//aixo al final sempre -> enemic crea troops per seguent ronda
                 }
             }
         }
@@ -143,14 +173,55 @@ public class mainGame : MonoBehaviour
 
 
 
+    private void enemyStrategy()
+    {
+        switch (turnIndex)
+        {
+            case 0:
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.TANK);
+                addTroopEnemy(Troop.troopType.PLANE);
+                break;
+        }
+    }
+
+    private void addTroopEnemy(Troop.troopType _t)
+    {
+        switch (_t)
+        {
+            case Troop.troopType.SOLDIER:
+                othersPlayer[0].troops.Add(new Soldier());
+                othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
+                
+                break;
+            case Troop.troopType.CAR:
+                othersPlayer[0].troops.Add(new Car());
+                othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
+                
+                break;
+            case Troop.troopType.TANK:
+                othersPlayer[0].troops.Add(new Tank());
+                othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
+                
+                break;
+            case Troop.troopType.PLANE:
+                othersPlayer[0].troops.Add(new Plane());
+                othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
+                
+                break;
+            default:
+                break;
+        }
+        mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
+        mainMap.getLocalPath[0].updateFicha();
+    }
 
 
-  
 
 
 
 
-    
 
     void cursorMovement()
     {
@@ -170,9 +241,11 @@ public class mainGame : MonoBehaviour
 
     public void updateInfo()
     {
-        MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString();
-        TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
-        TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft;
+        hud.MONEY.GetComponent<TMPro.TextMeshProUGUI>().text = "Money: " + localPlayer.money.ToString() + "$";
+        hud.MONEYXTURN.GetComponent<TMPro.TextMeshProUGUI>().text = "MoneyPerTurn: " + localPlayer.moneyXTurn.ToString() + "$";
+        hud.TURN.GetComponent<TMPro.TextMeshProUGUI>().text = "Turn: " + turnIndex;
+        hud.TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
+
 
     }
 
@@ -194,17 +267,65 @@ public class mainGame : MonoBehaviour
     public void pauseBttn()
     {
         pause = true;
-        PAUSE_SCREEN.SetActive(true);
+        hud.PAUSE_SCREEN.SetActive(true);
     }
     public void resumeBttn()
     {
         pause = false;
-        PAUSE_SCREEN.SetActive(false);
+        hud.PAUSE_SCREEN.SetActive(false);
     }
     public void switchPathVisibility()
     {
         mainMap.switchPathVisibility();
     }
 
+    public void skipTurn()
+    {
+        turnTimeLeft = 0;
+    }
+
+    public void addTroop(int _t)
+    {
+        switch (_t)
+        {
+            case (int)Troop.troopType.SOLDIER:
+                if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
+                {
+                    localPlayer.troops.Add(new Soldier());
+                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
+                }
+                break;
+            case (int)Troop.troopType.CAR:
+                if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
+                {
+                    localPlayer.troops.Add(new Car());
+                    localPlayer.money -= Constants.Entity.Troop.Car.cost;
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                }
+                break;
+            case (int)Troop.troopType.TANK:
+                if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
+                {
+                    localPlayer.troops.Add(new Tank());
+                    localPlayer.money -= Constants.Entity.Troop.Tank.cost;
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                }
+                break;
+            case (int)Troop.troopType.PLANE:
+                if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
+                {
+                    localPlayer.troops.Add(new Plane());
+                    localPlayer.money -= Constants.Entity.Troop.Plane.cost;
+                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                }
+                break;
+            default:
+                break;
+        }
+        mainMap.getOthersPath[0][0].updateFicha();
+    }
+
+    
     #endregion
 }

@@ -53,7 +53,8 @@ namespace Constants
     }
     public class Player
     {
-        public static int starting_money = 500;
+        public static int starting_money = 5000;
+        public static int starting_moneyXTurn = 500;
     }
     public class Entity
     {
@@ -75,6 +76,69 @@ namespace Constants
             public static int wPix = 58;
         }
 
+        public class Troop
+        {
+            public static int hPix = 90;
+            public static int wPix = 90;
+            public static float scale = 0.4f;
+
+            public class Soldier
+            {
+                public static int cost = 50;
+            }
+            public class Car
+            {
+                public static int cost = 200;
+            }
+            public class Tank
+            {
+                public static int cost = 800;
+            }
+            public class Plane
+            {
+                public static int cost = 1600;
+            }
+        }
+        public class Building
+        {
+            public class Trinchera
+            {
+                public static int cost = 250;
+            }
+            public class Sniper
+            {
+                public static int cost = 500;
+            }
+            public class AntiTank
+            {
+                public static int cost = 1000;
+            }
+            public class AntiAir
+            {
+                public static int cost = 2000;
+            }
+        }
+        public class City
+        {
+            public static int FCars_Cost = 500;
+            public static int FCars_Plus = 50;
+
+            public static int FTanks_Cost = 1000;
+            public static int FTanks_Plus = 150;
+
+            public static int FPlanes_Cost = 2000;
+            public static int FPlanes_Plus = 300;
+
+            public static int Milloras = 750;
+
+        }
+    }
+    public class Layers
+    {
+        public static int zBackGround = 10;
+        public static int zFicha = 2;
+        public static int zFichaIndicator = 0;
+        public static int zPath = 1;
     }
 }
 
