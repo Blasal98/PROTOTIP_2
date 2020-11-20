@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Building : Ficha
 {
+    public enum BuildingType { TRENCH,SNIPER,ATANK,AAIR, COUNT}
 
-    private static Sprite trench0, trench1, trench2;
-    private static Sprite sniper0, sniper1;
-    private static Sprite atank0, atank1, atank2;
-    private static Sprite aair;
+    protected static Sprite trench0, trench1, trench2;
+    protected static Sprite sniper0, sniper1;
+    protected static Sprite atank0, atank1, atank2;
+    protected static Sprite aair;
 
     protected Building()
     {

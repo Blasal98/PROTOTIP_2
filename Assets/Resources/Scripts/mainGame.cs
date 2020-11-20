@@ -35,6 +35,11 @@ public class mainGame : MonoBehaviour
 
     bool clicked_right;
     bool clicked_left;
+
+    bool building;
+    Building.BuildingType buildingType;
+
+
     #endregion
 
     #region Methods
@@ -75,6 +80,8 @@ public class mainGame : MonoBehaviour
         hud = HUD.GetComponent<Hud>();
 
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
+        building = false;
+        buildingType = Building.BuildingType.COUNT;
     }
 
 
@@ -96,6 +103,7 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
+        //Debug.Log(Input.mouseScrollDelta); Vec2.y = 0/1/-1
 
         #region Input
         if (Input.GetMouseButtonDown(0))
@@ -145,7 +153,10 @@ public class mainGame : MonoBehaviour
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
                 {
+                    if (building)
+                    {
 
+                    }
 
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
@@ -326,6 +337,45 @@ public class mainGame : MonoBehaviour
         mainMap.getOthersPath[0][0].updateFicha();
     }
 
-    
+    public void build(int _b)
+    {
+        switch (_b)
+        {
+            case (int)Building.BuildingType.TRENCH:
+                if (localPlayer.money >= Constants.Entity.Building.Trinchera.cost)
+                {
+                    buildingType = Building.BuildingType.TRENCH;
+                    localPlayer.money -= Constants.Entity.Building.Trinchera.cost;
+                    building = true;
+                }
+                break;
+            case (int)Building.BuildingType.SNIPER:
+                if (localPlayer.money >= Constants.Entity.Building.Sniper.cost)
+                {
+                    buildingType = Building.BuildingType.SNIPER;
+                    localPlayer.money -= Constants.Entity.Building.Sniper.cost;
+                    building = true;
+                }
+                break;
+            case (int)Building.BuildingType.ATANK:
+                if (localPlayer.money >= Constants.Entity.Building.AntiTank.cost)
+                {
+                    buildingType = Building.BuildingType.ATANK;
+                    localPlayer.money -= Constants.Entity.Building.AntiTank.cost;
+                    building = true;
+                }
+                break;
+            case (int)Building.BuildingType.AAIR:
+                if (localPlayer.money >= Constants.Entity.Building.AntiAir.cost)
+                {
+                    buildingType = Building.BuildingType.AAIR;
+                    localPlayer.money -= Constants.Entity.Building.AntiAir.cost;
+                    building = true;
+                }
+                break;
+            default:
+                break;
+        }
+    }
     #endregion
 }
