@@ -37,4 +37,6 @@ public class Ficha : Entity {
     public virtual void updateFicha() { }
     public virtual List<Troop> getTroops() { return null; }
     public virtual void setTroops(List<Troop> _t) { }
+    public virtual void setTargets(List<Ficha> _list) { }
+    public virtual bool isTargetable() { return false; }
 }

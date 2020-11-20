@@ -5,13 +5,14 @@ using UnityEngine;
 public class Building : Ficha
 {
     public enum BuildingType { TRENCH,SNIPER,ATANK,AAIR, COUNT}
+    protected BuildingType bType;
 
     protected static Sprite trench0, trench1, trench2;
     protected static Sprite sniper0, sniper1;
     protected static Sprite atank0, atank1, atank2;
     protected static Sprite aair;
 
-    protected List<Camino> _targets;
+    protected List<Ficha> _targets;
 
     protected Building()
     {
@@ -32,12 +33,13 @@ public class Building : Ficha
         }
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zBuilding);
         type = Ficha_Type.EDIFICIO;
-        targets = new List<Camino>();
+        targets = new List<Ficha>();
     }
     public virtual void nextSprite() { }
     public virtual void previousSprite() { }
 
-    public List<Camino> targets
+
+    public List<Ficha> targets
     {
         get { return _targets; }
         set { _targets = value; }

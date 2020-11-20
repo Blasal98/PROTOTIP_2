@@ -11,4 +11,8 @@ public class Camino : Tierra
         gameObject.GetComponent<SpriteRenderer>().sprite = 
             UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Tierra/Camino"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
     }
+    public override bool isTargetable()
+    {
+        return true;
+    }
 }

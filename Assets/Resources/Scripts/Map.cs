@@ -243,6 +243,7 @@ class Map
 
     public bool isTouching(Ficha _f1, Ficha _f2)
     {
+        if (_f1.i == _f2.i && _f1.j == _f2.j) return false;
         if(_f2.i == _f1.i || _f2.i == _f1.i + 1 || _f2.i == _f1.i - 1)
         {
             if(_f1.i % 2 == 0)
@@ -257,11 +258,72 @@ class Map
 
         return false;
     }
-    public List<Camino> getTouchingCaminos()
+    public List<Ficha> getTouchingCaminos(Ficha _b)
     {
-        List<Camino> returnList = new List<Camino>();
+        List<Ficha> returnList = new List<Ficha>();
+        for(int i = 0; i < 6; i++)
+        {
+            returnList.Add(null);
+        }
 
-
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (isTouching(_b, localMap[i][j]) && localMap[i][j].isTargetable())
+                    {
+                        if(_b.i % 2 == 0)
+                        {
+                            if(i == _b.i - 1 && j == _b.j)
+                            {
+                                returnList[0] = localMap[i][j];
+                            }
+                            else if (i == _b.i - 1 && j == _b.j + 1)
+                            {
+                                returnList[1] = localMap[i][j];
+                            }
+                            else if (i == _b.i + 1 && j == _b.j)
+                            {
+                                returnList[4] = localMap[i][j];
+                            }
+                            else if (i == _b.i + 1 && j == _b.j + 1)
+                            {
+                                returnList[5] = localMap[i][j];
+                            }
+                        }
+                        else
+                        {
+                            if (i == _b.i - 1 && j == _b.j - 1)
+                            {
+                                returnList[0] = localMap[i][j];
+                            }
+                            else if (i == _b.i - 1 && j == _b.j)
+                            {
+                                returnList[1] = localMap[i][j];
+                            }
+                            else if (i == _b.i + 1 && j == _b.j - 1)
+                            {
+                                returnList[4] = localMap[i][j];
+                            }
+                            else if (i == _b.i + 1 && j == _b.j)
+                            {
+                                returnList[5] = localMap[i][j];
+                            }
+                        }
+                        if(i == _b.i && j == _b.j - 1)
+                        {
+                            returnList[2] = localMap[i][j];
+                        }
+                        else if (i == _b.i && j == _b.j + 1)
+                        {
+                            returnList[3] = localMap[i][j];
+                        }
+                    }
+                }
+            }
+        }
         return returnList;
     }
 
@@ -334,11 +396,15 @@ class Map
                             if (isTouching(localMap[i][j], localPath[k])) auxBool = true;
                         }
                         if (auxBool) { 
+
                             Object.Destroy(localMap[i][j].gameObject);
                             _b.position = localMap[i][j].position;
                             localMap[i][j] = _b;
                             localMap[i][j].i = i; localMap[i][j].j = j;
                             returnBool = true;
+
+                            //localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
+
                         }
                     }
                 }
