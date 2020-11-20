@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AAir : MonoBehaviour
+public class AAir : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    public AAir()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.GetComponent<SpriteRenderer>().sprite = aair;
     }
 }

@@ -2,17 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sniper : MonoBehaviour
+public class Sniper : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    private int sprite_index;
+    public Sniper()
     {
-        
+        gameObject.GetComponent<SpriteRenderer>().sprite = sniper0;
+        sprite_index = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void nextSprite()
     {
-        
+        if (sprite_index == 0)
+        {
+            sprite_index=1;
+            gameObject.GetComponent<SpriteRenderer>().sprite = sniper1;
+        }
+        else if (sprite_index == 1)
+        {
+            sprite_index=0;
+            gameObject.GetComponent<SpriteRenderer>().sprite = sniper0;
+        }
+
+
+    }
+    public override void previousSprite()
+    {
+        nextSprite();
+
     }
 }

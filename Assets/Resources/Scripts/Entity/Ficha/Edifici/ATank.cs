@@ -2,17 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ATank : MonoBehaviour
+public class ATank : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    private int sprite_index;
+    public ATank()
     {
-        
+        gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
+        sprite_index = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void nextSprite()
     {
-        
+        if (sprite_index == 0)
+        {
+            sprite_index++;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank1;
+        }
+        else if (sprite_index == 1)
+        {
+            sprite_index++;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank2;
+        }
+        else if (sprite_index == 2)
+        {
+            sprite_index = 0;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
+        }
+
+
+    }
+    public override void previousSprite()
+    {
+        if (sprite_index == 0)
+        {
+            sprite_index = 2;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank2;
+        }
+        else if (sprite_index == 1)
+        {
+            sprite_index--;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
+        }
+        else if (sprite_index == 2)
+        {
+            sprite_index--;
+            gameObject.GetComponent<SpriteRenderer>().sprite = atank1;
+        }
+
+
     }
 }

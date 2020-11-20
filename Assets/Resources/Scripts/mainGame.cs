@@ -156,7 +156,12 @@ public class mainGame : MonoBehaviour
                     if (building)
                     {
                         buildProcess();
-                        mainMap.setBuilding();
+                        if (clicked_left)
+                        {
+                            if (mainMap.setBuilding(localPlayer.buildings[localPlayer.buildings.Count - 1])) building = false;
+                            clicked_left = false;
+                        }
+
                     }
 
                     turnTimeLeft -= Time.deltaTime;
@@ -357,6 +362,7 @@ public class mainGame : MonoBehaviour
                     buildingType = Building.BuildingType.SNIPER;
                     localPlayer.money -= Constants.Entity.Building.Sniper.cost;
                     building = true;
+                    localPlayer.buildings.Add(new Sniper());
                 }
                 break;
             case (int)Building.BuildingType.ATANK:
@@ -365,6 +371,7 @@ public class mainGame : MonoBehaviour
                     buildingType = Building.BuildingType.ATANK;
                     localPlayer.money -= Constants.Entity.Building.AntiTank.cost;
                     building = true;
+                    localPlayer.buildings.Add(new ATank());
                 }
                 break;
             case (int)Building.BuildingType.AAIR:
@@ -373,6 +380,7 @@ public class mainGame : MonoBehaviour
                     buildingType = Building.BuildingType.AAIR;
                     localPlayer.money -= Constants.Entity.Building.AntiAir.cost;
                     building = true;
+                    localPlayer.buildings.Add(new AAir());
                 }
                 break;
             default:

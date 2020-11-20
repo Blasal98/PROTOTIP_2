@@ -308,11 +308,27 @@ class Map
         othersPath[0][Constants.Map.path_size - 1].updateFicha();
     }
 
-    public void setBuilding()
+    public bool setBuilding(Building _b)
     {
-
+        bool returnBool = false;
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.VACIO)
+                    {
+                        GameObject.Destroy(localMap[i][j].gameObject);
+                        _b.position = localMap[i][j].position;
+                        localMap[i][j] = _b;
+                        returnBool = true;
+                    }
+                }
+            }
+        }
+        return returnBool;
     }
-
     #endregion
 
     #region properties
