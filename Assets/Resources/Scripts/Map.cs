@@ -319,10 +319,18 @@ class Map
                 {
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.VACIO)
                     {
-                        GameObject.Destroy(localMap[i][j].gameObject);
-                        _b.position = localMap[i][j].position;
-                        localMap[i][j] = _b;
-                        returnBool = true;
+
+                        bool auxBool = false;
+                        for(int k = 1; k < Constants.Map.path_size-1; k++)
+                        {
+                            if (isTouching(localMap[i][j], localPath[k])) auxBool = true;
+                        }
+                        if (auxBool) { 
+                            Object.Destroy(localMap[i][j].gameObject);
+                            _b.position = localMap[i][j].position;
+                            localMap[i][j] = _b;
+                            returnBool = true;
+                        }
                     }
                 }
             }
