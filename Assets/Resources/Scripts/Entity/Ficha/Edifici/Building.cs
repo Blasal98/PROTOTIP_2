@@ -2,17 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building : Ficha
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private static Sprite trench0, trench1, trench2;
+    private static Sprite sniper0, sniper1;
+    private static Sprite atank0, atank1, atank2;
+    private static Sprite aair;
+
+    protected Building()
     {
-        
+        if(aair == null)
+        {
+            trench0 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/trench0"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+            trench1 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/trench1"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+            trench2 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/trench2"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+
+            sniper0 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/sniper0"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+            sniper1 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/sniper1"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+
+            atank0 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/atank0"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+            atank1 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/atank1"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+            atank2 = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/atank2"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+
+            aair = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/Ficha/Edificio/aair"), new Rect(0, 0, Constants.Entity.Ficha.wPix, Constants.Entity.Ficha.hPix), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
