@@ -444,14 +444,63 @@ public class mainGame : MonoBehaviour
 
         }
     }
-    public void FCar()
+    public void CityUpgrades(int _i)
     {
-        if(localPlayer.money>= Constants.Entity.City.FCars_Cost)
+        switch (_i)
         {
-            localPlayer.money -= Constants.Entity.City.FCars_Cost;
-            localPlayer.FCar = true;
-            hud.FCARS_BUTTON.GetComponent<Button>().interactable = false;
+            case 0:
+                if (localPlayer.money >= Constants.Entity.City.FCars_Cost)
+                {
+                    localPlayer.money -= Constants.Entity.City.FCars_Cost;
+                    localPlayer.FCar = true;
+                    hud.FCARS_BUTTON.GetComponent<Button>().interactable = false;
+                    hud.CAR_BUTTON.GetComponent<Button>().interactable = true;
+                }
+                break;
+            case 1:
+                if (localPlayer.money >= Constants.Entity.City.FTanks_Cost)
+                {
+                    localPlayer.money -= Constants.Entity.City.FTanks_Cost;
+                    localPlayer.FTank = true;
+                    hud.FTANKS_BUTTON.GetComponent<Button>().interactable = false;
+                    hud.TANK_BUTTON.GetComponent<Button>().interactable = true;
+                }
+                break;
+            case 2:
+                if (localPlayer.money >= Constants.Entity.City.FPlanes_Cost)
+                {
+                    localPlayer.money -= Constants.Entity.City.FPlanes_Cost;
+                    localPlayer.FPlane = true;
+                    hud.FPLANES_BUTTON.GetComponent<Button>().interactable = false;
+                    hud.PLANE_BUTTON.GetComponent<Button>().interactable = true;
+                }
+                break;
+            case 3:
+                if (localPlayer.money >= Constants.Entity.City.Milloras)
+                {
+                    localPlayer.money -= Constants.Entity.City.Milloras;
+                    localPlayer.MCamo = true;
+                    hud.MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
+                }
+                break;
+            case 4:
+                if (localPlayer.money >= Constants.Entity.City.Milloras)
+                {
+                    localPlayer.money -= Constants.Entity.City.Milloras;
+                    localPlayer.MArmor = true;
+                    hud.MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
+                }
+                break;
+            case 5:
+                if (localPlayer.money >= Constants.Entity.City.Milloras)
+                {
+                    localPlayer.money -= Constants.Entity.City.Milloras;
+                    localPlayer.MAir = true;
+                    hud.MAIR_BUTTON.GetComponent<Button>().interactable = false;
+                }
+                break;
         }
+        
     }
     
     #endregion

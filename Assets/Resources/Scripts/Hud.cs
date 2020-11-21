@@ -136,17 +136,14 @@ public class Hud : MonoBehaviour
         }
         else
         {
+
             SOLDIER_BUTTON.GetComponent<Button>().interactable = true;
-            CAR_BUTTON.GetComponent<Button>().interactable = true;
-            TANK_BUTTON.GetComponent<Button>().interactable = true;
-            PLANE_BUTTON.GetComponent<Button>().interactable = true;
 
             TRINCHERA_BUTTON.GetComponent<Button>().interactable = true;
             SNIPER_BUTTON.GetComponent<Button>().interactable = true;
             ANTITANK_BUTTON.GetComponent<Button>().interactable = true;
             ANTIAIR_BUTTON.GetComponent<Button>().interactable = true;
 
-            
             if (_p == null)
             {
                 FCARS_BUTTON.GetComponent<Button>().interactable = true;
@@ -166,6 +163,10 @@ public class Hud : MonoBehaviour
                 if (!_p.MCamo) MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
                 if (!_p.MArmor) MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
                 if (!_p.MAir) MAIR_BUTTON.GetComponent<Button>().interactable = true;
+
+                if (_p.FCar) CAR_BUTTON.GetComponent<Button>().interactable = true;
+                if (_p.FTank) TANK_BUTTON.GetComponent<Button>().interactable = true;
+                if (_p.FPlane) PLANE_BUTTON.GetComponent<Button>().interactable = true;
             }
             visible = true;
         }
