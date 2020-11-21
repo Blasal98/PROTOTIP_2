@@ -54,7 +54,7 @@ public class Sniper : Building
             }
             
         }
-        Debug.Log(_list.Count);
+        //Debug.Log(targets.Count);
     }
 
 }

@@ -44,4 +44,9 @@ public class Building : Ficha
         get { return _targets; }
         set { _targets = value; }
     }
+
+    public override List<Ficha> getTargets()
+    {
+        return targets;
+    }
 }

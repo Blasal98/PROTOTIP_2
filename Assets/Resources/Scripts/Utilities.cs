@@ -22,7 +22,9 @@ namespace Utilities
         public int i;
 
         Pair_FichaInt() { }
-        public Pair_FichaInt(Ficha _f, int _i) { }
+        public Pair_FichaInt(Ficha _f, int _i) {
+            f = _f; i = _i;
+        }
 
     }
 }

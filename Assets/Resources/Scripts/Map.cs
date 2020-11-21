@@ -229,10 +229,24 @@ class Map
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
                     {
                         localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+                        if(localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO)
+                        {
+                            for(int k = 0; k < localMap[i][j].getTargets().Count; k++)
+                            {
+                                localMap[i][j].getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+                            }
+                        }
                     }
                     else
                     {
                         localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+                        if (localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO)
+                        {
+                            for (int k = 0; k < localMap[i][j].getTargets().Count; k++)
+                            {
+                                localMap[i][j].getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+                            }
+                        }
                     }
                 }
                 
@@ -320,7 +334,10 @@ class Map
                 }
             }
         }
-        Debug.Log(returnList.Count);
+        //for(int i = 0; i< returnList.Count; i++)
+        //{
+        //    Debug.Log(returnList[i].i);
+        //}
         return returnList;
     }
 

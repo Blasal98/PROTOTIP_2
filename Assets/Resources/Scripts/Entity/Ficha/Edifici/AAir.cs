@@ -22,6 +22,6 @@ public class AAir : Building
 
             
         }
-        Debug.Log(_list.Count);
+        //Debug.Log(targets.Count);
     }
 }
