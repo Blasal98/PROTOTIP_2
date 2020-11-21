@@ -22,6 +22,8 @@ public class Player
         id = _id;
         health = Constants.Player.starting_health;
 
+        FCar = FTank = FPlane = MCamo = MArmor = MAir = false;
+
         troops = new List<Troop>();
         buildings = new List<Building>();
     }
