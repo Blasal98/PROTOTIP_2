@@ -7,6 +7,7 @@ public class Tank : Troop
     public Tank()
     {
         type = troopType.TANK;
+        health = Constants.Entity.Troop.Tank.health;
     }
 
 }

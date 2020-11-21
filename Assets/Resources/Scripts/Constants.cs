@@ -89,18 +89,22 @@ namespace Constants
             public class Soldier
             {
                 public static int cost = 50;
+                public static int health = 1;
             }
             public class Car
             {
                 public static int cost = 200;
+                public static int health = 4;
             }
             public class Tank
             {
                 public static int cost = 800;
+                public static int health = 10;
             }
             public class Plane
             {
                 public static int cost = 1600;
+                public static int health = 15;
             }
         }
         public class Building

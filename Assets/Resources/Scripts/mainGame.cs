@@ -149,7 +149,7 @@ public class mainGame : MonoBehaviour
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
                     hud.switchButtonsVisibility(null);
-                    enemyStrategy();
+                    //enemyStrategy();
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
@@ -187,6 +187,7 @@ public class mainGame : MonoBehaviour
                     //Debug.Log(othersPlayer[0].money);
 
                     mainMap.nextFicha();
+                    //attackCity();
 
                     turnIndex++;
                     turnEnded = false;
@@ -284,7 +285,13 @@ public class mainGame : MonoBehaviour
         building = false;
     }
 
-
+    void attackCity()
+    {
+        for (int i = 0; i < mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count; i++) 
+        {
+            localPlayer.health -= mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].health;
+        }
+    }
 
 
     void cursorMovement()
