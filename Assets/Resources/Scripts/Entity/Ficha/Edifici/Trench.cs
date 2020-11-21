@@ -51,36 +51,36 @@ public class Trench : Building
 
     }
 
-    public override void setTargets(List<Ficha> _list)
+    public override void setTargets(List<Utilities.Pair_FichaInt> _list)
     {
         for(int i = 0; i< _list.Count; i++)
         {
-            if(_list != null)
+
+            switch (sprite_index)
             {
-                switch (sprite_index)
-                {
-                    case 0:
-                        if (i == 0) targets.Add(_list[0]);
-                        if (i == 1) targets.Add(_list[1]);
-                        if (i == 4) targets.Add(_list[4]);
-                        if (i == 5) targets.Add(_list[5]);
-                        break;
-                    case 1:
-                        if (i == 0) targets.Add(_list[0]);
-                        if (i == 2) targets.Add(_list[2]);
-                        if (i == 3) targets.Add(_list[3]);
-                        if (i == 5) targets.Add(_list[5]);
-                        break;
-                    case 2:
-                        if (i == 1) targets.Add(_list[1]);
-                        if (i == 2) targets.Add(_list[2]);
-                        if (i == 3) targets.Add(_list[3]);
-                        if (i == 4) targets.Add(_list[4]);
-                        break;
-                    default:
-                        break;
-                }
+                case 0:
+                    if (_list[i].i == 0) targets.Add(_list[i].f);
+                    if (_list[i].i == 1) targets.Add(_list[i].f);
+                    if (_list[i].i == 4) targets.Add(_list[i].f);
+                    if (_list[i].i == 5) targets.Add(_list[i].f);
+                    break;
+                case 1:
+                    if (_list[i].i == 0) targets.Add(_list[i].f);
+                    if (_list[i].i == 2) targets.Add(_list[i].f);
+                    if (_list[i].i == 3) targets.Add(_list[i].f);
+                    if (_list[i].i == 5) targets.Add(_list[i].f);
+                    break;
+                case 2:
+                    if (_list[i].i == 1) targets.Add(_list[i].f);
+                    if (_list[i].i == 2) targets.Add(_list[i].f);
+                    if (_list[i].i == 3) targets.Add(_list[i].f);
+                    if (_list[i].i == 4) targets.Add(_list[i].f);
+                    break;                                   
+                default:
+                    break;
             }
+            
         }
+        Debug.Log(_list.Count);
     }
 }

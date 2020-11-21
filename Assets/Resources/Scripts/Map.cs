@@ -258,13 +258,9 @@ class Map
 
         return false;
     }
-    public List<Ficha> getTouchingCaminos(Ficha _b)
+    public List<Utilities.Pair_FichaInt> getTouchingCaminos(Ficha _b)
     {
-        List<Ficha> returnList = new List<Ficha>();
-        for(int i = 0; i < 6; i++)
-        {
-            returnList.Add(null);
-        }
+        List<Utilities.Pair_FichaInt> returnList = new List<Utilities.Pair_FichaInt>();
 
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -278,52 +274,53 @@ class Map
                         {
                             if(i == _b.i - 1 && j == _b.j)
                             {
-                                returnList[0] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
                             }
                             else if (i == _b.i - 1 && j == _b.j + 1)
                             {
-                                returnList[1] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
                             }
                             else if (i == _b.i + 1 && j == _b.j)
                             {
-                                returnList[4] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
                             }
                             else if (i == _b.i + 1 && j == _b.j + 1)
                             {
-                                returnList[5] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
                             }
                         }
                         else
                         {
                             if (i == _b.i - 1 && j == _b.j - 1)
                             {
-                                returnList[0] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
                             }
                             else if (i == _b.i - 1 && j == _b.j)
                             {
-                                returnList[1] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
                             }
                             else if (i == _b.i + 1 && j == _b.j - 1)
                             {
-                                returnList[4] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
                             }
                             else if (i == _b.i + 1 && j == _b.j)
                             {
-                                returnList[5] = localMap[i][j];
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
                             }
                         }
                         if(i == _b.i && j == _b.j - 1)
                         {
-                            returnList[2] = localMap[i][j];
+                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 2));
                         }
                         else if (i == _b.i && j == _b.j + 1)
                         {
-                            returnList[3] = localMap[i][j];
+                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 3));
                         }
                     }
                 }
             }
         }
+        Debug.Log(returnList.Count);
         return returnList;
     }
 
@@ -403,7 +400,7 @@ class Map
                             localMap[i][j].i = i; localMap[i][j].j = j;
                             returnBool = true;
 
-                            //localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
+                            localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
 
                         }
                     }

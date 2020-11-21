@@ -8,20 +8,20 @@ public class AAir : Building
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = aair;
     }
-    public override void setTargets(List<Ficha> _list)
+    public override void setTargets(List<Utilities.Pair_FichaInt> _list)
     {
-        for (int i = 0; i < _list.Capacity; i++)
+        for (int i = 0; i < _list.Count; i++)
         {
-            if (_list[i] != null)
-            {
-                if (i == 0) targets.Add(_list[0]);
-                if (i == 1) targets.Add(_list[1]);
-                if (i == 2) targets.Add(_list[2]);
-                if (i == 3) targets.Add(_list[3]);
-                if (i == 4) targets.Add(_list[4]);
-                if (i == 5) targets.Add(_list[5]);
 
-            }
+            if (_list[i].i == 0) targets.Add(_list[i].f);
+            if (_list[i].i == 1) targets.Add(_list[i].f);
+            if (_list[i].i == 2) targets.Add(_list[i].f);
+            if (_list[i].i == 3) targets.Add(_list[i].f);
+            if (_list[i].i == 4) targets.Add(_list[i].f);
+            if (_list[i].i == 5) targets.Add(_list[i].f);
+
+            
         }
+        Debug.Log(_list.Count);
     }
 }

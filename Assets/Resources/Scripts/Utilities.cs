@@ -16,4 +16,13 @@ namespace Utilities
         }
 
     }
+    public class Pair_FichaInt
+    {
+        public Ficha f;
+        public int i;
+
+        Pair_FichaInt() { }
+        public Pair_FichaInt(Ficha _f, int _i) { }
+
+    }
 }
