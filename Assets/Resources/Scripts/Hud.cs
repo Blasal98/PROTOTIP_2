@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Hud : MonoBehaviour
 {
+    bool visible;
     //TROOPS
     public GameObject TROOPS;
 
@@ -73,9 +74,8 @@ public class Hud : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
 
-
+        visible = true;
 
         PATH.GetComponent<Button>().interactable = false;
         SKIP.GetComponent<Button>().interactable = false;
@@ -101,7 +101,7 @@ public class Hud : MonoBehaviour
         ENEMY_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
         LOCAL_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
 
-        switchTroopsAndBuildings();
+        switchButtonsVisibility(null);
     }
 
     // Update is called once per frame
@@ -110,9 +110,9 @@ public class Hud : MonoBehaviour
         
     }
 
-    public void switchTroopsAndBuildings()
+    public void switchButtonsVisibility(Player _p)
     {
-        if (SOLDIER_BUTTON.GetComponent<Button>().interactable)
+        if (visible)
         {
             SOLDIER_BUTTON.GetComponent<Button>().interactable = false;
             CAR_BUTTON.GetComponent<Button>().interactable = false;
@@ -123,7 +123,7 @@ public class Hud : MonoBehaviour
             SNIPER_BUTTON.GetComponent<Button>().interactable = false;
             ANTITANK_BUTTON.GetComponent<Button>().interactable = false;
             ANTIAIR_BUTTON.GetComponent<Button>().interactable = false;
-
+            
             FCARS_BUTTON.GetComponent<Button>().interactable = false;
             FTANKS_BUTTON.GetComponent<Button>().interactable = false;
             FPLANES_BUTTON.GetComponent<Button>().interactable = false;
@@ -131,6 +131,8 @@ public class Hud : MonoBehaviour
             MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
             MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
             MAIR_BUTTON.GetComponent<Button>().interactable = false;
+
+            visible = false;
         }
         else
         {
@@ -144,13 +146,28 @@ public class Hud : MonoBehaviour
             ANTITANK_BUTTON.GetComponent<Button>().interactable = true;
             ANTIAIR_BUTTON.GetComponent<Button>().interactable = true;
 
-            FCARS_BUTTON.GetComponent<Button>().interactable = true;
-            FTANKS_BUTTON.GetComponent<Button>().interactable = true;
-            FPLANES_BUTTON.GetComponent<Button>().interactable = true;
+            
+            if (_p == null)
+            {
+                FCARS_BUTTON.GetComponent<Button>().interactable = true;
+                FTANKS_BUTTON.GetComponent<Button>().interactable = true;
+                FPLANES_BUTTON.GetComponent<Button>().interactable = true;
 
-            MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
-            MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
-            MAIR_BUTTON.GetComponent<Button>().interactable = true;
+                MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
+                MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
+                MAIR_BUTTON.GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                if (!_p.FCar) FCARS_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.FTank) FTANKS_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.FPlane) FPLANES_BUTTON.GetComponent<Button>().interactable = true;
+
+                if (!_p.MCamo) MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.MArmor) MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.MAir) MAIR_BUTTON.GetComponent<Button>().interactable = true;
+            }
+            visible = true;
         }
     }
 }

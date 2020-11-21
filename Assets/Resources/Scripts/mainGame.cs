@@ -148,7 +148,7 @@ public class mainGame : MonoBehaviour
                     hud.PATH.GetComponent<Button>().interactable = true;
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
-                    hud.switchTroopsAndBuildings();
+                    hud.switchButtonsVisibility(null);
                     enemyStrategy();
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
@@ -161,7 +161,7 @@ public class mainGame : MonoBehaviour
                             if (mainMap.setBuilding(localPlayer.buildings[localPlayer.buildings.Count - 1]))
                             {
                                 building = false;
-                                hud.switchTroopsAndBuildings();
+                                hud.switchButtonsVisibility(localPlayer);
                             }
                             clicked_left = false;
                         }
@@ -174,7 +174,7 @@ public class mainGame : MonoBehaviour
                     if (turnEnded && building)
                     {
                         buildCancel();
-                        hud.switchTroopsAndBuildings();
+                        hud.switchButtonsVisibility(localPlayer);
                     }
                 }
                 else //acaba turno-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -440,11 +440,19 @@ public class mainGame : MonoBehaviour
         }
         if (building)
         {
-            hud.switchTroopsAndBuildings();
+            hud.switchButtonsVisibility(localPlayer);
 
         }
     }
-
+    public void FCar()
+    {
+        if(localPlayer.money>= Constants.Entity.City.FCars_Cost)
+        {
+            localPlayer.money -= Constants.Entity.City.FCars_Cost;
+            localPlayer.FCar = true;
+            hud.FCARS_BUTTON.GetComponent<Button>().interactable = false;
+        }
+    }
     
     #endregion
 }
