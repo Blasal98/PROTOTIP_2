@@ -401,7 +401,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.Building.Trinchera.cost;
                     building = true;
                     localPlayer.buildings.Add(new Trench());
-                    hud.switchTroopsAndBuildings();
+
                 }
                 break;
             case (int)Building.BuildingType.SNIPER:
@@ -411,7 +411,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.Building.Sniper.cost;
                     building = true;
                     localPlayer.buildings.Add(new Sniper());
-                    hud.switchTroopsAndBuildings();
+   
                 }
                 break;
             case (int)Building.BuildingType.ATANK:
@@ -421,7 +421,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.Building.AntiTank.cost;
                     building = true;
                     localPlayer.buildings.Add(new ATank());
-                    hud.switchTroopsAndBuildings();
+                    
                 }
                 break;
             case (int)Building.BuildingType.AAIR:
@@ -431,11 +431,16 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.Building.AntiAir.cost;
                     building = true;
                     localPlayer.buildings.Add(new AAir());
-                    hud.switchTroopsAndBuildings();
+
                 }
                 break;
             default:
                 break;
+        }
+        if (building)
+        {
+            hud.switchTroopsAndBuildings();
+
         }
     }
 

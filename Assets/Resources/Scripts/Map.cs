@@ -17,6 +17,8 @@ class Map
     private GameObject pathFolder;
     private GameObject localPathFolder;
     private GameObject othersPathFolder;
+    private GameObject localBuildingsFolder;
+    private GameObject othersBuildingsFolder;
 
     private bool _created;
     private bool _justCreated;
@@ -46,6 +48,9 @@ class Map
         localPathFolder.transform.SetParent(pathFolder.transform);
         othersPathFolder = new GameObject("othersPath");
         othersPathFolder.transform.SetParent(pathFolder.transform);
+
+        localBuildingsFolder = new GameObject("localBuildings");
+        othersBuildingsFolder = new GameObject("othersBuildings");
 
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -413,7 +418,7 @@ class Map
                             returnBool = true;
 
                             localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
-
+                            localMap[i][j].gameObject.transform.SetParent(localBuildingsFolder.transform);
                         }
                     }
                 }
