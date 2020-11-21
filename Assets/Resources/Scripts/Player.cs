@@ -9,6 +9,9 @@ public class Player
     int _moneyXTurn;
     List<Troop> _troops;
     List<Building> _buildings;
+    int _health;
+
+    public bool FCar, FTank, FPlane, MCamo, MArmor, MAir;
 
     public Player(){}
     
@@ -17,6 +20,7 @@ public class Player
         money = Constants.Player.starting_money;
         moneyXTurn = Constants.Player.starting_moneyXTurn;
         id = _id;
+        health = Constants.Player.starting_health;
 
         troops = new List<Troop>();
         buildings = new List<Building>();
@@ -45,5 +49,10 @@ public class Player
     {
         get { return _buildings; }
         set { _buildings = value; }
+    }
+    public int health
+    {
+        get { return _health; }
+        set { _health = value; }
     }
 }

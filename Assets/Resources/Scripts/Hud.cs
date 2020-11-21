@@ -66,6 +66,8 @@ public class Hud : MonoBehaviour
     public GameObject MONEYXTURN;
     public GameObject TURN;
     public GameObject TURN_TIME_LEFT;
+    public GameObject ENEMY_HEALTH;
+    public GameObject LOCAL_HEALTH;
 
 
     // Start is called before the first frame update
@@ -95,6 +97,9 @@ public class Hud : MonoBehaviour
         MCAMMO_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "CammoUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
         MBLINDAJE_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "ArmorUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
         MAIR_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = "AirUpgrade: " + Constants.Entity.City.Milloras.ToString() + "$";
+
+        ENEMY_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
+        LOCAL_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
 
         switchTroopsAndBuildings();
     }

@@ -58,6 +58,7 @@ namespace Constants
     {
         public static int starting_money = 5000;
         public static int starting_moneyXTurn = 0;
+        public static int starting_health = 100;
     }
     public class Entity
     {
