@@ -219,6 +219,7 @@ class Map
 
     #region Public Methods
     public void update() {
+        Ficha auxFicha = null;
         for (int i = 0; i < Constants.Map.w; i++)
         {
             for (int j = 0; j < Constants.Map.h; j++)
@@ -228,29 +229,23 @@ class Map
                     
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
                     {
-                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-                        if(localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO)
-                        {
-                            for(int k = 0; k < localMap[i][j].getTargets().Count; k++)
-                            {
-                                localMap[i][j].getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-                            }
-                        }
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
+                        if (localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO) auxFicha = localMap[i][j];
                     }
                     else
                     {
-                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-                        if (localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO)
-                        {
-                            for (int k = 0; k < localMap[i][j].getTargets().Count; k++)
-                            {
-                                localMap[i][j].getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
-                            }
-                        }
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.normalFicha;
                     }
                 }
                 
 
+            }
+        }
+        if (auxFicha != null)
+        {
+            for (int k = 0; k < auxFicha.getTargets().Count; k++)
+            {
+                auxFicha.getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
             }
         }
     }

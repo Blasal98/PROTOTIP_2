@@ -37,6 +37,9 @@ namespace Constants
         public static int h = 7;
         public static int path_size = 15;
 
+        public static Color hoverFicha = new Color(1,0,0,1);
+        public static Color normalFicha = new Color(1,1,1,1);
+
         public class Local
         {
             public static float path_width = 0.25f;

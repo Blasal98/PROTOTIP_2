@@ -81,6 +81,9 @@ public class Trench : Building
             }
             
         }
-        //Debug.Log(targets.Count);
+        //for(int i = 0;i< targets.Count; i++)
+        //{
+        //    Debug.Log(targets[i].i + " " +  targets[i].j);
+        //}
     }
 }
