@@ -149,7 +149,7 @@ public class mainGame : MonoBehaviour
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
                     hud.switchButtonsVisibility(null);
-                    //enemyStrategy();
+                    enemyStrategy();
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
@@ -186,14 +186,15 @@ public class mainGame : MonoBehaviour
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
                     //Debug.Log(othersPlayer[0].money);
 
-                    mainMap.nextFicha();
-                    //attackCity();
+                    //mainMap.nextFicha();
+                    attackCity();
 
                     turnIndex++;
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
 
                     enemyStrategy();//aixo al final sempre -> enemic crea troops per seguent ronda
+                    //Debug.Log(othersPlayer[0].troops.Count);
                 }
             }
         }
@@ -210,6 +211,9 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.CAR);
                 addTroopEnemy(Troop.troopType.TANK);
                 addTroopEnemy(Troop.troopType.PLANE);
+                break;
+            case 1:
+                addTroopEnemy(Troop.troopType.SOLDIER);
                 break;
         }
     }
