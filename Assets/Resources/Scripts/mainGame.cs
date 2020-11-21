@@ -35,6 +35,11 @@ public class mainGame : MonoBehaviour
 
     bool clicked_right;
     bool clicked_left;
+
+    bool building;
+    Building.BuildingType buildingType;
+
+
     #endregion
 
     #region Methods
@@ -75,6 +80,8 @@ public class mainGame : MonoBehaviour
         hud = HUD.GetComponent<Hud>();
 
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
+        building = false;
+        buildingType = Building.BuildingType.COUNT;
     }
 
 
@@ -96,6 +103,7 @@ public class mainGame : MonoBehaviour
     void Update()
     {
         cursorMovement();
+        //Debug.Log(Input.mouseScrollDelta); Vec2.y = 0/1/-1
 
         #region Input
         if (Input.GetMouseButtonDown(0))
@@ -126,7 +134,7 @@ public class mainGame : MonoBehaviour
             {
                 mainMap.update();
                 updateInfo();
-                if (!mainMap.created) //si no esta creat el mapa
+                if (!mainMap.created) //si no esta creat el mapa-----------------------------------------------------------------------------------------------------------------------------------------
                 {
                     if (clicked_left)
                     {
@@ -134,7 +142,7 @@ public class mainGame : MonoBehaviour
                         clicked_left = false;
                     }
                 }
-                else if (mainMap.justCreated) //una interaccio al crearlo
+                else if (mainMap.justCreated) //una interaccio al crearlo-------------------------------------------------------------------------------------------------------------------------------
                 {
 
                     hud.PATH.GetComponent<Button>().interactable = true;
@@ -143,14 +151,33 @@ public class mainGame : MonoBehaviour
                     hud.switchTroopsAndBuildings();
                     enemyStrategy();
                 }
-                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat
+                else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
+                    if (building)
+                    {
+                        buildProcess();
+                        if (clicked_left)
+                        {
+                            if (mainMap.setBuilding(localPlayer.buildings[localPlayer.buildings.Count - 1]))
+                            {
+                                building = false;
+                                hud.switchTroopsAndBuildings();
+                            }
+                            clicked_left = false;
+                        }
 
+                    }
 
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
+
+                    if (turnEnded && building)
+                    {
+                        buildCancel();
+                        hud.switchTroopsAndBuildings();
+                    }
                 }
-                else //acaba turno
+                else //acaba turno-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 {
                     
 
@@ -218,7 +245,44 @@ public class mainGame : MonoBehaviour
     }
 
 
+    private void buildProcess()
+    {
+        localPlayer.buildings[localPlayer.buildings.Count - 1].position = cursorPositionWorld;
+        if (Input.mouseScrollDelta.y == 1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].nextSprite();
+        }
+        else if (Input.mouseScrollDelta.y == -1)
+        {
+            localPlayer.buildings[localPlayer.buildings.Count - 1].previousSprite();
+        }
+    }
+    private void buildCancel()
+    {
+        switch (buildingType)
+        {
+            case Building.BuildingType.TRENCH:
+                localPlayer.money += Constants.Entity.Building.Trinchera.cost;
 
+                break;
+            case Building.BuildingType.SNIPER:
+                localPlayer.money += Constants.Entity.Building.Sniper.cost;
+
+                break;
+            case Building.BuildingType.ATANK:
+                localPlayer.money += Constants.Entity.Building.AntiTank.cost;
+
+                break;
+            case Building.BuildingType.AAIR:
+                localPlayer.money += Constants.Entity.Building.AntiAir.cost;
+
+                break;
+
+        }
+        Destroy(localPlayer.buildings[localPlayer.buildings.Count - 1].gameObject);
+        localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
+        building = false;
+    }
 
 
 
@@ -324,6 +388,60 @@ public class mainGame : MonoBehaviour
                 break;
         }
         mainMap.getOthersPath[0][0].updateFicha();
+    }
+
+    public void build(int _b)
+    {
+        switch (_b)
+        {
+            case (int)Building.BuildingType.TRENCH:
+                if (localPlayer.money >= Constants.Entity.Building.Trinchera.cost)
+                {
+                    buildingType = Building.BuildingType.TRENCH;
+                    localPlayer.money -= Constants.Entity.Building.Trinchera.cost;
+                    building = true;
+                    localPlayer.buildings.Add(new Trench());
+
+                }
+                break;
+            case (int)Building.BuildingType.SNIPER:
+                if (localPlayer.money >= Constants.Entity.Building.Sniper.cost)
+                {
+                    buildingType = Building.BuildingType.SNIPER;
+                    localPlayer.money -= Constants.Entity.Building.Sniper.cost;
+                    building = true;
+                    localPlayer.buildings.Add(new Sniper());
+   
+                }
+                break;
+            case (int)Building.BuildingType.ATANK:
+                if (localPlayer.money >= Constants.Entity.Building.AntiTank.cost)
+                {
+                    buildingType = Building.BuildingType.ATANK;
+                    localPlayer.money -= Constants.Entity.Building.AntiTank.cost;
+                    building = true;
+                    localPlayer.buildings.Add(new ATank());
+                    
+                }
+                break;
+            case (int)Building.BuildingType.AAIR:
+                if (localPlayer.money >= Constants.Entity.Building.AntiAir.cost)
+                {
+                    buildingType = Building.BuildingType.AAIR;
+                    localPlayer.money -= Constants.Entity.Building.AntiAir.cost;
+                    building = true;
+                    localPlayer.buildings.Add(new AAir());
+
+                }
+                break;
+            default:
+                break;
+        }
+        if (building)
+        {
+            hud.switchTroopsAndBuildings();
+
+        }
     }
 
     

@@ -10,7 +10,6 @@ public class Ficha : Entity {
 
     private int _i, _j;
 
-
     protected Ficha()
     {
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zFicha);
@@ -37,4 +36,7 @@ public class Ficha : Entity {
     public virtual void updateFicha() { }
     public virtual List<Troop> getTroops() { return null; }
     public virtual void setTroops(List<Troop> _t) { }
+    public virtual void setTargets(List<Utilities.Pair_FichaInt> _list) { }
+    public virtual List<Ficha> getTargets() { return null; }
+    public virtual bool isTargetable() { return false; }
 }

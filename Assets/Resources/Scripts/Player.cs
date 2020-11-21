@@ -8,6 +8,7 @@ public class Player
     int _money;
     int _moneyXTurn;
     List<Troop> _troops;
+    List<Building> _buildings;
 
     public Player(){}
     
@@ -18,6 +19,7 @@ public class Player
         id = _id;
 
         troops = new List<Troop>();
+        buildings = new List<Building>();
     }
     public int id
     {
@@ -38,5 +40,10 @@ public class Player
     {
         get { return _troops; }
         set { _troops = value; }
+    }
+    public List<Building> buildings
+    {
+        get { return _buildings; }
+        set { _buildings = value; }
     }
 }

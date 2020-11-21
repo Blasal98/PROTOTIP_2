@@ -37,6 +37,9 @@ namespace Constants
         public static int h = 7;
         public static int path_size = 15;
 
+        public static Color hoverFicha = new Color(1,0,0,1);
+        public static Color normalFicha = new Color(1,1,1,1);
+
         public class Local
         {
             public static float path_width = 0.25f;
@@ -54,7 +57,7 @@ namespace Constants
     public class Player
     {
         public static int starting_money = 5000;
-        public static int starting_moneyXTurn = 500;
+        public static int starting_moneyXTurn = 0;
     }
     public class Entity
     {
@@ -139,6 +142,7 @@ namespace Constants
         public static int zFicha = 2;
         public static int zFichaIndicator = 0;
         public static int zPath = 1;
+        public static int zBuilding = -1;
     }
 }
 

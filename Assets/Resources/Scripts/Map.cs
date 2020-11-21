@@ -17,6 +17,8 @@ class Map
     private GameObject pathFolder;
     private GameObject localPathFolder;
     private GameObject othersPathFolder;
+    private GameObject localBuildingsFolder;
+    private GameObject othersBuildingsFolder;
 
     private bool _created;
     private bool _justCreated;
@@ -46,6 +48,9 @@ class Map
         localPathFolder.transform.SetParent(pathFolder.transform);
         othersPathFolder = new GameObject("othersPath");
         othersPathFolder.transform.SetParent(pathFolder.transform);
+
+        localBuildingsFolder = new GameObject("localBuildings");
+        othersBuildingsFolder = new GameObject("othersBuildings");
 
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -219,6 +224,7 @@ class Map
 
     #region Public Methods
     public void update() {
+        Ficha auxFicha = null;
         for (int i = 0; i < Constants.Map.w; i++)
         {
             for (int j = 0; j < Constants.Map.h; j++)
@@ -228,21 +234,30 @@ class Map
                     
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
                     {
-                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
+                        if (localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO) auxFicha = localMap[i][j];
                     }
                     else
                     {
-                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.normalFicha;
                     }
                 }
                 
 
             }
         }
+        if (auxFicha != null)
+        {
+            for (int k = 0; k < auxFicha.getTargets().Count; k++)
+            {
+                auxFicha.getTargets()[k].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
+            }
+        }
     }
 
     public bool isTouching(Ficha _f1, Ficha _f2)
     {
+        if (_f1.i == _f2.i && _f1.j == _f2.j) return false;
         if(_f2.i == _f1.i || _f2.i == _f1.i + 1 || _f2.i == _f1.i - 1)
         {
             if(_f1.i % 2 == 0)
@@ -257,6 +272,75 @@ class Map
 
         return false;
     }
+    public List<Utilities.Pair_FichaInt> getTouchingCaminos(Ficha _b)
+    {
+        List<Utilities.Pair_FichaInt> returnList = new List<Utilities.Pair_FichaInt>();
+
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (isTouching(_b, localMap[i][j]) && localMap[i][j].isTargetable())
+                    {
+                        if(_b.i % 2 == 0)
+                        {
+                            if(i == _b.i - 1 && j == _b.j)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
+                            }
+                            else if (i == _b.i - 1 && j == _b.j + 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
+                            }
+                            else if (i == _b.i + 1 && j == _b.j)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
+                            }
+                            else if (i == _b.i + 1 && j == _b.j + 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
+                            }
+                        }
+                        else
+                        {
+                            if (i == _b.i - 1 && j == _b.j - 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
+                            }
+                            else if (i == _b.i - 1 && j == _b.j)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
+                            }
+                            else if (i == _b.i + 1 && j == _b.j - 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
+                            }
+                            else if (i == _b.i + 1 && j == _b.j)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
+                            }
+                        }
+                        if(i == _b.i && j == _b.j - 1)
+                        {
+                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 2));
+                        }
+                        else if (i == _b.i && j == _b.j + 1)
+                        {
+                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 3));
+                        }
+                    }
+                }
+            }
+        }
+        //for(int i = 0; i< returnList.Count; i++)
+        //{
+        //    Debug.Log(returnList[i].i);
+        //}
+        return returnList;
+    }
+
     public void switchPathVisibility()
     {
         if (localPathFolder.GetComponent<LineRenderer>().enabled)
@@ -306,6 +390,41 @@ class Map
         }
         localPath[Constants.Map.path_size - 1].updateFicha();
         othersPath[0][Constants.Map.path_size - 1].updateFicha();
+    }
+
+    public bool setBuilding(Building _b)
+    {
+        bool returnBool = false;
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.VACIO)
+                    {
+
+                        bool auxBool = false;
+                        for(int k = 1; k < Constants.Map.path_size-1; k++)
+                        {
+                            if (isTouching(localMap[i][j], localPath[k])) auxBool = true;
+                        }
+                        if (auxBool) { 
+
+                            Object.Destroy(localMap[i][j].gameObject);
+                            _b.position = localMap[i][j].position;
+                            localMap[i][j] = _b;
+                            localMap[i][j].i = i; localMap[i][j].j = j;
+                            returnBool = true;
+
+                            localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
+                            localMap[i][j].gameObject.transform.SetParent(localBuildingsFolder.transform);
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool;
     }
 
     #endregion
