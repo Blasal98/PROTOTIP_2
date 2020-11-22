@@ -502,6 +502,10 @@ class Map
             localPath[i_path].killTroopOfFicha(i_troop);
             
         }
+        else
+        {
+            othersPath[0][i_path].killTroopOfFicha(i_troop);
+        }
     }
 
     #endregion

@@ -217,8 +217,8 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.TANK);
                 //addTroopEnemy(Troop.troopType.PLANE);
                 break;
@@ -228,8 +228,8 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
                 break;
             case 2:
                 addTroopEnemy(Troop.troopType.SOLDIER);
@@ -237,8 +237,8 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
+                //addTroopEnemy(Troop.troopType.CAR);
                 addBuildingEnemy(Building.BuildingType.TRENCH, 0, 0, 0);
                 break;
         }
@@ -352,7 +352,7 @@ public class mainGame : MonoBehaviour
     void defenseCity()
     {
         if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null) {
-           if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count > 0) { 
+            if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count > 0) { 
                 int rand = Random.Range(0, mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count);
                 mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].health -= localPlayer.attack;
 
@@ -382,6 +382,42 @@ public class mainGame : MonoBehaviour
 
                     localPlayer.troops.Remove(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand]);
                     mainMap.killTroop(Constants.Map.path_size - 1, rand, true);
+                }
+            }
+        }
+        if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops() != null)
+        {
+            if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count > 0)
+            {
+                int rand = Random.Range(0, mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count);
+                mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].health -= othersPlayer[0].attack;
+
+                switch (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].type)
+                {
+                    case Troop.troopType.SOLDIER:
+                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+
+                        break;
+                    case Troop.troopType.CAR:
+                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+
+                        break;
+                    case Troop.troopType.TANK:
+                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+
+                        break;
+                    case Troop.troopType.PLANE:
+                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+
+                        break;
+                }
+                StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
+
+                if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].health <= 0)
+                {
+
+                    othersPlayer[0].troops.Remove(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand]);
+                    mainMap.killTroop(Constants.Map.path_size - 1, rand, false);
                 }
             }
         }
@@ -687,14 +723,24 @@ public class mainGame : MonoBehaviour
         {
             StopCoroutine(localPlayer.shootings[i]);
         }
+        for (int i = 0; i < othersPlayer[0].shootings.Count; i++)
+        {
+            StopCoroutine(othersPlayer[0].shootings[i]);
+        }
         for (int j = 0; j < Constants.Map.path_size; j++)
         {
             mainMap.getLocalPath[j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
             mainMap.getLocalPath[j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
             mainMap.getLocalPath[j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
             mainMap.getLocalPath[j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
+
+            mainMap.getOthersPath[0][j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
+            mainMap.getOthersPath[0][j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
+            mainMap.getOthersPath[0][j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
+            mainMap.getOthersPath[0][j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
         }
         localPlayer.shootings.Clear();
+        othersPlayer[0].shootings.Clear();
     }
 
     private IEnumerator shootRoutine(GameObject troop, int index)
@@ -717,7 +763,7 @@ public class mainGame : MonoBehaviour
         }
        
         troop.GetComponent<SpriteRenderer>().color = startColor;
-        localPlayer.shootings.RemoveAt(index);
+        //if(localPlayer.shootings.Count > index) localPlayer.shootings.RemoveAt(index);
         yield return null;
     }
 
