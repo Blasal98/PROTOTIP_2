@@ -239,7 +239,7 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 //addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.CAR);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 0, 0, 0);
+                addBuildingEnemy(Building.BuildingType.TRENCH, 8, 3, 0);
                 break;
         }
     }
@@ -349,6 +349,7 @@ public class mainGame : MonoBehaviour
             othersPlayer[0].health -= mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].health;
         }
     }
+
     void defenseCity()
     {
         if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null) {
@@ -480,6 +481,69 @@ public class mainGame : MonoBehaviour
 
                             localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[rand]);
                             mainMap.killTroop(killIndex, rand, true);
+                        }
+                    }
+                }
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        for (int i = 0; i < othersPlayer[0].buildings.Count; i++) //per cada edifici
+        {
+            if (othersPlayer[0].buildings[i].targets.Count > 0) //si tenen targets
+            {
+                bool gotFirst = false;
+                int first = -1;
+                int killIndex = -1;
+                for (int j = mainMap.getOthersPath[0].Count - 2; j > 0; j--) //amb aixo agafem el target mes proper al final si hi ha tropes
+                {
+                    if (gotFirst) break;
+                    for (int k = 0; k < othersPlayer[0].buildings[i].targets.Count; k++)
+                    {
+                        if (gotFirst) break;
+                        if (mainMap.getOthersPath[0][j] == othersPlayer[0].buildings[i].targets[k] && othersPlayer[0].buildings[i].targets[k].getTroops().Count > 0)
+                        {
+                            gotFirst = true;
+                            first = k;
+                            killIndex = j;
+                        }
+                    }
+
+                }
+                if (gotFirst)
+                {
+                    if (othersPlayer[0].buildings[i].targets[first].getTroops().Count > 0)
+                    {
+
+                        int rand = Random.Range(0, othersPlayer[0].buildings[i].targets[first].getTroops().Count);
+                        othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health -= othersPlayer[0].attack;
+
+                        switch (othersPlayer[0].buildings[i].targets[first].getTroops()[rand].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+
+                                break;
+                            case Troop.troopType.CAR:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+
+                                break;
+                            case Troop.troopType.TANK:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+
+                                break;
+                            case Troop.troopType.PLANE:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+
+                                break;
+                        }
+                        StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
+
+                        if (othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health <= 0)
+                        {
+
+                            othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[rand]);
+                            mainMap.killTroop(killIndex, rand, false);
                         }
                     }
                 }
