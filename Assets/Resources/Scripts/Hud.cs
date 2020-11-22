@@ -59,7 +59,7 @@ public class Hud : MonoBehaviour
 
     //OTHERS
     public GameObject PAUSE_SCREEN;
-    public GameObject PATH;
+    public GameObject RESTART;
     public GameObject SKIP;
 
     //INFO
@@ -70,6 +70,8 @@ public class Hud : MonoBehaviour
     public GameObject ENEMY_HEALTH;
     public GameObject LOCAL_HEALTH;
 
+    public GameObject WIN;
+    public GameObject LOOSE;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +79,6 @@ public class Hud : MonoBehaviour
 
         visible = true;
 
-        PATH.GetComponent<Button>().interactable = false;
         SKIP.GetComponent<Button>().interactable = false;
 
         SOLDIER_PRICE.GetComponent<TMPro.TextMeshProUGUI>().text = Constants.Entity.Troop.Soldier.cost.ToString() + "$";
