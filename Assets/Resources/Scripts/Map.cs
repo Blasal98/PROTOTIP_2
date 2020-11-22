@@ -430,6 +430,15 @@ class Map
         return returnBool;
     }
 
+    public void killTroop(int i_path, int i_troop, bool local)
+    {
+        if (local)
+        {
+            localPath[i_path].killTroopOfFicha(i_troop);
+            
+        }
+    }
+
     #endregion
 
     #region properties

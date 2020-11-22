@@ -32,6 +32,7 @@ public class Ficha : Entity {
     }
 
     public virtual void addTroopToFicha(Troop _t) { }
+    public virtual void killTroopOfFicha(int index) { }
     public virtual void countTroops() { }
     public virtual void updateFicha() { }
     public virtual List<Troop> getTroops() { return null; }

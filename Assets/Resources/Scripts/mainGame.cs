@@ -185,9 +185,10 @@ public class mainGame : MonoBehaviour
 
                     localPlayer.money += localPlayer.moneyXTurn;
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
-                    //Debug.Log(othersPlayer[0].money);
 
                     mainMap.nextFicha();
+                    defense();
+                    defenseCity();
                     attackCity();
                     if (localPlayer.health <= 0 || othersPlayer[0].health <= 0) ended = true;
 
@@ -297,8 +298,32 @@ public class mainGame : MonoBehaviour
         {
             localPlayer.health -= mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].health;
         }
+        for (int i = 0; i < mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count; i++)
+        {
+            othersPlayer[0].health -= mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].health;
+        }
+    }
+    void defenseCity()
+    {
+        if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null) {
+           if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count > 0) { 
+                int rand = Random.Range(0, mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count);
+                mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].health -= localPlayer.attack;
+                if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].health <= 0)
+                {
+
+                    localPlayer.troops.Remove(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand]);
+                    mainMap.killTroop(Constants.Map.path_size - 1, rand, true);
+                }
+            }
+        }
     }
 
+    void defense()
+    {
+
+    }
+    
 
     void cursorMovement()
     {
@@ -468,6 +493,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.FCar = true;
                     hud.FCARS_BUTTON.GetComponent<Button>().interactable = false;
                     hud.CAR_BUTTON.GetComponent<Button>().interactable = true;
+                    localPlayer.moneyXTurn += Constants.Entity.City.FCars_Plus;
                 }
                 break;
             case 1:
@@ -477,6 +503,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.FTank = true;
                     hud.FTANKS_BUTTON.GetComponent<Button>().interactable = false;
                     hud.TANK_BUTTON.GetComponent<Button>().interactable = true;
+                    localPlayer.moneyXTurn += Constants.Entity.City.FTanks_Plus;
                 }
                 break;
             case 2:
@@ -486,6 +513,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.FPlane = true;
                     hud.FPLANES_BUTTON.GetComponent<Button>().interactable = false;
                     hud.PLANE_BUTTON.GetComponent<Button>().interactable = true;
+                    localPlayer.moneyXTurn += Constants.Entity.City.FPlanes_Plus;
                 }
                 break;
             case 3:

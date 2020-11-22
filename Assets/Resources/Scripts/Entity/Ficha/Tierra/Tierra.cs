@@ -109,6 +109,12 @@ public class Tierra : Ficha
                 break;
         }
     }
+    public override void killTroopOfFicha(int index)
+    {
+        _troops.RemoveAt(index);
+        countTroops();
+        updateFicha();
+    }
     public override void countTroops()
     {
         soldierCount = 0;
