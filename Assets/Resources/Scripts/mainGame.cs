@@ -38,7 +38,7 @@ public class mainGame : MonoBehaviour
 
     bool building;
     Building.BuildingType buildingType;
-
+    Sprite bulletSprite;
 
     #endregion
 
@@ -82,6 +82,7 @@ public class mainGame : MonoBehaviour
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
         building = false;
         buildingType = Building.BuildingType.COUNT;
+        bulletSprite = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/bullet"), new Rect(0, 0, 10,10), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
     }
 
 
@@ -151,6 +152,7 @@ public class mainGame : MonoBehaviour
                     hud.switchButtonsVisibility(null);
                     turnIndex = 0;
                     enemyStrategy();
+
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
@@ -336,7 +338,7 @@ public class mainGame : MonoBehaviour
                 bool gotFirst = false;
                 int first = -1;
                 int killIndex = -1;
-                for(int j = mainMap.getLocalPath.Count-2; j > 0; j--)
+                for(int j = mainMap.getLocalPath.Count-2; j > 0; j--) //amb aixo agafem el target mes proper al final si hi ha tropes
                 {
                     if (gotFirst) break;
                     for (int k = 0; k < localPlayer.buildings[i].targets.Count; k++)
@@ -354,8 +356,27 @@ public class mainGame : MonoBehaviour
                 if (gotFirst) {
                     if (localPlayer.buildings[i].targets[first].getTroops().Count > 0)
                     {
+
                         int rand = Random.Range(0, localPlayer.buildings[i].targets[first].getTroops().Count);
                         localPlayer.buildings[i].targets[first].getTroops()[rand].health -= localPlayer.attack;
+
+                        switch (localPlayer.buildings[i].targets[first].getTroops()[rand].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.SOLDIER)));
+                                break;
+                            case Troop.troopType.CAR:
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.CAR)));
+                                break;
+                            case Troop.troopType.TANK:
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.TANK)));
+                                break;
+                            case Troop.troopType.PLANE:
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.PLANE)));
+                                break;
+                        }
+                        
+
                         if (localPlayer.buildings[i].targets[first].getTroops()[rand].health <= 0)
                         {
 
@@ -587,6 +608,31 @@ public class mainGame : MonoBehaviour
         }
         
     }
-    
+
+    #endregion
+    #region CoRoutines
+
+    private IEnumerator shootRoutine(Vector2 start, Vector2 end)
+    {
+        GameObject gameObject = new GameObject("bullet");
+        Vector2 now = Utilities.Maths.lerpVec2(start, end, 0);
+        gameObject.AddComponent<SpriteRenderer>();
+        gameObject.GetComponent<SpriteRenderer>().sprite = bulletSprite;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        gameObject.transform.position = now;
+        float tAcumulator = 0;
+        float tIteration = 0.1f;
+
+        while (tAcumulator < 1)
+        {
+            now = Utilities.Maths.lerpVec2(start,end,tAcumulator);
+            gameObject.transform.position = now;
+            tAcumulator += tIteration;
+            yield return new WaitForSeconds(tIteration);
+        }
+        Destroy(gameObject);
+        yield return null;
+    }
+
     #endregion
 }

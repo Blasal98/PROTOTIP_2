@@ -203,5 +203,21 @@ public class Tierra : Ficha
     {
         _troops = _t;
     }
+
+    public override Vector3 indicatorPosition(Troop.troopType _t)
+    {
+        switch (_t)
+        {
+            case Troop.troopType.SOLDIER:
+                return soldierIndicator.transform.position;
+            case Troop.troopType.CAR:
+                return carIndicator.transform.position;
+            case Troop.troopType.TANK:
+                return tankIndicator.transform.position;
+            case Troop.troopType.PLANE:
+                return planeIndicator.transform.position;
+        }
+        return new Vector3();
+    }
     #endregion
 }

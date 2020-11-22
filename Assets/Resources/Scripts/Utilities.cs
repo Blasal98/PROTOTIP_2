@@ -14,6 +14,10 @@ namespace Utilities
         {
             return a + f * (b - a);
         }
+        public static Vector2 lerpVec2(Vector2 a,Vector2 b, float f)
+        {
+            return new Vector2(lerp(a.x,b.x,f),lerp(a.y,b.y,f));
+        }
 
     }
     public class Pair_FichaInt
