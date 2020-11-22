@@ -9,6 +9,7 @@ public class Player
     int _moneyXTurn;
     List<Troop> _troops;
     List<Building> _buildings;
+    List<IEnumerator> _shootings;
     int _health;
     int _attack;
 
@@ -28,6 +29,7 @@ public class Player
 
         troops = new List<Troop>();
         buildings = new List<Building>();
+        shootings = new List<IEnumerator>();
     }
     public int id
     {
@@ -63,5 +65,10 @@ public class Player
     {
         get { return _attack; }
         set { _attack = value; }
+    }
+    public List<IEnumerator> shootings
+    {
+        get { return _shootings; }
+        set { _shootings = value; }
     }
 }

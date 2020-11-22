@@ -42,6 +42,8 @@ public class mainGame : MonoBehaviour
     #endregion
 
     #region Methods
+
+    #region start
     // Start is called before the first frame update
     void Start()
     {
@@ -83,19 +85,9 @@ public class mainGame : MonoBehaviour
         buildingType = Building.BuildingType.COUNT;
         
     }
+    #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
+    #region update
 
 
 
@@ -188,6 +180,7 @@ public class mainGame : MonoBehaviour
                     othersPlayer[0].money += othersPlayer[0].moneyXTurn;
 
                     mainMap.nextFicha();
+                    stopRoutines();
                     defense();
                     defenseCity();
                     attackCity();
@@ -203,9 +196,9 @@ public class mainGame : MonoBehaviour
             }
         }
     }
+    #endregion
 
-
-
+    #region enemyIA
     private void enemyStrategy()
     {
         switch (turnIndex)
@@ -272,8 +265,9 @@ public class mainGame : MonoBehaviour
         mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
         mainMap.getLocalPath[0].updateFicha();
     }
+    #endregion
 
-
+    #region build
     private void buildProcess()
     {
         localPlayer.buildings[localPlayer.buildings.Count - 1].position = cursorPositionWorld;
@@ -312,7 +306,9 @@ public class mainGame : MonoBehaviour
         localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
         building = false;
     }
+    #endregion
 
+    #region atk/df
     void attackCity()
     {
         for (int i = 0; i < mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count; i++) 
@@ -374,16 +370,20 @@ public class mainGame : MonoBehaviour
                         switch (localPlayer.buildings[i].targets[first].getTroops()[rand].type)
                         {
                             case Troop.troopType.SOLDIER:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER)));
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
+                                StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
                                 break;
                             case Troop.troopType.CAR:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR)));
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR), localPlayer.shootings.Count));
+                                StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
                                 break;
                             case Troop.troopType.TANK:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK)));
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK), localPlayer.shootings.Count));
+                                StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
                                 break;
                             case Troop.troopType.PLANE:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE)));
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count));
+                                StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
                                 break;
                         }
                         
@@ -399,8 +399,9 @@ public class mainGame : MonoBehaviour
             }
         }
     }
-    
+    #endregion
 
+    #region cursor
     void cursorMovement()
     {
         Resolution auxResolution = Screen.currentResolution;
@@ -412,6 +413,7 @@ public class mainGame : MonoBehaviour
         cursorCollider.transform.position = cursorPositionWorld;
 
     }
+    #endregion
 
     #endregion
 
@@ -621,9 +623,19 @@ public class mainGame : MonoBehaviour
     }
 
     #endregion
+
     #region CoRoutines
 
-    private IEnumerator shootRoutine(GameObject troop)
+    private void stopRoutines()
+    {
+        for(int i = 0; i < localPlayer.shootings.Count; i++)
+        {
+            StopCoroutine(localPlayer.shootings[i]);
+        }
+        localPlayer.shootings.Clear();
+    }
+
+    private IEnumerator shootRoutine(GameObject troop, int index)
     {
         Color startColor = new Color(1, 1, 1, 1);
         Color endColor = new Color(1, 0, 0, 1);
@@ -643,6 +655,7 @@ public class mainGame : MonoBehaviour
         }
        
         troop.GetComponent<SpriteRenderer>().color = startColor;
+        localPlayer.shootings.RemoveAt(index);
         yield return null;
     }
 
