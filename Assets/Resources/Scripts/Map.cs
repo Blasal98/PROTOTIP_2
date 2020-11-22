@@ -364,6 +364,8 @@ class Map
         othersPath[0][Constants.Map.path_size - 1].setTroops(null);
         othersPath[0][Constants.Map.path_size - 1].countTroops();
 
+        if(auxListL == null)Debug.Log("polla");
+
         for (int i = Constants.Map.path_size - 1; i > 0 ; i--)
         {
             localPath[i].setTroops(localPath[i - 1].getTroops());
@@ -379,6 +381,9 @@ class Map
         othersPath[0][0].setTroops(null);
         othersPath[0][0].countTroops();
         othersPath[0][0].updateFicha();
+
+        
+
 
         for (int i = 0; i < auxListL.Count; i++)
         {
