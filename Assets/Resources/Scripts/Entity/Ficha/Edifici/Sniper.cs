@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sniper : Building
 {
-    private int sprite_index;
+
     public Sniper()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = sniper0;

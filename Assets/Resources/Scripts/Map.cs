@@ -272,63 +272,118 @@ class Map
 
         return false;
     }
-    public List<Utilities.Pair_FichaInt> getTouchingCaminos(Ficha _b)
+    public List<Utilities.Pair_FichaInt> getTouchingCaminos(Ficha _b, bool local)
     {
         List<Utilities.Pair_FichaInt> returnList = new List<Utilities.Pair_FichaInt>();
 
+        //if (local) { }
         for (int i = 0; i < Constants.Map.w; i++)
         {
             for (int j = 0; j < Constants.Map.h; j++)
             {
                 if (!(i % 2 == 0 && j == Constants.Map.h - 1))
                 {
-                    if (isTouching(_b, localMap[i][j]) && localMap[i][j].isTargetable())
+                    if (local) { 
+                        if (isTouching(_b, localMap[i][j]) && localMap[i][j].isTargetable())
+                        {
+                            if(_b.i % 2 == 0)
+                            {
+                                if(i == _b.i - 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
+                                }
+                                else if (i == _b.i - 1 && j == _b.j + 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j + 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
+                                }
+                            }
+                            else
+                            {
+                                if (i == _b.i - 1 && j == _b.j - 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
+                                }
+                                else if (i == _b.i - 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j - 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
+                                }
+                            }
+                            if(i == _b.i && j == _b.j - 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 2));
+                            }
+                            else if (i == _b.i && j == _b.j + 1)
+                            {
+                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 3));
+                            }
+                        }
+                    }
+                    else
                     {
-                        if(_b.i % 2 == 0)
+                        if (isTouching(_b, othersMap[0][i][j]) &&  othersMap[0][i][j].isTargetable())
                         {
-                            if(i == _b.i - 1 && j == _b.j)
+                            if (_b.i % 2 == 0)
                             {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
+                                if (i == _b.i - 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 0));
+                                }
+                                else if (i == _b.i - 1 && j == _b.j + 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 1));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 4));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j + 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 5));
+                                }
                             }
-                            else if (i == _b.i - 1 && j == _b.j + 1)
+                            else
                             {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
+                                if (i == _b.i - 1 && j == _b.j - 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 0));
+                                }
+                                else if (i == _b.i - 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 1));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j - 1)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 4));
+                                }
+                                else if (i == _b.i + 1 && j == _b.j)
+                                {
+                                    returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 5));
+                                }
                             }
-                            else if (i == _b.i + 1 && j == _b.j)
+                            if (i == _b.i && j == _b.j - 1)
                             {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
+                                returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 2));
                             }
-                            else if (i == _b.i + 1 && j == _b.j + 1)
+                            else if (i == _b.i && j == _b.j + 1)
                             {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
+                                returnList.Add(new Utilities.Pair_FichaInt( othersMap[0][i][j], 3));
                             }
-                        }
-                        else
-                        {
-                            if (i == _b.i - 1 && j == _b.j - 1)
-                            {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 0));
-                            }
-                            else if (i == _b.i - 1 && j == _b.j)
-                            {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 1));
-                            }
-                            else if (i == _b.i + 1 && j == _b.j - 1)
-                            {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 4));
-                            }
-                            else if (i == _b.i + 1 && j == _b.j)
-                            {
-                                returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 5));
-                            }
-                        }
-                        if(i == _b.i && j == _b.j - 1)
-                        {
-                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 2));
-                        }
-                        else if (i == _b.i && j == _b.j + 1)
-                        {
-                            returnList.Add(new Utilities.Pair_FichaInt(localMap[i][j], 3));
                         }
                     }
                 }
@@ -420,7 +475,7 @@ class Map
                             localMap[i][j].i = i; localMap[i][j].j = j;
                             returnBool = true;
 
-                            localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j]));
+                            localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j],true));
                             localMap[i][j].gameObject.transform.SetParent(localBuildingsFolder.transform);
                         }
                     }
@@ -428,6 +483,16 @@ class Map
             }
         }
         return returnBool;
+    }
+    public void setBuildingEnemy(Building _b, int i, int j)
+    {
+        Object.Destroy(othersMap[0][i][j].gameObject);
+        _b.position = othersMap[0][i][j].position;
+        othersMap[0][i][j] = _b;
+        othersMap[0][i][j].i = i; localMap[i][j].j = j;
+        othersMap[0][i][j].setTargets(getTouchingCaminos(othersMap[0][i][j],false));
+        othersMap[0][i][j].gameObject.transform.localScale = new Vector3(Constants.Entity.Ficha_Pequeña.scaleX, Constants.Entity.Ficha_Pequeña.scaleY, 1);
+        othersMap[0][i][j].gameObject.transform.SetParent(othersBuildingsFolder.transform);
     }
 
     public void killTroop(int i_path, int i_troop, bool local)

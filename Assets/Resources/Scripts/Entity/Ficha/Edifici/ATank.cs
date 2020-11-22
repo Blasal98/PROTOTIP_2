@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ATank : Building
 {
-    private int sprite_index;
+
     public ATank()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = atank0;

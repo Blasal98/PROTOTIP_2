@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Trench : Building
 {
-    private int sprite_index;
+    
     public Trench()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = trench0;

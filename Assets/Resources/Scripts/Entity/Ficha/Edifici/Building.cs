@@ -12,6 +12,8 @@ public class Building : Ficha
     protected static Sprite atank0, atank1, atank2;
     protected static Sprite aair;
 
+    protected int _sprite_index;
+
     protected List<Ficha> _targets;
 
     protected Building()
@@ -48,5 +50,10 @@ public class Building : Ficha
     public override List<Ficha> getTargets()
     {
         return targets;
+    }
+    public int sprite_index
+    {
+        get { return _sprite_index; }
+        set { _sprite_index = value; }
     }
 }

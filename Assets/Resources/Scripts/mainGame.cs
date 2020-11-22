@@ -239,6 +239,7 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.CAR);
                 addTroopEnemy(Troop.troopType.CAR);
+                addBuildingEnemy(Building.BuildingType.TRENCH, 0, 0, 0);
                 break;
         }
     }
@@ -273,9 +274,25 @@ public class mainGame : MonoBehaviour
         mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
         mainMap.getLocalPath[0].updateFicha();
     }
-    private void addBuildingEnemy(Building.BuildingType _t)
+    private void addBuildingEnemy(Building.BuildingType _t, int i,int j, int sprite_index)
     {
-
+        switch (_t)
+        {
+            case Building.BuildingType.TRENCH:
+                othersPlayer[0].buildings.Add(new Trench());
+                break;
+            case Building.BuildingType.SNIPER:
+                othersPlayer[0].buildings.Add(new Sniper());
+                break;
+            case Building.BuildingType.ATANK:
+                othersPlayer[0].buildings.Add(new ATank());
+                break;
+            case Building.BuildingType.AAIR:
+                othersPlayer[0].buildings.Add(new AAir());
+                break;
+        }
+        othersPlayer[0].buildings[othersPlayer[0].buildings.Count - 1].sprite_index = sprite_index;
+        mainMap.setBuildingEnemy(othersPlayer[0].buildings[othersPlayer[0].buildings.Count - 1], i, j);
     }
     #endregion
 
