@@ -273,6 +273,10 @@ public class mainGame : MonoBehaviour
         mainMap.getLocalPath[0].addTroopToFicha(othersPlayer[0].troops[othersPlayer[0].troops.Count - 1]);
         mainMap.getLocalPath[0].updateFicha();
     }
+    private void addBuildingEnemy(Building.BuildingType _t)
+    {
+
+    }
     #endregion
 
     #region build

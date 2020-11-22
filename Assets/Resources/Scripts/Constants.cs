@@ -79,6 +79,9 @@ namespace Constants
 
             public static int hPix = 50;
             public static int wPix = 58;
+
+            public static float scaleX = 0.5385f/*(float)42 / 78*/;
+            public static float scaleY = 0.5f;
         }
 
         public class Troop
