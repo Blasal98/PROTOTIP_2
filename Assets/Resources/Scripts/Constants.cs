@@ -126,6 +126,11 @@ namespace Constants
             {
                 public static int cost = 2000;
             }
+            public class Animation
+            {
+                public static float duration = 1;
+                public static int steps = 25;
+            }
         }
         public class City
         {

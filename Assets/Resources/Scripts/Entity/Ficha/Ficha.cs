@@ -31,7 +31,7 @@ public class Ficha : Entity {
         set { _type = value; }
     }
 
-    public virtual Vector3 indicatorPosition(Troop.troopType _t) { return new Vector3(); }
+    public virtual GameObject indicator(Troop.troopType _t) { return null; }
     public virtual void addTroopToFicha(Troop _t) { }
     public virtual void killTroopOfFicha(int index) { }
     public virtual void countTroops() { }

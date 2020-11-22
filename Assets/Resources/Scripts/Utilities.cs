@@ -18,6 +18,10 @@ namespace Utilities
         {
             return new Vector2(lerp(a.x,b.x,f),lerp(a.y,b.y,f));
         }
+        public static Color lerpColor(Color a, Color b, float f)
+        {
+            return new Color(lerp(a.r, b.r, f), lerp(a.g, b.g, f), lerp(a.b, b.b, f), lerp(a.a, b.a, f));
+        }
 
     }
     public class Pair_FichaInt

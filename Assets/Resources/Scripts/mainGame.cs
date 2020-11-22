@@ -38,7 +38,6 @@ public class mainGame : MonoBehaviour
 
     bool building;
     Building.BuildingType buildingType;
-    Sprite bulletSprite;
 
     #endregion
 
@@ -82,7 +81,7 @@ public class mainGame : MonoBehaviour
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
         building = false;
         buildingType = Building.BuildingType.COUNT;
-        bulletSprite = UnityEngine.Sprite.Create(Resources.Load<Texture2D>("Images/bullet"), new Rect(0, 0, 10,10), new Vector2(0.5f, 0.5f), Constants.Entity.imgDfltPiXUnit);
+        
     }
 
 
@@ -217,16 +216,28 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.TANK);
                 //addTroopEnemy(Troop.troopType.PLANE);
                 break;
             case 1:
-                //addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.CAR);
+                break;
+            case 2:
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.CAR);
                 break;
         }
     }
@@ -363,16 +374,16 @@ public class mainGame : MonoBehaviour
                         switch (localPlayer.buildings[i].targets[first].getTroops()[rand].type)
                         {
                             case Troop.troopType.SOLDIER:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.SOLDIER)));
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER)));
                                 break;
                             case Troop.troopType.CAR:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.CAR)));
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR)));
                                 break;
                             case Troop.troopType.TANK:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.TANK)));
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK)));
                                 break;
                             case Troop.troopType.PLANE:
-                                StartCoroutine(shootRoutine(localPlayer.buildings[i].position, localPlayer.buildings[i].targets[first].indicatorPosition(Troop.troopType.PLANE)));
+                                StartCoroutine(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE)));
                                 break;
                         }
                         
@@ -612,25 +623,26 @@ public class mainGame : MonoBehaviour
     #endregion
     #region CoRoutines
 
-    private IEnumerator shootRoutine(Vector2 start, Vector2 end)
+    private IEnumerator shootRoutine(GameObject troop)
     {
-        GameObject gameObject = new GameObject("bullet");
-        Vector2 now = Utilities.Maths.lerpVec2(start, end, 0);
-        gameObject.AddComponent<SpriteRenderer>();
-        gameObject.GetComponent<SpriteRenderer>().sprite = bulletSprite;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-        gameObject.transform.position = now;
-        float tAcumulator = 0;
-        float tIteration = 0.1f;
+        Color startColor = new Color(1, 1, 1, 1);
+        Color endColor = new Color(1, 0, 0, 1);
+        Color nowColor = startColor;
 
-        while (tAcumulator < 1)
+        float duration = Constants.Entity.Building.Animation.duration;
+        int steps = Constants.Entity.Building.Animation.steps;
+        float acumulator = 0;
+
+        while (acumulator < duration)
         {
-            now = Utilities.Maths.lerpVec2(start,end,tAcumulator);
-            gameObject.transform.position = now;
-            tAcumulator += tIteration;
-            yield return new WaitForSeconds(tIteration);
+            troop.GetComponent<SpriteRenderer>().color = nowColor;
+            acumulator += duration / steps;
+            float mapped = Utilities.Maths.mapping(acumulator, 0, duration, 0, 1);
+            nowColor = Utilities.Maths.lerpColor(startColor, endColor, mapped);
+            yield return new WaitForSeconds(duration / steps);
         }
-        Destroy(gameObject);
+       
+        troop.GetComponent<SpriteRenderer>().color = startColor;
         yield return null;
     }
 

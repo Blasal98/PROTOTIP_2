@@ -204,20 +204,20 @@ public class Tierra : Ficha
         _troops = _t;
     }
 
-    public override Vector3 indicatorPosition(Troop.troopType _t)
+    public override GameObject indicator(Troop.troopType _t)
     {
         switch (_t)
         {
             case Troop.troopType.SOLDIER:
-                return soldierIndicator.transform.position;
+                return soldierIndicator;
             case Troop.troopType.CAR:
-                return carIndicator.transform.position;
+                return carIndicator;
             case Troop.troopType.TANK:
-                return tankIndicator.transform.position;
+                return tankIndicator;
             case Troop.troopType.PLANE:
-                return planeIndicator.transform.position;
+                return planeIndicator;
         }
-        return new Vector3();
+        return null;
     }
     #endregion
 }
