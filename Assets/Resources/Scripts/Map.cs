@@ -458,6 +458,7 @@ class Map
 
     public bool setBuilding(Building _b)
     {
+        bool onlyOne = false;
         bool returnBool = false;
         for (int i = 0; i < Constants.Map.w; i++)
         {
@@ -465,7 +466,7 @@ class Map
             {
                 if (!(i % 2 == 0 && j == Constants.Map.h - 1))
                 {
-                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.VACIO)
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.VACIO && !onlyOne)
                     {
 
                         bool auxBool = false;
@@ -483,6 +484,7 @@ class Map
 
                             localMap[i][j].setTargets(getTouchingCaminos(localMap[i][j],true));
                             localMap[i][j].gameObject.transform.SetParent(localBuildingsFolder.transform);
+                            onlyOne = true;
                         }
                     }
                 }
