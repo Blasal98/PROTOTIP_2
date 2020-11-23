@@ -74,6 +74,10 @@ public class Building : Ficha
                                                  Constants.Layers.zBuildingIndicator);
         upX2Obj.transform.localScale = new Vector3(Constants.Entity.Building.up_scale, Constants.Entity.Building.up_scale, 1);
 
+        upCammoObj.SetActive(false);
+        upArmorObj.SetActive(false);
+        upX2Obj.SetActive(false);
+
         type = Ficha_Type.EDIFICIO;
         targets = new List<Ficha>();
         troopTypes = new List<Troop.troopType>();

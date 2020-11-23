@@ -212,11 +212,11 @@ public class mainGame : MonoBehaviour
         switch (turnIndex)
         {
             case 0:
-                addTroopEnemy(Troop.troopType.SOLDIER,Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
                 break;
             case 1:
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
-                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
 
                 addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
                 addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
@@ -225,14 +225,30 @@ public class mainGame : MonoBehaviour
 
                 break;
             case 2:
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                break;
+            case 3:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                break;
+            case 4:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
 
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
                 break;
         }
     }
