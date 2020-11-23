@@ -75,6 +75,11 @@ public class Hud : MonoBehaviour
     public GameObject WIN;
     public GameObject LOOSE;
 
+    //PROPERTYS
+    public GameObject BUILDINGS_PROPERTIES;
+    public GameObject TROOPS_PROPERTIES;
+    public GameObject INFO_PROPERTIES;
+
     // Start is called before the first frame update
     void Start()
     {

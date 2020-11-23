@@ -40,6 +40,8 @@ public class mainGame : MonoBehaviour
     bool building;
     Building.BuildingType buildingType;
 
+    Ficha selectedBuilding;
+
     #endregion
 
     #region Methods
@@ -85,6 +87,8 @@ public class mainGame : MonoBehaviour
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
         building = false;
         buildingType = Building.BuildingType.COUNT;
+
+
         
     }
     #endregion
@@ -163,6 +167,22 @@ public class mainGame : MonoBehaviour
                         }
 
                     }
+                    if (clicked_left)
+                    {
+                        if (mainMap.getBuildingTriggered() != null)
+                        {
+                            hud.BUILDINGS_PROPERTIES.SetActive(true);
+                            selectedBuilding = mainMap.getBuildingTriggered();
+                            //selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                        }
+                        else if(selectedBuilding != null)
+                        {
+                            hud.BUILDINGS_PROPERTIES.SetActive(false);
+                            //selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                            selectedBuilding = null;
+                        }
+                        clicked_left = false;
+                    }
 
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
@@ -202,6 +222,9 @@ public class mainGame : MonoBehaviour
         {
             if (won) hud.WIN.SetActive(true);
             else hud.LOOSE.SetActive(true);
+            hud.BUILDINGS_PROPERTIES.SetActive(false);
+            hud.TROOPS_PROPERTIES.SetActive(false);
+            hud.INFO_PROPERTIES.SetActive(false);
         }
     }
     #endregion

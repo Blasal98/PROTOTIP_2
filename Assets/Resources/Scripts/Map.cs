@@ -265,6 +265,21 @@ class Map
             }
         }
     }
+    public Ficha getBuildingTriggered()
+    {
+        Ficha auxFicha = null;
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered && localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO) auxFicha = localMap[i][j];
+                }
+            }
+        }
+        return auxFicha;
+    }
 
     public bool isTouching(Ficha _f1, Ficha _f2)
     {
