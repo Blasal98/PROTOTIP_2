@@ -230,6 +230,7 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 //addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.CAR);
+                //addBuildingEnemy(Building.BuildingType.TRENCH, 9, 3, 0);
                 break;
             case 2:
                 addTroopEnemy(Troop.troopType.SOLDIER);

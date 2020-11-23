@@ -187,6 +187,17 @@ class Map
             auxPos = othersMap[0][13][5].position; Object.Destroy(othersMap[0][13][5].gameObject);
             othersMap[0][13][5] = new End(pathFolder, false); othersPath[0].Add(othersMap[0][13][5]); othersMap[0][13][5].position = auxPos;
 
+            for (int i = 0; i < Constants.Map.w; i++)
+            {
+                for (int j = 0; j < Constants.Map.h; j++)
+                {
+                    if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                    {
+                        othersMap[0][i][j].i = i; othersMap[0][i][j].j = j;
+                    }
+                }
+            }
+    
             localPathFolder.AddComponent<LineRenderer>();
             localPathFolder.GetComponent<LineRenderer>().startWidth = localPathFolder.GetComponent<LineRenderer>().endWidth = Constants.Map.Local.path_width;
             localPathFolder.GetComponent<LineRenderer>().material = new Material(Shader.Find("Sprites/Default"));
@@ -276,7 +287,6 @@ class Map
     {
         List<Utilities.Pair_FichaInt> returnList = new List<Utilities.Pair_FichaInt>();
 
-        //if (local) { }
         for (int i = 0; i < Constants.Map.w; i++)
         {
             for (int j = 0; j < Constants.Map.h; j++)
@@ -393,6 +403,7 @@ class Map
         //{
         //    Debug.Log(returnList[i].i);
         //}
+        //if(!local)Debug.Log(returnList.Count);
         return returnList;
     }
 
@@ -489,7 +500,7 @@ class Map
         Object.Destroy(othersMap[0][i][j].gameObject);
         _b.position = othersMap[0][i][j].position;
         othersMap[0][i][j] = _b;
-        othersMap[0][i][j].i = i; localMap[i][j].j = j;
+        othersMap[0][i][j].i = i; othersMap[0][i][j].j = j;
         othersMap[0][i][j].setTargets(getTouchingCaminos(othersMap[0][i][j],false));
         othersMap[0][i][j].gameObject.transform.localScale = new Vector3(Constants.Entity.Ficha_Pequeña.scaleX, Constants.Entity.Ficha_Pequeña.scaleY, 1);
         othersMap[0][i][j].gameObject.transform.SetParent(othersBuildingsFolder.transform);
