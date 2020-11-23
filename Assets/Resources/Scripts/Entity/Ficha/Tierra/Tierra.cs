@@ -21,6 +21,7 @@ public class Tierra : Ficha
     public static List<Sprite> tank_sprites;
     public static List<Sprite> plane_sprites;
 
+    #region constructor
     protected Tierra()
     {
         if (soldier_sprites == null)
@@ -84,6 +85,8 @@ public class Tierra : Ficha
         tankCount = 0;
         planeCount = 0;
     }
+    #endregion
+
     public override void addTroopToFicha(Troop _t)
     {
         if (_troops == null) _troops = new List<Troop>();

@@ -212,33 +212,16 @@ public class mainGame : MonoBehaviour
         switch (turnIndex)
         {
             case 0:
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.TANK);
-                addTroopEnemy(Troop.troopType.PLANE);
+                addTroopEnemy(Troop.troopType.SOLDIER,Troop.propertyType.NOTHING);
                 break;
             case 1:
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.TANK);
-                addTroopEnemy(Troop.troopType.PLANE);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+
                 addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
                 addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
                 addBuildingEnemy(Building.BuildingType.TRENCH, 5, 4, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 6, 4, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 4, 1, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 5, 2, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 6, 2, 2);
+
 
                 break;
             case 2:
@@ -254,29 +237,97 @@ public class mainGame : MonoBehaviour
         }
     }
 
-    private void addTroopEnemy(Troop.troopType _t)
+    private void addTroopEnemy(Troop.troopType _t, Troop.propertyType _p)
     {
         switch (_t)
         {
             case Troop.troopType.SOLDIER:
-                othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.NOTHING));
-                othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.CAR:
-                othersPlayer[0].troops.Add(new Car(Troop.propertyType.NOTHING));
-                othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.TANK:
-                othersPlayer[0].troops.Add(new Tank(Troop.propertyType.NOTHING));
-                othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.PLANE:
-                othersPlayer[0].troops.Add(new Plane(Troop.propertyType.NOTHING));
-                othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             default:
                 break;
@@ -849,15 +900,8 @@ public class mainGame : MonoBehaviour
         }
         for (int j = 0; j < Constants.Map.path_size; j++)
         {
-            mainMap.getLocalPath[j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
-
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
+            mainMap.getLocalPath[j].updateFicha();
+            mainMap.getOthersPath[0][j].updateFicha();
         }
         localPlayer.shootings.Clear();
         othersPlayer[0].shootings.Clear();
@@ -865,6 +909,7 @@ public class mainGame : MonoBehaviour
 
     private IEnumerator shootRoutine(GameObject troop, int index)
     {
+        Color hadColor = troop.GetComponent<SpriteRenderer>().color;
         Color startColor = new Color(1, 1, 1, 1);
         Color endColor = new Color(1, 0, 0, 1);
         Color nowColor = startColor;
@@ -882,8 +927,7 @@ public class mainGame : MonoBehaviour
             yield return new WaitForSeconds(duration / steps);
         }
        
-        troop.GetComponent<SpriteRenderer>().color = startColor;
-        //if(localPlayer.shootings.Count > index) localPlayer.shootings.RemoveAt(index);
+        troop.GetComponent<SpriteRenderer>().color = hadColor;
         yield return null;
     }
 
