@@ -35,4 +35,16 @@ namespace Utilities
         }
 
     }
+    public class Pair_TroopInt
+    {
+        public Troop t;
+        public int i;
+
+        Pair_TroopInt() { }
+        public Pair_TroopInt(Troop _t, int _i)
+        {
+            t = _t; i = _i;
+        }
+
+    }
 }

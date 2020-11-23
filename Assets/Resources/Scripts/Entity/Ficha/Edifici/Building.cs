@@ -6,7 +6,7 @@ public class Building : Ficha
 {
     public enum BuildingType { TRENCH,SNIPER,ATANK,AAIR, COUNT}
     protected BuildingType bType;
-    protected List<Troop.troopType> troopTypes;
+    protected List<Troop.troopType> _troopTypes;
 
     protected int _damage;
 
@@ -64,5 +64,10 @@ public class Building : Ficha
     {
         get { return _damage; }
         set { _damage = value; }
+    }
+    public List<Troop.troopType> troopTypes
+    {
+        get { return _troopTypes; }
+        set { _troopTypes = value; }
     }
 }

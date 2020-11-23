@@ -217,10 +217,10 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.TANK);
-                //addTroopEnemy(Troop.troopType.PLANE);
+                addTroopEnemy(Troop.troopType.TANK);
+                addTroopEnemy(Troop.troopType.PLANE);
                 break;
             case 1:
                 addTroopEnemy(Troop.troopType.SOLDIER);
@@ -228,16 +228,18 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
                 addTroopEnemy(Troop.troopType.SOLDIER);
+                addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                //addBuildingEnemy(Building.BuildingType.TRENCH, 9, 3, 0);
+                addTroopEnemy(Troop.troopType.TANK);
+                addTroopEnemy(Troop.troopType.PLANE);
+                addBuildingEnemy(Building.BuildingType.SNIPER, 9, 3, 0);
                 break;
             case 2:
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
+                //addTroopEnemy(Troop.troopType.SOLDIER);
+                //addTroopEnemy(Troop.troopType.SOLDIER);
+                //addTroopEnemy(Troop.troopType.SOLDIER);
+                //addTroopEnemy(Troop.troopType.SOLDIER);
+                //addTroopEnemy(Troop.troopType.SOLDIER);
                 //addTroopEnemy(Troop.troopType.CAR);
                 //addTroopEnemy(Troop.troopType.CAR);
                 addBuildingEnemy(Building.BuildingType.TRENCH, 8, 3, 0);
@@ -452,11 +454,19 @@ public class mainGame : MonoBehaviour
                 if (gotFirst) {
                     if (localPlayer.buildings[i].targets[first].getTroops().Count > 0)
                     {
+                        List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                        for (int j = 0; j < localPlayer.buildings[i].targets[first].getTroops().Count; j++) 
+                        {
+                            for (int k = 0; k < localPlayer.buildings[i].troopTypes.Count; k++) 
+                            {
+                                if (localPlayer.buildings[i].targets[first].getTroops()[j].type == localPlayer.buildings[i].troopTypes[k])
+                                    auxList.Add(new Utilities.Pair_TroopInt(localPlayer.buildings[i].targets[first].getTroops()[j], j));
+                            }
+                        }
+                        int rand = Random.Range(0, auxList.Count);
+                        localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health -= localPlayer.buildings[i].damage;
 
-                        int rand = Random.Range(0, localPlayer.buildings[i].targets[first].getTroops().Count);
-                        localPlayer.buildings[i].targets[first].getTroops()[rand].health -= localPlayer.buildings[i].damage;
-
-                        switch (localPlayer.buildings[i].targets[first].getTroops()[rand].type)
+                        switch (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].type)
                         {
                             case Troop.troopType.SOLDIER:
                                 localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
@@ -477,11 +487,11 @@ public class mainGame : MonoBehaviour
                         }
                         StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
 
-                        if (localPlayer.buildings[i].targets[first].getTroops()[rand].health <= 0)
+                        if (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
                         {
 
-                            localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[rand]);
-                            mainMap.killTroop(killIndex, rand, true);
+                            localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(killIndex, auxList[rand].i, true);
                         }
                     }
                 }
@@ -515,11 +525,20 @@ public class mainGame : MonoBehaviour
                 {
                     if (othersPlayer[0].buildings[i].targets[first].getTroops().Count > 0)
                     {
+                        List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                        for (int j = 0; j < othersPlayer[0].buildings[i].targets[first].getTroops().Count; j++)
+                        {
+                            for (int k = 0; k < othersPlayer[0].buildings[i].troopTypes.Count; k++)
+                            {
+                                if (othersPlayer[0].buildings[i].targets[first].getTroops()[j].type == othersPlayer[0].buildings[i].troopTypes[k])
+                                    auxList.Add(new Utilities.Pair_TroopInt(othersPlayer[0].buildings[i].targets[first].getTroops()[j], j));
+                            }
+                        }
 
-                        int rand = Random.Range(0, othersPlayer[0].buildings[i].targets[first].getTroops().Count);
-                        othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health -= othersPlayer[0].buildings[i].damage;
+                        int rand = Random.Range(0, auxList.Count);
+                        othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health -= othersPlayer[0].buildings[i].damage;
 
-                        switch (othersPlayer[0].buildings[i].targets[first].getTroops()[rand].type)
+                        switch (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].type)
                         {
                             case Troop.troopType.SOLDIER:
                                 othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
@@ -540,11 +559,11 @@ public class mainGame : MonoBehaviour
                         }
                         StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
 
-                        if (othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health <= 0)
+                        if (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
                         {
 
-                            othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[rand]);
-                            mainMap.killTroop(killIndex, rand, false);
+                            othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(killIndex, auxList[rand].i, false);
                         }
                     }
                 }
@@ -579,6 +598,8 @@ public class mainGame : MonoBehaviour
         hud.TURN_TIME_LEFT.GetComponent<TMPro.TextMeshProUGUI>().text = "Time Left: " + turnTimeLeft + "s";
         hud.LOCAL_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + localPlayer.health;
         hud.ENEMY_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + othersPlayer[0].health;
+        hud.LOCAL_ATTACK.GetComponent<TMPro.TextMeshProUGUI>().text = "A: " + localPlayer.attack;
+        hud.ENEMY_ATTACK.GetComponent<TMPro.TextMeshProUGUI>().text = "A: " + othersPlayer[0].attack;
 
     }
 

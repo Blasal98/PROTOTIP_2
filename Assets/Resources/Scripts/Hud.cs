@@ -69,6 +69,8 @@ public class Hud : MonoBehaviour
     public GameObject TURN_TIME_LEFT;
     public GameObject ENEMY_HEALTH;
     public GameObject LOCAL_HEALTH;
+    public GameObject ENEMY_ATTACK;
+    public GameObject LOCAL_ATTACK;
 
     public GameObject WIN;
     public GameObject LOOSE;
@@ -101,6 +103,8 @@ public class Hud : MonoBehaviour
 
         ENEMY_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
         LOCAL_HEALTH.GetComponent<TMPro.TextMeshProUGUI>().text = "H: " + Constants.Player.starting_health.ToString() ;
+        ENEMY_ATTACK.GetComponent<TMPro.TextMeshProUGUI>().text = "A: " + Constants.Player.starting_attack.ToString();
+        LOCAL_ATTACK.GetComponent<TMPro.TextMeshProUGUI>().text = "A: " + Constants.Player.starting_attack.ToString();
 
         switchButtonsVisibility(null);
     }
