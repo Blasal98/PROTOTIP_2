@@ -186,6 +186,20 @@ public class Tierra : Ficha
             carIndicator.SetActive(true);
             if (carCount > 9) carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[10];
             else carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[carCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.CAR)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {
@@ -198,6 +212,20 @@ public class Tierra : Ficha
             tankIndicator.SetActive(true);
             if (tankCount > 9) tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[10];
             else tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[tankCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.TANK)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {
@@ -210,6 +238,20 @@ public class Tierra : Ficha
             planeIndicator.SetActive(true);
             if (planeCount > 9) planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[10];
             else planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[planeCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.PLANE)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {

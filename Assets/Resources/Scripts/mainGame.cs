@@ -340,13 +340,13 @@ public class mainGame : MonoBehaviour
         switch (_t)
         {
             case Building.BuildingType.TRENCH:
-                othersPlayer[0].buildings.Add(new Trench());
+                othersPlayer[0].buildings.Add(new Trench(sprite_index));
                 break;
             case Building.BuildingType.SNIPER:
-                othersPlayer[0].buildings.Add(new Sniper());
+                othersPlayer[0].buildings.Add(new Sniper(sprite_index));
                 break;
             case Building.BuildingType.ATANK:
-                othersPlayer[0].buildings.Add(new ATank());
+                othersPlayer[0].buildings.Add(new ATank(sprite_index));
                 break;
             case Building.BuildingType.AAIR:
                 othersPlayer[0].buildings.Add(new AAir());
