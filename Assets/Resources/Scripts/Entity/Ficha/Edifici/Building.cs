@@ -6,6 +6,9 @@ public class Building : Ficha
 {
     public enum BuildingType { TRENCH,SNIPER,ATANK,AAIR, COUNT}
     protected BuildingType bType;
+    protected List<Troop.troopType> troopTypes;
+
+    protected int _damage;
 
     protected static Sprite trench0, trench1, trench2;
     protected static Sprite sniper0, sniper1;
@@ -36,6 +39,7 @@ public class Building : Ficha
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zBuilding);
         type = Ficha_Type.EDIFICIO;
         targets = new List<Ficha>();
+        troopTypes = new List<Troop.troopType>();
     }
     public virtual void nextSprite() { }
     public virtual void previousSprite() { }
@@ -55,5 +59,10 @@ public class Building : Ficha
     {
         get { return _sprite_index; }
         set { _sprite_index = value; }
+    }
+    public int damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
     }
 }

@@ -399,11 +399,6 @@ class Map
                 }
             }
         }
-        //for(int i = 0; i< returnList.Count; i++)
-        //{
-        //    Debug.Log(returnList[i].i);
-        //}
-        //if(!local)Debug.Log(returnList.Count);
         return returnList;
     }
 

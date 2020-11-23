@@ -9,6 +9,9 @@ public class ATank : Building
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
         sprite_index = 0;
+        damage = Constants.Entity.Building.AntiTank.dmg;
+        troopTypes.Add(Troop.troopType.CAR);
+        troopTypes.Add(Troop.troopType.TANK);
     }
 
     public override void nextSprite()

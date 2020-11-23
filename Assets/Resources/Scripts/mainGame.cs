@@ -454,7 +454,7 @@ public class mainGame : MonoBehaviour
                     {
 
                         int rand = Random.Range(0, localPlayer.buildings[i].targets[first].getTroops().Count);
-                        localPlayer.buildings[i].targets[first].getTroops()[rand].health -= localPlayer.attack;
+                        localPlayer.buildings[i].targets[first].getTroops()[rand].health -= localPlayer.buildings[i].damage;
 
                         switch (localPlayer.buildings[i].targets[first].getTroops()[rand].type)
                         {
@@ -517,7 +517,7 @@ public class mainGame : MonoBehaviour
                     {
 
                         int rand = Random.Range(0, othersPlayer[0].buildings[i].targets[first].getTroops().Count);
-                        othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health -= othersPlayer[0].attack;
+                        othersPlayer[0].buildings[i].targets[first].getTroops()[rand].health -= othersPlayer[0].buildings[i].damage;
 
                         switch (othersPlayer[0].buildings[i].targets[first].getTroops()[rand].type)
                         {
@@ -756,6 +756,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.City.Milloras;
                     localPlayer.MCamo = true;
                     hud.MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
+                    localPlayer.attack += Constants.Entity.City.MCammo;
                 }
                 break;
             case 4:
@@ -764,6 +765,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.City.Milloras;
                     localPlayer.MArmor = true;
                     hud.MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
+                    localPlayer.attack += Constants.Entity.City.MArmor;
                 }
                 break;
             case 5:
@@ -772,6 +774,7 @@ public class mainGame : MonoBehaviour
                     localPlayer.money -= Constants.Entity.City.Milloras;
                     localPlayer.MAir = true;
                     hud.MAIR_BUTTON.GetComponent<Button>().interactable = false;
+                    localPlayer.attack += Constants.Entity.City.MAir;
                 }
                 break;
         }

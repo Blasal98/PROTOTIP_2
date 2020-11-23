@@ -9,6 +9,9 @@ public class Trench : Building
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = trench0;
         sprite_index = 0;
+        damage = Constants.Entity.Building.Trinchera.dmg;
+        troopTypes.Add(Troop.troopType.SOLDIER);
+        troopTypes.Add(Troop.troopType.CAR);
     }
 
     public override void nextSprite()

@@ -116,18 +116,22 @@ namespace Constants
             public class Trinchera
             {
                 public static int cost = 250;
+                public static int dmg = 1;
             }
             public class Sniper
             {
                 public static int cost = 500;
+                public static int dmg = 2;
             }
             public class AntiTank
             {
                 public static int cost = 1000;
+                public static int dmg = 5;
             }
             public class AntiAir
             {
                 public static int cost = 2000;
+                public static int dmg = 8;
             }
             public class Animation
             {
@@ -147,6 +151,9 @@ namespace Constants
             public static int FPlanes_Plus = 300;
 
             public static int Milloras = 750;
+            public static int MCammo = 1;
+            public static int MArmor = 2;
+            public static int MAir = 4;
 
         }
     }
