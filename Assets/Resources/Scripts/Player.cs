@@ -9,7 +9,9 @@ public class Player
     int _moneyXTurn;
     List<Troop> _troops;
     List<Building> _buildings;
+    List<IEnumerator> _shootings;
     int _health;
+    int _attack;
 
     public bool FCar, FTank, FPlane, MCamo, MArmor, MAir;
 
@@ -21,9 +23,13 @@ public class Player
         moneyXTurn = Constants.Player.starting_moneyXTurn;
         id = _id;
         health = Constants.Player.starting_health;
+        attack = Constants.Player.starting_attack;
+
+        FCar = FTank = FPlane = MCamo = MArmor = MAir = false;
 
         troops = new List<Troop>();
         buildings = new List<Building>();
+        shootings = new List<IEnumerator>();
     }
     public int id
     {
@@ -54,5 +60,15 @@ public class Player
     {
         get { return _health; }
         set { _health = value; }
+    }
+    public int attack
+    {
+        get { return _attack; }
+        set { _attack = value; }
+    }
+    public List<IEnumerator> shootings
+    {
+        get { return _shootings; }
+        set { _shootings = value; }
     }
 }

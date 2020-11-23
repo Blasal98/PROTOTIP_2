@@ -14,6 +14,14 @@ namespace Utilities
         {
             return a + f * (b - a);
         }
+        public static Vector2 lerpVec2(Vector2 a,Vector2 b, float f)
+        {
+            return new Vector2(lerp(a.x,b.x,f),lerp(a.y,b.y,f));
+        }
+        public static Color lerpColor(Color a, Color b, float f)
+        {
+            return new Color(lerp(a.r, b.r, f), lerp(a.g, b.g, f), lerp(a.b, b.b, f), lerp(a.a, b.a, f));
+        }
 
     }
     public class Pair_FichaInt
@@ -24,6 +32,18 @@ namespace Utilities
         Pair_FichaInt() { }
         public Pair_FichaInt(Ficha _f, int _i) {
             f = _f; i = _i;
+        }
+
+    }
+    public class Pair_TroopInt
+    {
+        public Troop t;
+        public int i;
+
+        Pair_TroopInt() { }
+        public Pair_TroopInt(Troop _t, int _i)
+        {
+            t = _t; i = _i;
         }
 
     }

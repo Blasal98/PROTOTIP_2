@@ -56,9 +56,10 @@ namespace Constants
     }
     public class Player
     {
-        public static int starting_money = 5000;
-        public static int starting_moneyXTurn = 0;
+        public static int starting_money = 10000;
+        public static int starting_moneyXTurn = 500;
         public static int starting_health = 100;
+        public static int starting_attack = 1;
     }
     public class Entity
     {
@@ -78,6 +79,9 @@ namespace Constants
 
             public static int hPix = 50;
             public static int wPix = 58;
+
+            public static float scaleX = 0.5385f/*(float)42 / 78*/;
+            public static float scaleY = 0.5f;
         }
 
         public class Troop
@@ -89,38 +93,57 @@ namespace Constants
             public class Soldier
             {
                 public static int cost = 50;
+                public static int health = 1;
             }
             public class Car
             {
                 public static int cost = 200;
+                public static int health = 4;
             }
             public class Tank
             {
                 public static int cost = 800;
+                public static int health = 10;
             }
             public class Plane
             {
                 public static int cost = 1600;
+                public static int health = 15;
             }
         }
         public class Building
         {
+            
+            public static int up_hPix = 90;
+            public static int up_wPix = 90;
+            public static float up_scale = 0.35f;
+
             public class Trinchera
             {
                 public static int cost = 250;
+                public static int dmg = 1;
             }
             public class Sniper
             {
                 public static int cost = 500;
+                public static int dmg = 2;
             }
             public class AntiTank
             {
                 public static int cost = 1000;
+                public static int dmg = 5;
             }
             public class AntiAir
             {
                 public static int cost = 2000;
+                public static int dmg = 8;
             }
+            public class Animation
+            {
+                public static float duration = 1;
+                public static int steps = 25;
+            }
+           
         }
         public class City
         {
@@ -134,6 +157,9 @@ namespace Constants
             public static int FPlanes_Plus = 300;
 
             public static int Milloras = 750;
+            public static int MCammo = 1;
+            public static int MArmor = 2;
+            public static int MAir = 4;
 
         }
     }
@@ -144,6 +170,7 @@ namespace Constants
         public static int zFichaIndicator = 0;
         public static int zPath = 1;
         public static int zBuilding = -1;
+        public static int zBuildingIndicator = -2;
     }
 }
 

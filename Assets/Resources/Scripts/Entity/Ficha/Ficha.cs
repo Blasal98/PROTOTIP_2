@@ -31,7 +31,9 @@ public class Ficha : Entity {
         set { _type = value; }
     }
 
+    public virtual GameObject indicator(Troop.troopType _t) { return null; }
     public virtual void addTroopToFicha(Troop _t) { }
+    public virtual void killTroopOfFicha(int index) { }
     public virtual void countTroops() { }
     public virtual void updateFicha() { }
     public virtual List<Troop> getTroops() { return null; }

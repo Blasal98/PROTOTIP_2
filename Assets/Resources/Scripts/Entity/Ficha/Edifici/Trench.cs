@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Trench : Building
 {
-    private int sprite_index;
+    
     public Trench()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = trench0;
         sprite_index = 0;
+        damage = Constants.Entity.Building.Trinchera.dmg;
+        troopTypes.Add(Troop.troopType.SOLDIER);
+        troopTypes.Add(Troop.troopType.CAR);
     }
 
     public override void nextSprite()

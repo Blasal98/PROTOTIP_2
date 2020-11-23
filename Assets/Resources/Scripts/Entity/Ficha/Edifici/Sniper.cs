@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Sniper : Building
 {
-    private int sprite_index;
+
     public Sniper()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = sniper0;
         sprite_index = 0;
+        damage = Constants.Entity.Building.Sniper.dmg;
+        troopTypes.Add(Troop.troopType.SOLDIER);
+        troopTypes.Add(Troop.troopType.CAR);
+        troopTypes.Add(Troop.troopType.TANK);
     }
 
     public override void nextSprite()

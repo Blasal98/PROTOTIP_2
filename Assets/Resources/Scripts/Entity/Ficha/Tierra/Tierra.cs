@@ -109,6 +109,12 @@ public class Tierra : Ficha
                 break;
         }
     }
+    public override void killTroopOfFicha(int index)
+    {
+        _troops.RemoveAt(index);
+        countTroops();
+        updateFicha();
+    }
     public override void countTroops()
     {
         soldierCount = 0;
@@ -196,6 +202,22 @@ public class Tierra : Ficha
     public override void setTroops(List<Troop> _t)
     {
         _troops = _t;
+    }
+
+    public override GameObject indicator(Troop.troopType _t)
+    {
+        switch (_t)
+        {
+            case Troop.troopType.SOLDIER:
+                return soldierIndicator;
+            case Troop.troopType.CAR:
+                return carIndicator;
+            case Troop.troopType.TANK:
+                return tankIndicator;
+            case Troop.troopType.PLANE:
+                return planeIndicator;
+        }
+        return null;
     }
     #endregion
 }

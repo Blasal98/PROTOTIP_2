@@ -7,6 +7,7 @@ public class Plane : Troop
     public Plane()
     {
         type = troopType.PLANE;
+        health = Constants.Entity.Troop.Plane.health;
     }
 
 }

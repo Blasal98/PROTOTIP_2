@@ -7,6 +7,7 @@ public class Soldier : Troop
     public Soldier()
     {
         type = troopType.SOLDIER;
+        health = Constants.Entity.Troop.Soldier.health;
     }
    
 }

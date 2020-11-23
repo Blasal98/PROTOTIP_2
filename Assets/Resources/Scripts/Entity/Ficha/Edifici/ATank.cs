@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ATank : Building
 {
-    private int sprite_index;
+
     public ATank()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
         sprite_index = 0;
+        damage = Constants.Entity.Building.AntiTank.dmg;
+        troopTypes.Add(Troop.troopType.CAR);
+        troopTypes.Add(Troop.troopType.TANK);
     }
 
     public override void nextSprite()
