@@ -113,6 +113,11 @@ namespace Constants
         }
         public class Building
         {
+            
+            public static int up_hPix = 90;
+            public static int up_wPix = 90;
+            public static float up_scale = 0.35f;
+
             public class Trinchera
             {
                 public static int cost = 250;
@@ -138,6 +143,7 @@ namespace Constants
                 public static float duration = 1;
                 public static int steps = 25;
             }
+           
         }
         public class City
         {
@@ -164,6 +170,7 @@ namespace Constants
         public static int zFichaIndicator = 0;
         public static int zPath = 1;
         public static int zBuilding = -1;
+        public static int zBuildingIndicator = -2;
     }
 }
 
