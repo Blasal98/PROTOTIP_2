@@ -90,6 +90,13 @@ namespace Constants
             public static int wPix = 90;
             public static float scale = 0.4f;
 
+            public static Color nothingColor = Color.blue;
+            public static Color cammoColor = Color.yellow;
+            public static Color armorColor = Color.gray;
+            public static Color bothColor = Color.magenta;
+            public static Color cam_armColor = Color.green;
+
+
             public class Soldier
             {
                 public static int cost = 50;

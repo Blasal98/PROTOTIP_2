@@ -147,18 +147,37 @@ public class Tierra : Ficha
 
     }
     public override void updateFicha() {
-        
+
+        bool isCammo, isArmor, isBoth;
+
+        isCammo = isArmor = isBoth = false;
         if(soldierCount > 0)
         {
             soldierIndicator.SetActive(true);
             if(soldierCount > 9) soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[10];
             else soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[soldierCount];
+            for(int i = 0; i < _troops.Count; i++)
+            {
+                if(_troops[i].type == Troop.troopType.SOLDIER)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
+
         }
         else
         {
             soldierIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (carCount > 0)
         {
             carIndicator.SetActive(true);
@@ -170,6 +189,7 @@ public class Tierra : Ficha
             carIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (tankCount > 0)
         {
             tankIndicator.SetActive(true);
@@ -181,6 +201,7 @@ public class Tierra : Ficha
             tankIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (planeCount > 0)
         {
             planeIndicator.SetActive(true);
