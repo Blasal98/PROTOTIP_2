@@ -226,11 +226,11 @@ public class mainGame : MonoBehaviour
         switch (turnIndex)
         {
             case 0:
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
                 break;
             case 1:
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
 
                 //addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
                 //addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
@@ -239,13 +239,14 @@ public class mainGame : MonoBehaviour
 
                 break;
             case 2:
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
                 break;
             case 3:
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
-                //addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+
                 break;
             case 4:
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
@@ -630,6 +631,7 @@ public class mainGame : MonoBehaviour
                 bool gotFirst = false;
                 int first = -1;
                 int killIndex = -1;
+                Troop.propertyType pt = Troop.propertyType.NOTHING;
                 for(int j = mainMap.getLocalPath.Count-2; j > 0; j--) //del target final al primer per trobar el primer target
                 {
                     if (gotFirst) break;
@@ -644,19 +646,43 @@ public class mainGame : MonoBehaviour
                                 for(int h = 0; h < localPlayer.buildings[i].troopTypes.Count; h++) //recorrem els tipus que pot atacar el edifici
                                 {
                                     if (gotFirst) break;
-                                    if (localPlayer.buildings[i].targets[k].getTroops()[g].type == localPlayer.buildings[i].troopTypes[h]) //si coincideix algu se fini
+                                    if (localPlayer.buildings[i].targets[k].getTroops()[g].type == localPlayer.buildings[i].troopTypes[h]) //si coincideix el tipus de tropa
                                     {
-                                        gotFirst = true;
-                                        first = k;
-                                        killIndex = j;
+
+                                        if (gotFirst) break;
+                                        if (localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.NOTHING) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                        }
+                                        else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.CAMMO) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.CAMMO;
+                                        }
+                                        else if (localPlayer.buildings[i].getUpgrades()[1] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.ARMOR) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.ARMOR;
+                                        }
+                                        else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].getUpgrades()[1] &&
+                                            localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.BOTH) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.BOTH;
+                                        }
                                     }
                                 }
-
                             }
-                           
                         }
                     }
-                    
                 }
                 if (gotFirst) {
 
@@ -665,7 +691,7 @@ public class mainGame : MonoBehaviour
                     {
                         for (int k = 0; k < localPlayer.buildings[i].troopTypes.Count; k++) 
                         {
-                            if (localPlayer.buildings[i].targets[first].getTroops()[j].type == localPlayer.buildings[i].troopTypes[k])
+                            if (localPlayer.buildings[i].targets[first].getTroops()[j].type == localPlayer.buildings[i].troopTypes[k] && localPlayer.buildings[i].targets[first].getTroops()[j].p_type == pt)
                                 auxList.Add(new Utilities.Pair_TroopInt(localPlayer.buildings[i].targets[first].getTroops()[j], j));
                         }
                     }
