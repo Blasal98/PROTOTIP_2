@@ -878,17 +878,41 @@ public class mainGame : MonoBehaviour
     {
         if(selectedBuilding != null)
         {
-            switch (_i)
+            int baseCost = 0;
+            switch (selectedBuilding.getBuildingType())
             {
-                case 0:
-                    selectedBuilding.setUpgrades(0);
+                case Building.BuildingType.TRENCH:
+                    baseCost = Constants.Entity.Building.Trinchera.cost;
                     break;
-                case 1:
-                    selectedBuilding.setUpgrades(1);
+                case Building.BuildingType.SNIPER:
+                    baseCost = Constants.Entity.Building.Sniper.cost;
                     break;
-                case 2:
-                    selectedBuilding.setUpgrades(2);
+                case Building.BuildingType.ATANK:
+                    baseCost = Constants.Entity.Building.AntiTank.cost;
                     break;
+                case Building.BuildingType.AAIR:
+                    baseCost = Constants.Entity.Building.AntiAir.cost;
+                    break;
+            }
+            if (localPlayer.money >= baseCost * Constants.Entity.Building.property_cost)
+            {
+               
+                localPlayer.money -= (int) (baseCost * Constants.Entity.Building.property_cost);
+                switch (_i)
+                {
+                    case 0:
+                        selectedBuilding.setUpgrades(0);
+                        hud.BUILDINGS_CAMMO.SetActive(false);
+                        break;
+                    case 1:
+                        selectedBuilding.setUpgrades(1);
+                        hud.BUILDINGS_ARMOR.SetActive(false);
+                        break;
+                    case 2:
+                        selectedBuilding.setUpgrades(2);
+                        hud.BUILDINGS_X2.SetActive(false);
+                        break;
+                }
             }
         }
     }

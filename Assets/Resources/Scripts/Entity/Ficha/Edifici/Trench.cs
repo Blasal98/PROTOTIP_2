@@ -12,6 +12,8 @@ public class Trench : Building
         damage = Constants.Entity.Building.Trinchera.dmg;
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
+
+        bType = BuildingType.TRENCH;
     }
 
     public Trench(int _sIndex)
@@ -32,6 +34,8 @@ public class Trench : Building
         damage = Constants.Entity.Building.Trinchera.dmg;
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
+
+        bType = BuildingType.TRENCH;
     }
 
     public override void nextSprite()

@@ -43,4 +43,5 @@ public class Ficha : Entity {
     public virtual bool isTargetable() { return false; }
     public virtual List<bool> getUpgrades() { return null; }
     public virtual void setUpgrades(int i) { }
+    public virtual Building.BuildingType getBuildingType() { return 0; }
 }

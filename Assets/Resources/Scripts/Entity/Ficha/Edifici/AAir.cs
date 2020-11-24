@@ -9,6 +9,8 @@ public class AAir : Building
         gameObject.GetComponent<SpriteRenderer>().sprite = aair;
         damage = Constants.Entity.Building.AntiAir.dmg;
         troopTypes.Add(Troop.troopType.PLANE);
+
+        bType = BuildingType.AAIR;
     }
     public override void setTargets(List<Utilities.Pair_FichaInt> _list)
     {

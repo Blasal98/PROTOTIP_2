@@ -112,6 +112,10 @@ public class Building : Ficha
                 break;
         }
     }
+    public override BuildingType getBuildingType()
+    {
+        return bType;
+    }
 
     public virtual void nextSprite() { }
     public virtual void previousSprite() { }

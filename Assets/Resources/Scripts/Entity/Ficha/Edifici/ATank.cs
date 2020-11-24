@@ -12,6 +12,8 @@ public class ATank : Building
         damage = Constants.Entity.Building.AntiTank.dmg;
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.ATANK;
     }
     public ATank(int _sIndex)
     {
@@ -31,6 +33,8 @@ public class ATank : Building
         damage = Constants.Entity.Building.AntiTank.dmg;
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.ATANK;
     }
 
     public override void nextSprite()

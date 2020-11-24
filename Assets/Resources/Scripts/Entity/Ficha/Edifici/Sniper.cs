@@ -13,6 +13,8 @@ public class Sniper : Building
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.SNIPER;
     }
 
     public Sniper(int _sIndex)
@@ -32,6 +34,8 @@ public class Sniper : Building
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.SNIPER;
     }
 
     public override void nextSprite()
