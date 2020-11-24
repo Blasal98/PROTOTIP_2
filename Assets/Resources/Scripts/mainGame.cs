@@ -433,20 +433,20 @@ public class mainGame : MonoBehaviour
             selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             selectedBuilding = null;
 
-            hud.BUILDINGS_CAMMO.SetActive(true);
-            hud.BUILDINGS_ARMOR.SetActive(true);
-            hud.BUILDINGS_X2.SetActive(true);
+            hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = true;
+            hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = true;
+            hud.BUILDINGS_X2.GetComponent<Button>().interactable = true;
         }
-        else if (mainMap.getBuildingTriggered() != null)
+        if (mainMap.getBuildingTriggered() != null && selectedBuilding == null)
         {
             hud.BUILDINGS_PROPERTIES.SetActive(true);
             selectedBuilding = mainMap.getBuildingTriggered();
             selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Constants.Entity.Building.selectedColor;
 
             List<bool> auxList = selectedBuilding.getUpgrades();
-            if (auxList[0]) hud.BUILDINGS_CAMMO.SetActive(false);
-            if (auxList[1]) hud.BUILDINGS_ARMOR.SetActive(false);
-            if (auxList[2]) hud.BUILDINGS_X2.SetActive(false);
+            if (auxList[0]) hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = false;
+            if (auxList[1]) hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = false;
+            if (auxList[2]) hud.BUILDINGS_X2.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -902,15 +902,15 @@ public class mainGame : MonoBehaviour
                 {
                     case 0:
                         selectedBuilding.setUpgrades(0);
-                        hud.BUILDINGS_CAMMO.SetActive(false);
+                        hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = false;
                         break;
                     case 1:
                         selectedBuilding.setUpgrades(1);
-                        hud.BUILDINGS_ARMOR.SetActive(false);
+                        hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = false;
                         break;
                     case 2:
                         selectedBuilding.setUpgrades(2);
-                        hud.BUILDINGS_X2.SetActive(false);
+                        hud.BUILDINGS_X2.GetComponent<Button>().interactable = false;
                         break;
                 }
             }
