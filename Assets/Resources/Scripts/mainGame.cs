@@ -232,7 +232,7 @@ public class mainGame : MonoBehaviour
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
 
-                //addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
+                addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
                 //addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
                 //addBuildingEnemy(Building.BuildingType.TRENCH, 5, 4, 2);
 
@@ -518,19 +518,23 @@ public class mainGame : MonoBehaviour
                         switch (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type)
                         {
                             case Troop.troopType.SOLDIER:
-                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.CAR:
-                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), localPlayer.shootings.Count));
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.TANK:
-                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), localPlayer.shootings.Count));
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.PLANE:
-                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count));
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
                         
                                 break;
                         }
@@ -592,19 +596,23 @@ public class mainGame : MonoBehaviour
                         switch (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type)
                         {
                             case Troop.troopType.SOLDIER:
-                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.CAR:
-                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.TANK:
-                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
                                 break;
                             case Troop.troopType.PLANE:
-                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
                                 break;
                         }
@@ -701,19 +709,23 @@ public class mainGame : MonoBehaviour
                     switch (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].type)
                     {
                         case Troop.troopType.SOLDIER:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
+                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count,
+                                localPlayer.buildings[i].targets[first]));
                               
                             break;
                         case Troop.troopType.CAR:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR), localPlayer.shootings.Count));
+                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR), localPlayer.shootings.Count,
+                                localPlayer.buildings[i].targets[first]));
                       
                             break;
                         case Troop.troopType.TANK:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK), localPlayer.shootings.Count));
+                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK), localPlayer.shootings.Count,
+                                localPlayer.buildings[i].targets[first]));
                                 
                             break;
                         case Troop.troopType.PLANE:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count));
+                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count,
+                                localPlayer.buildings[i].targets[first]));
                                 
                             break;
                     }
@@ -738,6 +750,7 @@ public class mainGame : MonoBehaviour
                 bool gotFirst = false;
                 int first = -1;
                 int killIndex = -1;
+                Troop.propertyType pt = Troop.propertyType.NOTHING;
                 for (int j = mainMap.getOthersPath[0].Count - 2; j > 0; j--) //del target final al primer per trobar el primer target
                 {
                     if (gotFirst) break;
@@ -754,9 +767,35 @@ public class mainGame : MonoBehaviour
                                     if (gotFirst) break;
                                     if (othersPlayer[0].buildings[i].targets[k].getTroops()[g].type == othersPlayer[0].buildings[i].troopTypes[h]) //si coincideix algu se fini
                                     {
-                                        gotFirst = true;
-                                        first = k;
-                                        killIndex = j;
+                                        if (gotFirst) break;
+                                        if (othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.NOTHING) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                        }
+                                        else if (othersPlayer[0].buildings[i].getUpgrades()[0] && othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.CAMMO) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.CAMMO;
+                                        }
+                                        else if (othersPlayer[0].buildings[i].getUpgrades()[1] && othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.ARMOR) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.ARMOR;
+                                        }
+                                        else if (othersPlayer[0].buildings[i].getUpgrades()[0] && othersPlayer[0].buildings[i].getUpgrades()[1] &&
+                                            othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.BOTH) //te la propietat
+                                        {
+                                            gotFirst = true;
+                                            first = k;
+                                            killIndex = j;
+                                            pt = Troop.propertyType.BOTH;
+                                        }
                                     }
                                 }
 
@@ -774,7 +813,8 @@ public class mainGame : MonoBehaviour
                     {
                         for (int k = 0; k < othersPlayer[0].buildings[i].troopTypes.Count; k++)
                         {
-                            if (othersPlayer[0].buildings[i].targets[first].getTroops()[j].type == othersPlayer[0].buildings[i].troopTypes[k])
+                            if (othersPlayer[0].buildings[i].targets[first].getTroops()[j].type == othersPlayer[0].buildings[i].troopTypes[k]
+                                 && othersPlayer[0].buildings[i].targets[first].getTroops()[j].p_type == pt)
                                 auxList.Add(new Utilities.Pair_TroopInt(othersPlayer[0].buildings[i].targets[first].getTroops()[j], j));
                         }
                     }
@@ -785,19 +825,23 @@ public class mainGame : MonoBehaviour
                     switch (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].type)
                     {
                         case Troop.troopType.SOLDIER:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count,
+                                othersPlayer[0].buildings[i].targets[first]));
 
                             break;
                         case Troop.troopType.CAR:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count,
+                                othersPlayer[0].buildings[i].targets[first]));
 
                             break;
                         case Troop.troopType.TANK:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count,
+                                othersPlayer[0].buildings[i].targets[first]));
 
                             break;
                         case Troop.troopType.PLANE:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count,
+                                othersPlayer[0].buildings[i].targets[first]));
 
                             break;
                     }
@@ -1265,9 +1309,9 @@ public class mainGame : MonoBehaviour
         othersPlayer[0].shootings.Clear();
     }
 
-    private IEnumerator shootRoutine(GameObject troop, int index)
+    private IEnumerator shootRoutine(GameObject troop, int index, Ficha toUpdate)
     {
-        Color hadColor = troop.GetComponent<SpriteRenderer>().color;
+        //Color hadColor = troop.GetComponent<SpriteRenderer>().color;
         Color startColor = new Color(1, 1, 1, 1);
         Color endColor = new Color(1, 0, 0, 1);
         Color nowColor = startColor;
@@ -1285,7 +1329,8 @@ public class mainGame : MonoBehaviour
             yield return new WaitForSeconds(duration / steps);
         }
        
-        troop.GetComponent<SpriteRenderer>().color = hadColor;
+        //troop.GetComponent<SpriteRenderer>().color = hadColor;
+
         yield return null;
     }
 
