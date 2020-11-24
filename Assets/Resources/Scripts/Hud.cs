@@ -182,7 +182,7 @@ public class Hud : MonoBehaviour
 
                 if (!_p.MCamo) MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
                 if (!_p.MArmor) MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
-                if (!_p.MAir) MAIR_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.MX2) MAIR_BUTTON.GetComponent<Button>().interactable = true;
 
                 if (_p.FCar) CAR_BUTTON.GetComponent<Button>().interactable = true;
                 if (_p.FTank) TANK_BUTTON.GetComponent<Button>().interactable = true;

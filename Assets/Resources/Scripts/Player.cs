@@ -13,7 +13,7 @@ public class Player
     int _health;
     int _attack;
 
-    public bool FCar, FTank, FPlane, MCamo, MArmor, MAir;
+    public bool FCar, FTank, FPlane, MCamo, MArmor, MX2;
 
     public Player(){}
     
@@ -25,7 +25,7 @@ public class Player
         health = Constants.Player.starting_health;
         attack = Constants.Player.starting_attack;
 
-        FCar = FTank = FPlane = MCamo = MArmor = MAir = false;
+        FCar = FTank = FPlane = MCamo = MArmor = MX2 = false;
 
         troops = new List<Troop>();
         buildings = new List<Building>();
