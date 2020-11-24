@@ -86,6 +86,7 @@ public class Hud : MonoBehaviour
     public GameObject TROOPS_CAMMO;
     public GameObject TROOPS_ARMOR;
     public GameObject TROOPS_BOTH;
+    public GameObject TROOP_TEXT;
 
     public GameObject INFO_PROPERTIES;
 

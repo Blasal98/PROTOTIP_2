@@ -434,6 +434,7 @@ public class mainGame : MonoBehaviour
         }
         if (mainMap.getBuildingTriggered() != null && selectedBuilding == null)
         {
+            hud.TROOPS_PROPERTIES.SetActive(false);
             hud.BUILDINGS_PROPERTIES.SetActive(true);
             selectedBuilding = mainMap.getBuildingTriggered();
             selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Constants.Entity.Building.selectedColor;
@@ -797,15 +798,19 @@ public class mainGame : MonoBehaviour
         {
             case (int)Troop.troopType.SOLDIER:
                 spawningTroopType = Troop.troopType.SOLDIER;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "SOLDIER";
                 break;
             case (int)Troop.troopType.CAR:
                 spawningTroopType = Troop.troopType.CAR;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "CAR";
                 break;
             case (int)Troop.troopType.TANK:
                 spawningTroopType = Troop.troopType.TANK;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "TANK";
                 break;
             case (int)Troop.troopType.PLANE:
                 spawningTroopType = Troop.troopType.PLANE;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "PLANE";
                 break;
             default:
                 break;
