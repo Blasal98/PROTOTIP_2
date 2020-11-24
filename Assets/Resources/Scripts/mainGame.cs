@@ -41,6 +41,7 @@ public class mainGame : MonoBehaviour
     Building.BuildingType buildingType;
 
     Ficha selectedBuilding;
+    Troop.troopType spawningTroopType;
 
     #endregion
 
@@ -429,13 +430,7 @@ public class mainGame : MonoBehaviour
        
         if (selectedBuilding != null && mainMap.getSomethingTriggered() == true)
         {
-            hud.BUILDINGS_PROPERTIES.SetActive(false);
-            selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            selectedBuilding = null;
-
-            hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = true;
-            hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = true;
-            hud.BUILDINGS_X2.GetComponent<Button>().interactable = true;
+            upgradeBuildingCancel();
         }
         if (mainMap.getBuildingTriggered() != null && selectedBuilding == null)
         {
@@ -448,6 +443,15 @@ public class mainGame : MonoBehaviour
             if (auxList[1]) hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = false;
             if (auxList[2]) hud.BUILDINGS_X2.GetComponent<Button>().interactable = false;
         }
+    }
+    private void upgradeBuildingCancel()
+    {
+        hud.BUILDINGS_PROPERTIES.SetActive(false);
+        if (selectedBuilding != null) selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        selectedBuilding = null;
+        hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = true;
+        hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = true;
+        hud.BUILDINGS_X2.GetComponent<Button>().interactable = true;
     }
 
     #endregion
@@ -780,44 +784,192 @@ public class mainGame : MonoBehaviour
 
     public void addTroop(int _t)
     {
+        upgradeBuildingCancel();
+        hud.TROOPS_PROPERTIES.SetActive(true);
+        if (localPlayer.MCamo) hud.TROOPS_CAMMO.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_CAMMO.GetComponent<Button>().interactable = false;
+        if (localPlayer.MArmor) hud.TROOPS_ARMOR.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_ARMOR.GetComponent<Button>().interactable = false;
+        if (localPlayer.MCamo && localPlayer.MArmor) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_BOTH.GetComponent<Button>().interactable = false;
+
         switch (_t)
         {
             case (int)Troop.troopType.SOLDIER:
-                if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
-                {
-                    localPlayer.troops.Add(new Soldier(Troop.propertyType.NOTHING));
-                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
-                }
+                spawningTroopType = Troop.troopType.SOLDIER;
                 break;
             case (int)Troop.troopType.CAR:
-                if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
-                {
-                    localPlayer.troops.Add(new Car(Troop.propertyType.NOTHING));
-                    localPlayer.money -= Constants.Entity.Troop.Car.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.CAR;
                 break;
             case (int)Troop.troopType.TANK:
-                if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
-                {
-                    localPlayer.troops.Add(new Tank(Troop.propertyType.NOTHING));
-                    localPlayer.money -= Constants.Entity.Troop.Tank.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.TANK;
                 break;
             case (int)Troop.troopType.PLANE:
-                if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
-                {
-                    localPlayer.troops.Add(new Plane(Troop.propertyType.NOTHING));
-                    localPlayer.money -= Constants.Entity.Troop.Plane.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.PLANE;
                 break;
             default:
                 break;
         }
+
+    }
+    public void addTroopProperty(int _t)
+    {
+        hud.TROOPS_PROPERTIES.SetActive(false);
+        switch (_t)
+        {
+            case (int) Troop.propertyType.NOTHING:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
+                           mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Car.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Tank.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Plane.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.CAMMO:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int) (Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.ARMOR:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.BOTH:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+
+
+        }
         mainMap.getOthersPath[0][0].updateFicha();
+        hud.TROOPS_PROPERTIES.SetActive(false);
     }
 
     public void build(int _b)
