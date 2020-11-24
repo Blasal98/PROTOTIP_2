@@ -125,6 +125,9 @@ namespace Constants
             public static int up_hPix = 90;
             public static int up_wPix = 90;
             public static float up_scale = 0.35f;
+            public static float property_cost = 2f;
+
+            public static Color selectedColor = new Color(1,0.5f,0,1);
 
             public class Trinchera
             {

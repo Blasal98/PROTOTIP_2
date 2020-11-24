@@ -167,20 +167,9 @@ public class mainGame : MonoBehaviour
                         }
 
                     }
-                    if (clicked_left)
+                    if (clicked_left && !building)
                     {
-                        if (mainMap.getBuildingTriggered() != null)
-                        {
-                            hud.BUILDINGS_PROPERTIES.SetActive(true);
-                            selectedBuilding = mainMap.getBuildingTriggered();
-                            //selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-                        }
-                        else if(selectedBuilding != null)
-                        {
-                            hud.BUILDINGS_PROPERTIES.SetActive(false);
-                            //selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                            selectedBuilding = null;
-                        }
+                        upgradeBuilding();
                         clicked_left = false;
                     }
 
@@ -435,6 +424,32 @@ public class mainGame : MonoBehaviour
         localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
         building = false;
     }
+    private void upgradeBuilding()
+    {
+       
+        if (selectedBuilding != null && mainMap.getSomethingTriggered() == true)
+        {
+            hud.BUILDINGS_PROPERTIES.SetActive(false);
+            selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            selectedBuilding = null;
+
+            hud.BUILDINGS_CAMMO.SetActive(true);
+            hud.BUILDINGS_ARMOR.SetActive(true);
+            hud.BUILDINGS_X2.SetActive(true);
+        }
+        else if (mainMap.getBuildingTriggered() != null)
+        {
+            hud.BUILDINGS_PROPERTIES.SetActive(true);
+            selectedBuilding = mainMap.getBuildingTriggered();
+            selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Constants.Entity.Building.selectedColor;
+
+            List<bool> auxList = selectedBuilding.getUpgrades();
+            if (auxList[0]) hud.BUILDINGS_CAMMO.SetActive(false);
+            if (auxList[1]) hud.BUILDINGS_ARMOR.SetActive(false);
+            if (auxList[2]) hud.BUILDINGS_X2.SetActive(false);
+        }
+    }
+
     #endregion
 
     #region atk/df
@@ -858,6 +873,26 @@ public class mainGame : MonoBehaviour
 
         }
     }
+
+    public void buildingUpgrade(int _i)
+    {
+        if(selectedBuilding != null)
+        {
+            switch (_i)
+            {
+                case 0:
+                    selectedBuilding.setUpgrades(0);
+                    break;
+                case 1:
+                    selectedBuilding.setUpgrades(1);
+                    break;
+                case 2:
+                    selectedBuilding.setUpgrades(2);
+                    break;
+            }
+        }
+    }
+
     public void CityUpgrades(int _i)
     {
         switch (_i)

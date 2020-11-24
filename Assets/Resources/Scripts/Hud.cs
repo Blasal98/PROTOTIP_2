@@ -77,7 +77,16 @@ public class Hud : MonoBehaviour
 
     //PROPERTYS
     public GameObject BUILDINGS_PROPERTIES;
+    public GameObject BUILDINGS_CAMMO;
+    public GameObject BUILDINGS_ARMOR;
+    public GameObject BUILDINGS_X2;
+
     public GameObject TROOPS_PROPERTIES;
+    public GameObject TROOPS_NOTHING;
+    public GameObject TROOPS_CAMMO;
+    public GameObject TROOPS_ARMOR;
+    public GameObject TROOPS_BOTH;
+
     public GameObject INFO_PROPERTIES;
 
     // Start is called before the first frame update

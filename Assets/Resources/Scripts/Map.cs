@@ -245,10 +245,11 @@ class Map
                     
                     if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered)
                     {
-                        localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
+                        if (localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color != Constants.Entity.Building.selectedColor)
+                            localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.hoverFicha;
                         if (localMap[i][j].type == Ficha.Ficha_Type.EDIFICIO) auxFicha = localMap[i][j];
                     }
-                    else
+                    else if (localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color != Constants.Entity.Building.selectedColor)
                     {
                         localMap[i][j].gameObject.GetComponent<SpriteRenderer>().color = Constants.Map.normalFicha;
                     }
@@ -279,6 +280,24 @@ class Map
             }
         }
         return auxFicha;
+    }
+
+    public bool getSomethingTriggered()
+    {
+        bool auxBool = false;
+        for (int i = 0; i < Constants.Map.w; i++)
+        {
+            if (auxBool) break;
+            for (int j = 0; j < Constants.Map.h; j++)
+            {
+                if (auxBool) break;
+                if (!(i % 2 == 0 && j == Constants.Map.h - 1))
+                {
+                    if (selectorMap[i][j].gameObject.GetComponent<Trigger>().isTriggered) auxBool = true;
+                }
+            }
+        }
+        return auxBool;
     }
 
     public bool isTouching(Ficha _f1, Ficha _f2)
