@@ -24,6 +24,18 @@ namespace Utilities
         }
 
     }
+    public class Pair_IntInt
+    {
+        public int i1;
+        public int i2;
+
+        Pair_IntInt() { }
+        public Pair_IntInt(int _i1, int _i2)
+        {
+            i1 = _i1; i2 = _i2;
+        }
+
+    }
     public class Pair_FichaInt
     {
         public Ficha f;

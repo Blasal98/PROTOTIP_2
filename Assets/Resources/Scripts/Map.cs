@@ -131,7 +131,7 @@ class Map
                                 localMap[i][j].i = i; localMap[i][j].j = j;
                                 localPath.Add(localMap[i][j]); //afegeix a Path
                                 pathCount++;
-
+                                localMap[i][j].setPathIndex(localPath.Count-1);
                                 onlyOne = true;
                             }
                         }
@@ -196,6 +196,10 @@ class Map
                         othersMap[0][i][j].i = i; othersMap[0][i][j].j = j;
                     }
                 }
+            }
+            for (int i = 0; i < Constants.Map.path_size; i++) 
+            {
+                othersPath[0][i].setPathIndex(i);
             }
     
             localPathFolder.AddComponent<LineRenderer>();

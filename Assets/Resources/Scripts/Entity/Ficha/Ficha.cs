@@ -44,4 +44,8 @@ public class Ficha : Entity {
     public virtual List<bool> getUpgrades() { return null; }
     public virtual void setUpgrades(int i) { }
     public virtual Building.BuildingType getBuildingType() { return 0; }
+    public virtual int getPathIndex() { return 0; }
+    public virtual void setPathIndex(int i) { }
+    public virtual GameObject getTroopText() { return null; }
+    public virtual GameObject getMoneyText() { return null; }
 }

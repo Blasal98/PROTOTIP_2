@@ -56,7 +56,7 @@ namespace Constants
     }
     public class Player
     {
-        public static int starting_money = 10000;
+        public static int starting_money = 500;
         public static int starting_moneyXTurn = 500;
         public static int starting_health = 100;
         public static int starting_attack = 1;
@@ -153,6 +153,7 @@ namespace Constants
             {
                 public static float duration = 1;
                 public static int steps = 25;
+                public static float offset = 0.5f;
             }
            
         }
@@ -182,6 +183,7 @@ namespace Constants
         public static int zPath = 1;
         public static int zBuilding = -1;
         public static int zBuildingIndicator = -2;
+        public static int zResult = -3;
     }
 }
 
