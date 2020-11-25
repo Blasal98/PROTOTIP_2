@@ -56,7 +56,7 @@ namespace Constants
     }
     public class Player
     {
-        public static int starting_money = 10000;
+        public static int starting_money = 500;
         public static int starting_moneyXTurn = 500;
         public static int starting_health = 100;
         public static int starting_attack = 1;

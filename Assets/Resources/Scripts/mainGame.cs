@@ -227,49 +227,175 @@ public class mainGame : MonoBehaviour
         {
             case 0:
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+
                 break;
             case 1:
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
 
                 addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
-                //addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
-                //addBuildingEnemy(Building.BuildingType.TRENCH, 5, 4, 2);
-
 
                 break;
             case 2:
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+                addBuildingEnemy(Building.BuildingType.TRENCH, 8, 3, 0);
                 break;
             case 3:
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
 
                 break;
             case 4:
                 addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
-                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
 
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
                 break;
             case 5:
+                addBuildingEnemy(Building.BuildingType.TRENCH, 12, 3, 0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[0],0);
                 break;
             case 6:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
                 break;
             case 7:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
                 break;
             case 8:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+
                 break;
             case 9:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.NOTHING);
+                addBuildingEnemy(Building.BuildingType.ATANK, 5, 2, 2);
+                break;
+            case 10:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.NOTHING);
+                break;
+            case 11:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+
+                break;
+            case 12:
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                break;
+            case 13:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.CAMMO);
+                break;
+            case 14:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                break;
+            case 15:
+                addBuildingEnemy(Building.BuildingType.AAIR, 9, 5, 0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[3],0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[3],1);
+                break;
+            case 16:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.NOTHING);
+                break;
+            case 17:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                break;
+            case 18:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                break;
+            case 19:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.CAMMO);
+                break;
+            case 20:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                break;
+            case 21:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
                 break;
         }
     }
@@ -392,6 +518,12 @@ public class mainGame : MonoBehaviour
         othersPlayer[0].buildings[othersPlayer[0].buildings.Count - 1].sprite_index = sprite_index;
         mainMap.setBuildingEnemy(othersPlayer[0].buildings[othersPlayer[0].buildings.Count - 1], i, j);
     }
+
+    private void addBuildingPropertyEnemy(Ficha building, int property)
+    {
+        building.setUpgrades(property);
+    }
+
     #endregion
 
     #region build
@@ -1070,7 +1202,7 @@ public class mainGame : MonoBehaviour
     }
     public void addTroopProperty(int _t)
     {
-        hud.TROOPS_PROPERTIES.SetActive(false);
+        //hud.TROOPS_PROPERTIES.SetActive(false);
         switch (_t)
         {
             case (int) Troop.propertyType.NOTHING:
@@ -1225,7 +1357,7 @@ public class mainGame : MonoBehaviour
 
         }
         mainMap.getOthersPath[0][0].updateFicha();
-        hud.TROOPS_PROPERTIES.SetActive(false);
+        //hud.TROOPS_PROPERTIES.SetActive(false);
     }
 
     public void build(int _b)
