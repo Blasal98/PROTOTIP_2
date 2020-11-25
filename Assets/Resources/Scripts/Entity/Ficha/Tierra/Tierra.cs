@@ -91,12 +91,32 @@ public class Tierra : Ficha
 
         textTroops = new GameObject();
         textTroops.AddComponent<TMPro.TextMeshPro>();
+        textTroops.GetComponent<TMPro.TextMeshPro>().color = Color.red;
+        textTroops.GetComponent<TMPro.TextMeshPro>().fontSize = 4;
+        textTroops.GetComponent<TMPro.TextMeshPro>().alignment = TMPro.TextAlignmentOptions.Center;
+        textTroops.transform.position = new Vector3(textTroops.transform.position.x, textTroops.transform.position.y + Constants.Entity.Building.Animation.offset, Constants.Layers.zResult);
+        textTroops.transform.SetParent(gameObject.transform);
+
+
         textMoney = new GameObject();
         textMoney.AddComponent<TMPro.TextMeshPro>();
+        textMoney.GetComponent<TMPro.TextMeshPro>().color = Color.green;
+        textMoney.GetComponent<TMPro.TextMeshPro>().fontSize = 4;
+        textMoney.GetComponent<TMPro.TextMeshPro>().alignment = TMPro.TextAlignmentOptions.Center;
+        textMoney.transform.position = new Vector3(textMoney.transform.position.x, textMoney.transform.position.y, Constants.Layers.zResult);
+        textMoney.transform.SetParent(gameObject.transform);
+
 
     }
     #endregion
-
+    public override GameObject getTroopText()
+    {
+        return textTroops;
+    }
+    public override GameObject getMoneyText()
+    {
+        return textMoney;
+    }
     public override int getPathIndex()
     {
         return path_index;
@@ -169,6 +189,11 @@ public class Tierra : Ficha
 
     }
     public override void updateFicha() {
+
+        textTroops.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + +Constants.Entity.Building.Animation.offset, Constants.Layers.zResult);
+        textMoney.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, Constants.Layers.zResult);
+        textTroops.GetComponent<TMPro.TextMeshPro>().text = "";
+        textMoney.GetComponent<TMPro.TextMeshPro>().text = "";
 
         bool isCammo, isArmor, isBoth;
 

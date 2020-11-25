@@ -1371,17 +1371,34 @@ public class mainGame : MonoBehaviour
         {
             StopCoroutine(localPlayer.shootings[i]);
         }
+        for (int i = 0; i < localPlayer.result.Count; i++)
+        {
+            StopCoroutine(localPlayer.result[i]);
+        }
+
+
         for (int i = 0; i < othersPlayer[0].shootings.Count; i++)
         {
             StopCoroutine(othersPlayer[0].shootings[i]);
         }
+        for (int i = 0; i < othersPlayer[0].result.Count; i++)
+        {
+            StopCoroutine(othersPlayer[0].result[i]);
+        }
+
         for (int j = 0; j < Constants.Map.path_size; j++)
         {
             mainMap.getLocalPath[j].updateFicha();
             mainMap.getOthersPath[0][j].updateFicha();
         }
+
+
+
+
         localPlayer.shootings.Clear();
+        localPlayer.result.Clear();
         othersPlayer[0].shootings.Clear();
+        othersPlayer[0].result.Clear();
     }
 
     private IEnumerator shootRoutine(GameObject troop, int index, Ficha toUpdate)
@@ -1415,16 +1432,21 @@ public class mainGame : MonoBehaviour
         int steps = Constants.Entity.Building.Animation.steps;
         float acumulator = 0;
 
-        //while (acumulator < duration)
-        //{
-        //    troop.GetComponent<SpriteRenderer>().color = nowColor;
-        //    acumulator += duration / steps;
-        //    float mapped = Utilities.Maths.mapping(acumulator, 0, duration, 0, 1);
-        //    nowColor = Utilities.Maths.lerpColor(startColor, endColor, mapped);
-        //    yield return new WaitForSeconds(duration / steps);
-        //}
-        //toUpdate.updateFicha();
+        target.getTroopText().GetComponent<TMPro.TextMeshPro>().text = "-" + pair.i1.ToString();
+        target.getMoneyText().GetComponent<TMPro.TextMeshPro>().text = "+" + pair.i2.ToString() + "$";
 
+        while (acumulator < duration)
+        {
+            
+            acumulator += duration / steps;
+            float mapped = Utilities.Maths.mapping(acumulator, 0, duration, 0, 1);
+            target.getTroopText().transform.position = new Vector3(target.getTroopText().transform.position.x, target.getTroopText().transform.position.y+0.025f, target.getTroopText().transform.position.z);
+            target.getMoneyText().transform.position = new Vector3(target.getMoneyText().transform.position.x, target.getMoneyText().transform.position.y+0.025f, target.getMoneyText().transform.position.z);
+
+            yield return new WaitForSeconds(duration / steps);
+        }
+        target.getTroopText().GetComponent<TMPro.TextMeshPro>().text = "";
+        target.getMoneyText().GetComponent<TMPro.TextMeshPro>().text = "";
         yield return null;
     }
     #endregion
