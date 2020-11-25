@@ -42,6 +42,8 @@ public class mainGame : MonoBehaviour
 
     Ficha selectedBuilding;
     Troop.troopType spawningTroopType;
+    bool easy;
+    bool dificultySelected;
 
     #endregion
 
@@ -90,7 +92,8 @@ public class mainGame : MonoBehaviour
         building = false;
         buildingType = Building.BuildingType.COUNT;
 
-
+        easy = true;
+        dificultySelected = false;
         
     }
     #endregion
@@ -132,10 +135,15 @@ public class mainGame : MonoBehaviour
         {
             if (!pause) //si no estem en pausa
             {
-                mainMap.update();
+                
                 updateInfo();
-                if (!mainMap.created) //si no esta creat el mapa-----------------------------------------------------------------------------------------------------------------------------------------
+                if (!dificultySelected)
                 {
+
+                }
+                else if (!mainMap.created) //si no esta creat el mapa-----------------------------------------------------------------------------------------------------------------------------------------
+                {
+                    mainMap.update();
                     if (clicked_left)
                     {
                         mainMap.selectFicha();
@@ -145,16 +153,18 @@ public class mainGame : MonoBehaviour
                 else if (mainMap.justCreated) //una interaccio al crearlo-------------------------------------------------------------------------------------------------------------------------------
                 {
 
-                    
+                    mainMap.update();
                     hud.SKIP.GetComponent<Button>().interactable = true;
                     mainMap.justCreated = false;
                     hud.switchButtonsVisibility(null);
                     turnIndex = 0;
-                    enemyStrategy();
+                    if (easy) enemyStrategyEasy();
+                    else enemyStrategyHard();
 
                 }
                 else if (!turnEnded)//si ja esta creat el mapa i turn no ha acabat-----------------------------------------------------------------------------------------------------------------------
                 {
+                    mainMap.update();
                     if (building)
                     {
                         buildProcess();
@@ -186,7 +196,7 @@ public class mainGame : MonoBehaviour
                 }
                 else //acaba turno-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
                 {
-
+                    mainMap.update();
                     //Debug.Log();
 
                     localPlayer.money += localPlayer.moneyXTurn;
@@ -204,8 +214,8 @@ public class mainGame : MonoBehaviour
                     turnEnded = false;
                     turnTimeLeft = Constants.General.timeXTurn;
 
-                    enemyStrategy();//aixo al final sempre -> enemic crea troops per seguent ronda
-                    //Debug.Log(othersPlayer[0].troops.Count);
+                    if (easy) enemyStrategyEasy();
+                    else enemyStrategyHard(); 
                 }
             }
         }
@@ -221,7 +231,148 @@ public class mainGame : MonoBehaviour
     #endregion
 
     #region enemyIA
-    private void enemyStrategy()
+    private void enemyStrategyEasy()
+    {
+        switch (turnIndex)
+        {
+            case 0:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+
+                break;
+            case 1:
+
+                addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
+
+                break;
+            case 2:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+                break;
+            case 3:
+               
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+
+                break;
+            case 4:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                break;
+            case 5:
+                addBuildingEnemy(Building.BuildingType.TRENCH, 12, 3, 0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[0], 0);
+                break;
+            case 6:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.NOTHING);
+                
+                break;
+            case 7:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                break;
+            case 8:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+
+                break;
+            case 9:
+                addBuildingEnemy(Building.BuildingType.ATANK, 5, 2, 2);
+                break;
+            case 10:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.NOTHING);
+                break;
+            case 11:
+                
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+
+                break;
+            case 12:
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.ARMOR);
+                break;
+            case 13:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                break;
+            case 14:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.ARMOR);
+
+                break;
+            case 15:
+                addBuildingEnemy(Building.BuildingType.AAIR, 9, 5, 0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[2], 0);
+                addBuildingPropertyEnemy(othersPlayer[0].buildings[2], 1);
+                break;
+            case 16:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.NOTHING);
+                break;
+            case 17:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+
+                break;
+            case 18:
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+
+                break;
+            case 19:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.CAMMO);
+                break;
+            case 20:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.TANK, Troop.propertyType.BOTH);
+
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.CAR, Troop.propertyType.BOTH);
+                break;
+            case 21:
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.BOTH);
+
+                break;
+        }
+    }
+    private void enemyStrategyHard()
     {
         switch (turnIndex)
         {
@@ -1130,6 +1281,18 @@ public class mainGame : MonoBehaviour
     #endregion
 
     #region Buttons
+    public void Easy()
+    {
+        easy = true;
+        hud.DIFFICULTY_SCREEN.SetActive(false);
+        dificultySelected = true;
+    }
+    public void Hard()
+    {
+        easy = false;
+        hud.DIFFICULTY_SCREEN.SetActive(false);
+        dificultySelected = true;
+    }
 
     public void exitGame()
     {

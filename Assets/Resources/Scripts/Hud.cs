@@ -90,6 +90,8 @@ public class Hud : MonoBehaviour
 
     public GameObject INFO_PROPERTIES;
 
+    public GameObject DIFFICULTY_SCREEN;
+
     // Start is called before the first frame update
     void Start()
     {
