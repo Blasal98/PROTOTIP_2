@@ -217,7 +217,9 @@ public class mainGame : MonoBehaviour
                     if (easy) enemyStrategyEasy();
                     else enemyStrategyHard(); 
                 }
+                hud.INFO_PROPERTIES.SetActive(true);
             }
+            else hud.INFO_PROPERTIES.SetActive(false);
         }
         else
         {
