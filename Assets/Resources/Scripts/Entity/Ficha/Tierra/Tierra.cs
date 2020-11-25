@@ -21,6 +21,7 @@ public class Tierra : Ficha
     public static List<Sprite> tank_sprites;
     public static List<Sprite> plane_sprites;
 
+    #region constructor
     protected Tierra()
     {
         if (soldier_sprites == null)
@@ -84,6 +85,8 @@ public class Tierra : Ficha
         tankCount = 0;
         planeCount = 0;
     }
+    #endregion
+
     public override void addTroopToFicha(Troop _t)
     {
         if (_troops == null) _troops = new List<Troop>();
@@ -147,45 +150,108 @@ public class Tierra : Ficha
 
     }
     public override void updateFicha() {
-        
+
+        bool isCammo, isArmor, isBoth;
+
+        isCammo = isArmor = isBoth = false;
         if(soldierCount > 0)
         {
             soldierIndicator.SetActive(true);
             if(soldierCount > 9) soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[10];
             else soldierIndicator.GetComponent<SpriteRenderer>().sprite = soldier_sprites[soldierCount];
+            for(int i = 0; i < _troops.Count; i++)
+            {
+                if(_troops[i].type == Troop.troopType.SOLDIER)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else soldierIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
+
         }
         else
         {
             soldierIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (carCount > 0)
         {
             carIndicator.SetActive(true);
             if (carCount > 9) carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[10];
             else carIndicator.GetComponent<SpriteRenderer>().sprite = car_sprites[carCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.CAR)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else carIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {
             carIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (tankCount > 0)
         {
             tankIndicator.SetActive(true);
             if (tankCount > 9) tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[10];
             else tankIndicator.GetComponent<SpriteRenderer>().sprite = tank_sprites[tankCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.TANK)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else tankIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {
             tankIndicator.SetActive(false);
         }
         /////////////////////////////////////////////////////////////////////////
+        isCammo = isArmor = isBoth = false;
         if (planeCount > 0)
         {
             planeIndicator.SetActive(true);
             if (planeCount > 9) planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[10];
             else planeIndicator.GetComponent<SpriteRenderer>().sprite = plane_sprites[planeCount];
+            for (int i = 0; i < _troops.Count; i++)
+            {
+                if (_troops[i].type == Troop.troopType.PLANE)
+                {
+                    if (_troops[i].p_type == Troop.propertyType.CAMMO) isCammo = true;
+                    if (_troops[i].p_type == Troop.propertyType.ARMOR) isArmor = true;
+                    if (_troops[i].p_type == Troop.propertyType.BOTH) isBoth = true;
+                }
+            }
+            if (isBoth) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.bothColor;
+            else if (isCammo && isArmor) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cam_armColor;
+            else if (isCammo) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.cammoColor;
+            else if (isArmor) planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.armorColor;
+            else planeIndicator.GetComponent<SpriteRenderer>().color = Constants.Entity.Troop.nothingColor;
         }
         else
         {

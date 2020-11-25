@@ -40,6 +40,9 @@ public class mainGame : MonoBehaviour
     bool building;
     Building.BuildingType buildingType;
 
+    Ficha selectedBuilding;
+    Troop.troopType spawningTroopType;
+
     #endregion
 
     #region Methods
@@ -75,6 +78,7 @@ public class mainGame : MonoBehaviour
         localPlayer = new Player(-1);
         othersPlayer = new List<Player>();
         othersPlayer.Add(new Player(othersPlayer.Count));
+        othersPlayer[0].FCar = othersPlayer[0].FTank = othersPlayer[0].FPlane = othersPlayer[0].MCamo = othersPlayer[0].MArmor = othersPlayer[0].MX2 = true;
 
         turnIndex = 0;
         turnTimeLeft = Constants.General.timeXTurn;
@@ -85,6 +89,8 @@ public class mainGame : MonoBehaviour
         GetComponentInChildren<Transform>().position = new Vector3(0,0,Constants.Layers.zBackGround);
         building = false;
         buildingType = Building.BuildingType.COUNT;
+
+
         
     }
     #endregion
@@ -163,6 +169,11 @@ public class mainGame : MonoBehaviour
                         }
 
                     }
+                    if (clicked_left && !building)
+                    {
+                        upgradeBuilding();
+                        clicked_left = false;
+                    }
 
                     turnTimeLeft -= Time.deltaTime;
                     if (turnTimeLeft <= 0) turnEnded = true;
@@ -202,6 +213,9 @@ public class mainGame : MonoBehaviour
         {
             if (won) hud.WIN.SetActive(true);
             else hud.LOOSE.SetActive(true);
+            hud.BUILDINGS_PROPERTIES.SetActive(false);
+            hud.TROOPS_PROPERTIES.SetActive(false);
+            hud.INFO_PROPERTIES.SetActive(false);
         }
     }
     #endregion
@@ -212,71 +226,145 @@ public class mainGame : MonoBehaviour
         switch (turnIndex)
         {
             case 0:
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.TANK);
-                addTroopEnemy(Troop.troopType.PLANE);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.PLANE, Troop.propertyType.CAMMO);
                 break;
             case 1:
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.SOLDIER);
-                addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
-                addTroopEnemy(Troop.troopType.TANK);
-                addTroopEnemy(Troop.troopType.PLANE);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
                 addBuildingEnemy(Building.BuildingType.TRENCH, 3, 3, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 5, 4, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 6, 4, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 4, 1, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 5, 2, 2);
-                addBuildingEnemy(Building.BuildingType.TRENCH, 6, 2, 2);
+                //addBuildingEnemy(Building.BuildingType.TRENCH, 4, 3, 2);
+                //addBuildingEnemy(Building.BuildingType.TRENCH, 5, 4, 2);
+
 
                 break;
             case 2:
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.SOLDIER);
-                //addTroopEnemy(Troop.troopType.CAR);
-                //addTroopEnemy(Troop.troopType.CAR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+                break;
+            case 3:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
 
+                break;
+            case 4:
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.NOTHING);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.CAMMO);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.ARMOR);
+                addTroopEnemy(Troop.troopType.SOLDIER, Troop.propertyType.BOTH);
+
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
                 break;
         }
     }
 
-    private void addTroopEnemy(Troop.troopType _t)
+    private void addTroopEnemy(Troop.troopType _t, Troop.propertyType _p)
     {
         switch (_t)
         {
             case Troop.troopType.SOLDIER:
-                othersPlayer[0].troops.Add(new Soldier());
-                othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Soldier.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Soldier(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.CAR:
-                othersPlayer[0].troops.Add(new Car());
-                othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Car.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Car(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.TANK:
-                othersPlayer[0].troops.Add(new Tank());
-                othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Tank.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Tank(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             case Troop.troopType.PLANE:
-                othersPlayer[0].troops.Add(new Plane());
-                othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
-                
+                switch (_p)
+                {
+                    case Troop.propertyType.NOTHING:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.NOTHING));
+                        othersPlayer[0].money -= Constants.Entity.Troop.Plane.cost;
+                        break;
+                    case Troop.propertyType.CAMMO:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.CAMMO));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.ARMOR:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.ARMOR));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                        break;
+                    case Troop.propertyType.BOTH:
+                        othersPlayer[0].troops.Add(new Plane(Troop.propertyType.BOTH));
+                        othersPlayer[0].money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                        break;
+                }
+
                 break;
             default:
                 break;
@@ -289,13 +377,13 @@ public class mainGame : MonoBehaviour
         switch (_t)
         {
             case Building.BuildingType.TRENCH:
-                othersPlayer[0].buildings.Add(new Trench());
+                othersPlayer[0].buildings.Add(new Trench(sprite_index));
                 break;
             case Building.BuildingType.SNIPER:
-                othersPlayer[0].buildings.Add(new Sniper());
+                othersPlayer[0].buildings.Add(new Sniper(sprite_index));
                 break;
             case Building.BuildingType.ATANK:
-                othersPlayer[0].buildings.Add(new ATank());
+                othersPlayer[0].buildings.Add(new ATank(sprite_index));
                 break;
             case Building.BuildingType.AAIR:
                 othersPlayer[0].buildings.Add(new AAir());
@@ -345,6 +433,36 @@ public class mainGame : MonoBehaviour
         localPlayer.buildings.RemoveAt(localPlayer.buildings.Count - 1);
         building = false;
     }
+    private void upgradeBuilding()
+    {
+       
+        if (selectedBuilding != null && mainMap.getSomethingTriggered() == true)
+        {
+            upgradeBuildingCancel();
+        }
+        if (mainMap.getBuildingTriggered() != null && selectedBuilding == null)
+        {
+            hud.TROOPS_PROPERTIES.SetActive(false);
+            hud.BUILDINGS_PROPERTIES.SetActive(true);
+            selectedBuilding = mainMap.getBuildingTriggered();
+            selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Constants.Entity.Building.selectedColor;
+
+            List<bool> auxList = selectedBuilding.getUpgrades();
+            if (auxList[0]) hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = false;
+            if (auxList[1]) hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = false;
+            if (auxList[2]) hud.BUILDINGS_X2.GetComponent<Button>().interactable = false;
+        }
+    }
+    private void upgradeBuildingCancel()
+    {
+        hud.BUILDINGS_PROPERTIES.SetActive(false);
+        if (selectedBuilding != null) selectedBuilding.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        selectedBuilding = null;
+        hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = true;
+        hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = true;
+        hud.BUILDINGS_X2.GetComponent<Button>().interactable = true;
+    }
+
     #endregion
 
     #region atk/df
@@ -362,73 +480,157 @@ public class mainGame : MonoBehaviour
 
     void defenseCity()
     {
-        if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null) {
-            if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count > 0) { 
-                int rand = Random.Range(0, mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count);
-                mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].health -= localPlayer.attack;
-
-                switch (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].type)
+        int x = 1;
+        if (localPlayer.MX2) x = 2;
+        if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null)
+        {
+            for(int x2 = 0; x2 < x; x2++)
+            {
+                if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count > 0)
                 {
-                    case Troop.troopType.SOLDIER:
-                        localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
+                    List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                    for(int i = 0; i< mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops().Count; i++)
+                    {
+                        if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.NOTHING)
+                        {
+                            auxList.Add(new Utilities.Pair_TroopInt(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i], i));
+                        }
+                        if (localPlayer.MCamo) { 
+                            if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.CAMMO)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                        if (localPlayer.MArmor)
+                        {
+                            if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.ARMOR)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                        if (localPlayer.MCamo && localPlayer.MArmor)
+                        {
+                            if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.BOTH)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                    }
+                    //Debug.Log(auxList.Count);
+                    if(auxList.Count > 0) {
+                        int rand = Random.Range(0, auxList.Count);
+                        mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health -= localPlayer.attack;
 
-                        break;
-                    case Troop.troopType.CAR:
-                        localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), localPlayer.shootings.Count));
+                        switch (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
 
-                        break;
-                    case Troop.troopType.TANK:
-                        localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), localPlayer.shootings.Count));
+                                break;
+                            case Troop.troopType.CAR:
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
 
-                        break;
-                    case Troop.troopType.PLANE:
-                        localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count));
+                                break;
+                            case Troop.troopType.TANK:
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
+
+                                break;
+                            case Troop.troopType.PLANE:
+                                localPlayer.shootings.Add(shootRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count,
+                                    mainMap.getLocalPath[Constants.Map.path_size - 1]));
                         
-                        break;
-                }
-                StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
+                                break;
+                        }
+                        StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
 
-                if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand].health <= 0)
-                {
+                        if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health <= 0)
+                        {
 
-                    localPlayer.troops.Remove(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[rand]);
-                    mainMap.killTroop(Constants.Map.path_size - 1, rand, true);
+                            localPlayer.troops.Remove(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(Constants.Map.path_size - 1, auxList[rand].i, true);
+                        }
+                    }
                 }
             }
         }
+        x = 1;
+        if (othersPlayer[0].MX2) x = 2;
         if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops() != null)
         {
-            if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count > 0)
+            for (int x2 = 0; x2 < x; x2++)
             {
-                int rand = Random.Range(0, mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count);
-                mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].health -= othersPlayer[0].attack;
-
-                switch (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].type)
+                if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count > 0)
                 {
-                    case Troop.troopType.SOLDIER:
-                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+                    List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                    for (int i = 0; i < mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops().Count; i++)
+                    {
+                        if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.NOTHING)
+                        {
+                            auxList.Add(new Utilities.Pair_TroopInt(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i], i));
+                        }
+                        if (othersPlayer[0].MCamo)
+                        {
+                            if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.CAMMO)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                        if (othersPlayer[0].MArmor)
+                        {
+                            if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.ARMOR)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                        if (othersPlayer[0].MCamo && othersPlayer[0].MArmor)
+                        {
+                            if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i].p_type == Troop.propertyType.BOTH)
+                            {
+                                auxList.Add(new Utilities.Pair_TroopInt(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[i], i));
+                            }
+                        }
+                    }
+                    //Debug.Log(auxList.Count);
+                    if (auxList.Count > 0)
+                    {
+                        int rand = Random.Range(0, auxList.Count);
+                        mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health -= othersPlayer[0].attack;
 
-                        break;
-                    case Troop.troopType.CAR:
-                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+                        switch (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
-                        break;
-                    case Troop.troopType.TANK:
-                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+                                break;
+                            case Troop.troopType.CAR:
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
-                        break;
-                    case Troop.troopType.PLANE:
-                        othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+                                break;
+                            case Troop.troopType.TANK:
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
-                        break;
-                }
-                StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
+                                break;
+                            case Troop.troopType.PLANE:
+                                othersPlayer[0].shootings.Add(shootRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count,
+                                    mainMap.getOthersPath[0][Constants.Map.path_size - 1]));
 
-                if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand].health <= 0)
-                {
+                                break;
+                        }
+                        StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
 
-                    othersPlayer[0].troops.Remove(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[rand]);
-                    mainMap.killTroop(Constants.Map.path_size - 1, rand, false);
+                        if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health <= 0)
+                        {
+
+                            othersPlayer[0].troops.Remove(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(Constants.Map.path_size - 1, auxList[rand].i, false);
+                        }
+                    }
                 }
             }
         }
@@ -438,81 +640,115 @@ public class mainGame : MonoBehaviour
     {
         for(int i = 0; i < localPlayer.buildings.Count; i++) //per cada edifici
         {
-            if(localPlayer.buildings[i].targets.Count > 0) //si tenen targets
+            int x = 1;
+            if (localPlayer.buildings[i].getUpgrades()[2]) x = 2;
+            for(int xx = 0; xx < x; xx++)
             {
-                bool gotFirst = false;
-                int first = -1;
-                int killIndex = -1;
-                for(int j = mainMap.getLocalPath.Count-2; j > 0; j--) //del target final al primer per trobar el primer target
+                if (localPlayer.buildings[i].targets.Count > 0) //si tenen targets
                 {
-                    if (gotFirst) break;
-                    for (int k = 0; k < localPlayer.buildings[i].targets.Count; k++) //recorre targets per mirar si coincideix amb el blucle superior
+                    bool gotFirst = false;
+                    int first = -1;
+                    int killIndex = -1;
+                    Troop.propertyType pt = Troop.propertyType.NOTHING;
+                    for(int j = mainMap.getLocalPath.Count-2; j > 0; j--) //del target final al primer per trobar el primer target
                     {
                         if (gotFirst) break;
-                        if (mainMap.getLocalPath[j] == localPlayer.buildings[i].targets[k] && localPlayer.buildings[i].targets[k].getTroops().Count > 0) //coincideix i hi ha tropes
+                        for (int k = 0; k < localPlayer.buildings[i].targets.Count; k++) //recorre targets per mirar si coincideix amb el blucle superior
                         {
-                            for (int g = 0; g < localPlayer.buildings[i].targets[k].getTroops().Count; g++) //recorrem les tropes
+                            if (gotFirst) break;
+                            if (mainMap.getLocalPath[j] == localPlayer.buildings[i].targets[k] && localPlayer.buildings[i].targets[k].getTroops().Count > 0) //coincideix i hi ha tropes
                             {
-                                if (gotFirst) break;
-                                for(int h = 0; h < localPlayer.buildings[i].troopTypes.Count; h++) //recorrem els tipus que pot atacar el edifici
+                                for (int g = 0; g < localPlayer.buildings[i].targets[k].getTroops().Count; g++) //recorrem les tropes
                                 {
                                     if (gotFirst) break;
-                                    if (localPlayer.buildings[i].targets[k].getTroops()[g].type == localPlayer.buildings[i].troopTypes[h]) //si coincideix algu se fini
+                                    for(int h = 0; h < localPlayer.buildings[i].troopTypes.Count; h++) //recorrem els tipus que pot atacar el edifici
                                     {
-                                        gotFirst = true;
-                                        first = k;
-                                        killIndex = j;
+                                        if (gotFirst) break;
+                                        if (localPlayer.buildings[i].targets[k].getTroops()[g].type == localPlayer.buildings[i].troopTypes[h]) //si coincideix el tipus de tropa
+                                        {
+
+                                            if (gotFirst) break;
+                                            if (localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.NOTHING) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                            }
+                                            else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.CAMMO) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.CAMMO;
+                                            }
+                                            else if (localPlayer.buildings[i].getUpgrades()[1] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.ARMOR) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.ARMOR;
+                                            }
+                                            else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].getUpgrades()[1] &&
+                                                localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.BOTH) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.BOTH;
+                                            }
+                                        }
                                     }
                                 }
-
                             }
-                           
                         }
                     }
-                    
-                }
-                if (gotFirst) {
+                    if (gotFirst) {
 
-                    List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
-                    for (int j = 0; j < localPlayer.buildings[i].targets[first].getTroops().Count; j++) 
-                    {
-                        for (int k = 0; k < localPlayer.buildings[i].troopTypes.Count; k++) 
+                        List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                        for (int j = 0; j < localPlayer.buildings[i].targets[first].getTroops().Count; j++) 
                         {
-                            if (localPlayer.buildings[i].targets[first].getTroops()[j].type == localPlayer.buildings[i].troopTypes[k])
-                                auxList.Add(new Utilities.Pair_TroopInt(localPlayer.buildings[i].targets[first].getTroops()[j], j));
+                            for (int k = 0; k < localPlayer.buildings[i].troopTypes.Count; k++) 
+                            {
+                                if (localPlayer.buildings[i].targets[first].getTroops()[j].type == localPlayer.buildings[i].troopTypes[k] && localPlayer.buildings[i].targets[first].getTroops()[j].p_type == pt)
+                                    auxList.Add(new Utilities.Pair_TroopInt(localPlayer.buildings[i].targets[first].getTroops()[j], j));
+                            }
                         }
-                    }
-                    int rand = Random.Range(0, auxList.Count);
-                    localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health -= localPlayer.buildings[i].damage;
+                        int rand = Random.Range(0, auxList.Count);
+                        localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health -= localPlayer.buildings[i].damage;
 
-                    switch (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].type)
-                    {
-                        case Troop.troopType.SOLDIER:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count));
+                        switch (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), localPlayer.shootings.Count,
+                                    localPlayer.buildings[i].targets[first]));
                               
-                            break;
-                        case Troop.troopType.CAR:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR), localPlayer.shootings.Count));
+                                break;
+                            case Troop.troopType.CAR:
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.CAR), localPlayer.shootings.Count,
+                                    localPlayer.buildings[i].targets[first]));
                       
-                            break;
-                        case Troop.troopType.TANK:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK), localPlayer.shootings.Count));
+                                break;
+                            case Troop.troopType.TANK:
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.TANK), localPlayer.shootings.Count,
+                                    localPlayer.buildings[i].targets[first]));
                                 
-                            break;
-                        case Troop.troopType.PLANE:
-                            localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count));
+                                break;
+                            case Troop.troopType.PLANE:
+                                localPlayer.shootings.Add(shootRoutine(localPlayer.buildings[i].targets[first].indicator(Troop.troopType.PLANE), localPlayer.shootings.Count,
+                                    localPlayer.buildings[i].targets[first]));
                                 
-                            break;
-                    }
-                    StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
+                                break;
+                        }
+                        StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
 
-                    if (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
-                    {
+                        if (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
+                        {
 
-                        localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i]);
-                        mainMap.killTroop(killIndex, auxList[rand].i, true);
-                    }
+                            localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(killIndex, auxList[rand].i, true);
+                        }
                     
+                    }
                 }
             }
         }
@@ -520,83 +756,120 @@ public class mainGame : MonoBehaviour
 
         for (int i = 0; i < othersPlayer[0].buildings.Count; i++) //per cada edifici
         {
-            if (othersPlayer[0].buildings[i].targets.Count > 0) //si tenen targets
+            int x = 1;
+            if (othersPlayer[0].buildings[i].getUpgrades()[2]) x = 2;
+            for (int xx = 0; xx < x; xx++)
             {
-                bool gotFirst = false;
-                int first = -1;
-                int killIndex = -1;
-                for (int j = mainMap.getOthersPath[0].Count - 2; j > 0; j--) //del target final al primer per trobar el primer target
+                if (othersPlayer[0].buildings[i].targets.Count > 0) //si tenen targets
                 {
-                    if (gotFirst) break;
-                    for (int k = 0; k < othersPlayer[0].buildings[i].targets.Count; k++) //recorre targets per mirar si coincideix amb el blucle superior
+                    bool gotFirst = false;
+                    int first = -1;
+                    int killIndex = -1;
+                    Troop.propertyType pt = Troop.propertyType.NOTHING;
+                    for (int j = mainMap.getOthersPath[0].Count - 2; j > 0; j--) //del target final al primer per trobar el primer target
                     {
                         if (gotFirst) break;
-                        if (mainMap.getOthersPath[0][j] == othersPlayer[0].buildings[i].targets[k] && othersPlayer[0].buildings[i].targets[k].getTroops().Count > 0) //coincideix i hi ha tropes
+                        for (int k = 0; k < othersPlayer[0].buildings[i].targets.Count; k++) //recorre targets per mirar si coincideix amb el blucle superior
                         {
-                            for (int g = 0; g < othersPlayer[0].buildings[i].targets[k].getTroops().Count; g++) //recorrem les tropes
+                            if (gotFirst) break;
+                            if (mainMap.getOthersPath[0][j] == othersPlayer[0].buildings[i].targets[k] && othersPlayer[0].buildings[i].targets[k].getTroops().Count > 0) //coincideix i hi ha tropes
                             {
-                                if (gotFirst) break;
-                                for (int h = 0; h < othersPlayer[0].buildings[i].troopTypes.Count; h++) //recorrem els tipus que pot atacar el edifici
+                                for (int g = 0; g < othersPlayer[0].buildings[i].targets[k].getTroops().Count; g++) //recorrem les tropes
                                 {
                                     if (gotFirst) break;
-                                    if (othersPlayer[0].buildings[i].targets[k].getTroops()[g].type == othersPlayer[0].buildings[i].troopTypes[h]) //si coincideix algu se fini
+                                    for (int h = 0; h < othersPlayer[0].buildings[i].troopTypes.Count; h++) //recorrem els tipus que pot atacar el edifici
                                     {
-                                        gotFirst = true;
-                                        first = k;
-                                        killIndex = j;
+                                        if (gotFirst) break;
+                                        if (othersPlayer[0].buildings[i].targets[k].getTroops()[g].type == othersPlayer[0].buildings[i].troopTypes[h]) //si coincideix algu se fini
+                                        {
+                                            if (gotFirst) break;
+                                            if (othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.NOTHING) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                            }
+                                            else if (othersPlayer[0].buildings[i].getUpgrades()[0] && othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.CAMMO) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.CAMMO;
+                                            }
+                                            else if (othersPlayer[0].buildings[i].getUpgrades()[1] && othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.ARMOR) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.ARMOR;
+                                            }
+                                            else if (othersPlayer[0].buildings[i].getUpgrades()[0] && othersPlayer[0].buildings[i].getUpgrades()[1] &&
+                                                othersPlayer[0].buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.BOTH) //te la propietat
+                                            {
+                                                gotFirst = true;
+                                                first = k;
+                                                killIndex = j;
+                                                pt = Troop.propertyType.BOTH;
+                                            }
+                                        }
                                     }
+
                                 }
 
                             }
-
                         }
+
                     }
-
-                }
-                if (gotFirst)
-                {
-
-                    List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
-                    for (int j = 0; j < othersPlayer[0].buildings[i].targets[first].getTroops().Count; j++)
+                    if (gotFirst)
                     {
-                        for (int k = 0; k < othersPlayer[0].buildings[i].troopTypes.Count; k++)
+
+                        List<Utilities.Pair_TroopInt> auxList = new List<Utilities.Pair_TroopInt>();
+                        for (int j = 0; j < othersPlayer[0].buildings[i].targets[first].getTroops().Count; j++)
                         {
-                            if (othersPlayer[0].buildings[i].targets[first].getTroops()[j].type == othersPlayer[0].buildings[i].troopTypes[k])
-                                auxList.Add(new Utilities.Pair_TroopInt(othersPlayer[0].buildings[i].targets[first].getTroops()[j], j));
+                            for (int k = 0; k < othersPlayer[0].buildings[i].troopTypes.Count; k++)
+                            {
+                                if (othersPlayer[0].buildings[i].targets[first].getTroops()[j].type == othersPlayer[0].buildings[i].troopTypes[k]
+                                     && othersPlayer[0].buildings[i].targets[first].getTroops()[j].p_type == pt)
+                                    auxList.Add(new Utilities.Pair_TroopInt(othersPlayer[0].buildings[i].targets[first].getTroops()[j], j));
+                            }
                         }
-                    }
 
-                    int rand = Random.Range(0, auxList.Count);
-                    othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health -= othersPlayer[0].buildings[i].damage;
+                        int rand = Random.Range(0, auxList.Count);
+                        othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health -= othersPlayer[0].buildings[i].damage;
 
-                    switch (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].type)
-                    {
-                        case Troop.troopType.SOLDIER:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count));
+                        switch (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].type)
+                        {
+                            case Troop.troopType.SOLDIER:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.SOLDIER), othersPlayer[0].shootings.Count,
+                                    othersPlayer[0].buildings[i].targets[first]));
 
-                            break;
-                        case Troop.troopType.CAR:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count));
+                                break;
+                            case Troop.troopType.CAR:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.CAR), othersPlayer[0].shootings.Count,
+                                    othersPlayer[0].buildings[i].targets[first]));
 
-                            break;
-                        case Troop.troopType.TANK:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count));
+                                break;
+                            case Troop.troopType.TANK:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.TANK), othersPlayer[0].shootings.Count,
+                                    othersPlayer[0].buildings[i].targets[first]));
 
-                            break;
-                        case Troop.troopType.PLANE:
-                            othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count));
+                                break;
+                            case Troop.troopType.PLANE:
+                                othersPlayer[0].shootings.Add(shootRoutine(othersPlayer[0].buildings[i].targets[first].indicator(Troop.troopType.PLANE), othersPlayer[0].shootings.Count,
+                                    othersPlayer[0].buildings[i].targets[first]));
 
-                            break;
-                    }
-                    StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
+                                break;
+                        }
+                        StartCoroutine(othersPlayer[0].shootings[othersPlayer[0].shootings.Count - 1]);
 
-                    if (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
-                    {
+                        if (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
+                        {
 
-                        othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i]);
-                        mainMap.killTroop(killIndex, auxList[rand].i, false);
-                    }
+                            othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i]);
+                            mainMap.killTroop(killIndex, auxList[rand].i, false);
+                        }
                     
+                    }
                 }
             }
         }
@@ -675,44 +948,196 @@ public class mainGame : MonoBehaviour
 
     public void addTroop(int _t)
     {
+        upgradeBuildingCancel();
+        hud.TROOPS_PROPERTIES.SetActive(true);
+        if (localPlayer.MCamo) hud.TROOPS_CAMMO.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_CAMMO.GetComponent<Button>().interactable = false;
+        if (localPlayer.MArmor) hud.TROOPS_ARMOR.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_ARMOR.GetComponent<Button>().interactable = false;
+        if (localPlayer.MCamo && localPlayer.MArmor) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
+        else hud.TROOPS_BOTH.GetComponent<Button>().interactable = false;
+
         switch (_t)
         {
             case (int)Troop.troopType.SOLDIER:
-                if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
-                {
-                    localPlayer.troops.Add(new Soldier());
-                    localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
-                }
+                spawningTroopType = Troop.troopType.SOLDIER;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "SOLDIER";
                 break;
             case (int)Troop.troopType.CAR:
-                if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
-                {
-                    localPlayer.troops.Add(new Car());
-                    localPlayer.money -= Constants.Entity.Troop.Car.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.CAR;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "CAR";
                 break;
             case (int)Troop.troopType.TANK:
-                if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
-                {
-                    localPlayer.troops.Add(new Tank());
-                    localPlayer.money -= Constants.Entity.Troop.Tank.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.TANK;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "TANK";
                 break;
             case (int)Troop.troopType.PLANE:
-                if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
-                {
-                    localPlayer.troops.Add(new Plane());
-                    localPlayer.money -= Constants.Entity.Troop.Plane.cost;
-                    mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
-                }
+                spawningTroopType = Troop.troopType.PLANE;
+                hud.TROOP_TEXT.GetComponent<TMPro.TextMeshProUGUI>().text = "PLANE";
                 break;
             default:
                 break;
         }
+
+    }
+    public void addTroopProperty(int _t)
+    {
+        hud.TROOPS_PROPERTIES.SetActive(false);
+        switch (_t)
+        {
+            case (int) Troop.propertyType.NOTHING:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if(localPlayer.money >= Constants.Entity.Troop.Soldier.cost)
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Soldier.cost;
+                           mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count-1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost)
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Car.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost)
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Tank.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost)
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.NOTHING));
+                            localPlayer.money -= Constants.Entity.Troop.Plane.cost;
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.CAMMO:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int) (Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.CAMMO));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.ARMOR:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.ARMOR));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+            case (int)Troop.propertyType.BOTH:
+                switch (spawningTroopType)
+                {
+                    case Troop.troopType.SOLDIER:
+                        if (localPlayer.money >= Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Soldier(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Soldier.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.CAR:
+                        if (localPlayer.money >= Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Car(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Car.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.TANK:
+                        if (localPlayer.money >= Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Tank(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Tank.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                    case Troop.troopType.PLANE:
+                        if (localPlayer.money >= Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1))
+                        {
+                            localPlayer.troops.Add(new Plane(Troop.propertyType.BOTH));
+                            localPlayer.money -= (int)(Constants.Entity.Troop.Plane.cost * (Constants.Entity.Troop.property_cost * 2 + 1));
+                            mainMap.getOthersPath[0][0].addTroopToFicha(localPlayer.troops[localPlayer.troops.Count - 1]);
+                        }
+                        break;
+                }
+                break;
+
+
+        }
         mainMap.getOthersPath[0][0].updateFicha();
+        hud.TROOPS_PROPERTIES.SetActive(false);
     }
 
     public void build(int _b)
@@ -768,6 +1193,50 @@ public class mainGame : MonoBehaviour
 
         }
     }
+
+    public void buildingUpgrade(int _i)
+    {
+        if(selectedBuilding != null)
+        {
+            int baseCost = 0;
+            switch (selectedBuilding.getBuildingType())
+            {
+                case Building.BuildingType.TRENCH:
+                    baseCost = Constants.Entity.Building.Trinchera.cost;
+                    break;
+                case Building.BuildingType.SNIPER:
+                    baseCost = Constants.Entity.Building.Sniper.cost;
+                    break;
+                case Building.BuildingType.ATANK:
+                    baseCost = Constants.Entity.Building.AntiTank.cost;
+                    break;
+                case Building.BuildingType.AAIR:
+                    baseCost = Constants.Entity.Building.AntiAir.cost;
+                    break;
+            }
+            if (localPlayer.money >= baseCost * Constants.Entity.Building.property_cost)
+            {
+               
+                localPlayer.money -= (int) (baseCost * Constants.Entity.Building.property_cost);
+                switch (_i)
+                {
+                    case 0:
+                        selectedBuilding.setUpgrades(0);
+                        hud.BUILDINGS_CAMMO.GetComponent<Button>().interactable = false;
+                        break;
+                    case 1:
+                        selectedBuilding.setUpgrades(1);
+                        hud.BUILDINGS_ARMOR.GetComponent<Button>().interactable = false;
+                        break;
+                    case 2:
+                        selectedBuilding.setUpgrades(2);
+                        hud.BUILDINGS_X2.GetComponent<Button>().interactable = false;
+                        break;
+                }
+            }
+        }
+    }
+
     public void CityUpgrades(int _i)
     {
         switch (_i)
@@ -809,6 +1278,8 @@ public class mainGame : MonoBehaviour
                     localPlayer.MCamo = true;
                     hud.MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
                     localPlayer.attack += Constants.Entity.City.MCammo;
+                    hud.TROOPS_CAMMO.GetComponent<Button>().interactable = true;
+                    if(hud.TROOPS_ARMOR.GetComponent<Button>().interactable) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
                 }
                 break;
             case 4:
@@ -818,13 +1289,15 @@ public class mainGame : MonoBehaviour
                     localPlayer.MArmor = true;
                     hud.MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
                     localPlayer.attack += Constants.Entity.City.MArmor;
+                    hud.TROOPS_ARMOR.GetComponent<Button>().interactable = true;
+                    if (hud.TROOPS_CAMMO.GetComponent<Button>().interactable) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
                 }
                 break;
             case 5:
                 if (localPlayer.money >= Constants.Entity.City.Milloras)
                 {
                     localPlayer.money -= Constants.Entity.City.Milloras;
-                    localPlayer.MAir = true;
+                    localPlayer.MX2 = true;
                     hud.MAIR_BUTTON.GetComponent<Button>().interactable = false;
                     localPlayer.attack += Constants.Entity.City.MAir;
                 }
@@ -849,22 +1322,16 @@ public class mainGame : MonoBehaviour
         }
         for (int j = 0; j < Constants.Map.path_size; j++)
         {
-            mainMap.getLocalPath[j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getLocalPath[j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
-
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.SOLDIER).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.CAR).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.TANK).GetComponent<SpriteRenderer>().color = Color.white;
-            mainMap.getOthersPath[0][j].indicator(Troop.troopType.PLANE).GetComponent<SpriteRenderer>().color = Color.white;
+            mainMap.getLocalPath[j].updateFicha();
+            mainMap.getOthersPath[0][j].updateFicha();
         }
         localPlayer.shootings.Clear();
         othersPlayer[0].shootings.Clear();
     }
 
-    private IEnumerator shootRoutine(GameObject troop, int index)
+    private IEnumerator shootRoutine(GameObject troop, int index, Ficha toUpdate)
     {
+        //Color hadColor = troop.GetComponent<SpriteRenderer>().color;
         Color startColor = new Color(1, 1, 1, 1);
         Color endColor = new Color(1, 0, 0, 1);
         Color nowColor = startColor;
@@ -881,9 +1348,9 @@ public class mainGame : MonoBehaviour
             nowColor = Utilities.Maths.lerpColor(startColor, endColor, mapped);
             yield return new WaitForSeconds(duration / steps);
         }
-       
-        troop.GetComponent<SpriteRenderer>().color = startColor;
-        //if(localPlayer.shootings.Count > index) localPlayer.shootings.RemoveAt(index);
+        toUpdate.updateFicha();
+        //troop.GetComponent<SpriteRenderer>().color = hadColor;
+
         yield return null;
     }
 

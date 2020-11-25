@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Tank : Troop
 {
-    public Tank()
+    public Tank(propertyType _p)
     {
         type = troopType.TANK;
         health = Constants.Entity.Troop.Tank.health;
+        p_type = _p;
     }
 
 }

@@ -12,6 +12,29 @@ public class ATank : Building
         damage = Constants.Entity.Building.AntiTank.dmg;
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.ATANK;
+    }
+    public ATank(int _sIndex)
+    {
+        switch (_sIndex)
+        {
+            case 0:
+                gameObject.GetComponent<SpriteRenderer>().sprite = atank0;
+                break;
+            case 1:
+                gameObject.GetComponent<SpriteRenderer>().sprite = atank1;
+                break;
+            case 2:
+                gameObject.GetComponent<SpriteRenderer>().sprite = atank2;
+                break;
+        }
+
+        damage = Constants.Entity.Building.AntiTank.dmg;
+        troopTypes.Add(Troop.troopType.CAR);
+        troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.ATANK;
     }
 
     public override void nextSprite()

@@ -12,6 +12,30 @@ public class Trench : Building
         damage = Constants.Entity.Building.Trinchera.dmg;
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
+
+        bType = BuildingType.TRENCH;
+    }
+
+    public Trench(int _sIndex)
+    {
+        switch (_sIndex)
+        {
+            case 0:
+                gameObject.GetComponent<SpriteRenderer>().sprite = trench0;
+                break;
+            case 1:
+                gameObject.GetComponent<SpriteRenderer>().sprite = trench1;
+                break;
+            case 2:
+                gameObject.GetComponent<SpriteRenderer>().sprite = trench2;
+                break;
+        }
+
+        damage = Constants.Entity.Building.Trinchera.dmg;
+        troopTypes.Add(Troop.troopType.SOLDIER);
+        troopTypes.Add(Troop.troopType.CAR);
+
+        bType = BuildingType.TRENCH;
     }
 
     public override void nextSprite()

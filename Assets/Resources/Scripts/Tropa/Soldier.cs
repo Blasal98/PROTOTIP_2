@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Soldier : Troop
 {
-    public Soldier()
+    public Soldier(propertyType _p)
     {
         type = troopType.SOLDIER;
         health = Constants.Entity.Troop.Soldier.health;
+        p_type = _p;
     }
    
 }

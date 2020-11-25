@@ -13,6 +13,29 @@ public class Sniper : Building
         troopTypes.Add(Troop.troopType.SOLDIER);
         troopTypes.Add(Troop.troopType.CAR);
         troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.SNIPER;
+    }
+
+    public Sniper(int _sIndex)
+    {
+        switch (_sIndex)
+        {
+            case 0:
+                gameObject.GetComponent<SpriteRenderer>().sprite = sniper0;
+                break;
+            case 1:
+                gameObject.GetComponent<SpriteRenderer>().sprite = sniper1;
+                break;
+
+        }
+
+        damage = Constants.Entity.Building.Sniper.dmg;
+        troopTypes.Add(Troop.troopType.SOLDIER);
+        troopTypes.Add(Troop.troopType.CAR);
+        troopTypes.Add(Troop.troopType.TANK);
+
+        bType = BuildingType.SNIPER;
     }
 
     public override void nextSprite()

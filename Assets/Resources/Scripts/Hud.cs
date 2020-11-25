@@ -75,6 +75,21 @@ public class Hud : MonoBehaviour
     public GameObject WIN;
     public GameObject LOOSE;
 
+    //PROPERTYS
+    public GameObject BUILDINGS_PROPERTIES;
+    public GameObject BUILDINGS_CAMMO;
+    public GameObject BUILDINGS_ARMOR;
+    public GameObject BUILDINGS_X2;
+
+    public GameObject TROOPS_PROPERTIES;
+    public GameObject TROOPS_NOTHING;
+    public GameObject TROOPS_CAMMO;
+    public GameObject TROOPS_ARMOR;
+    public GameObject TROOPS_BOTH;
+    public GameObject TROOP_TEXT;
+
+    public GameObject INFO_PROPERTIES;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -167,7 +182,7 @@ public class Hud : MonoBehaviour
 
                 if (!_p.MCamo) MCAMMO_BUTTON.GetComponent<Button>().interactable = true;
                 if (!_p.MArmor) MBLINDAJE_BUTTON.GetComponent<Button>().interactable = true;
-                if (!_p.MAir) MAIR_BUTTON.GetComponent<Button>().interactable = true;
+                if (!_p.MX2) MAIR_BUTTON.GetComponent<Button>().interactable = true;
 
                 if (_p.FCar) CAR_BUTTON.GetComponent<Button>().interactable = true;
                 if (_p.FTank) TANK_BUTTON.GetComponent<Button>().interactable = true;

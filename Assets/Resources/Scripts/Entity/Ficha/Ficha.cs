@@ -41,4 +41,7 @@ public class Ficha : Entity {
     public virtual void setTargets(List<Utilities.Pair_FichaInt> _list) { }
     public virtual List<Ficha> getTargets() { return null; }
     public virtual bool isTargetable() { return false; }
+    public virtual List<bool> getUpgrades() { return null; }
+    public virtual void setUpgrades(int i) { }
+    public virtual Building.BuildingType getBuildingType() { return 0; }
 }

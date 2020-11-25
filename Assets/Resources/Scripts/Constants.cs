@@ -90,6 +90,14 @@ namespace Constants
             public static int wPix = 90;
             public static float scale = 0.4f;
 
+            public static Color nothingColor = Color.white;
+            public static Color cammoColor = Color.yellow;
+            public static Color armorColor = Color.gray;
+            public static Color bothColor = Color.magenta;
+            public static Color cam_armColor = Color.green;
+
+            public static float property_cost = 0.5f;
+
             public class Soldier
             {
                 public static int cost = 50;
@@ -117,6 +125,9 @@ namespace Constants
             public static int up_hPix = 90;
             public static int up_wPix = 90;
             public static float up_scale = 0.35f;
+            public static float property_cost = 2f;
+
+            public static Color selectedColor = new Color(1,0.5f,0,1);
 
             public class Trinchera
             {
