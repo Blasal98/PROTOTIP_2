@@ -638,6 +638,11 @@ public class mainGame : MonoBehaviour
 
     void defense()
     {
+        List<Utilities.Pair_IntInt> results = new List<Utilities.Pair_IntInt>();
+        for(int i= 0; i < 15; i++)
+        {
+            results.Add(new Utilities.Pair_IntInt(0,0));
+        }
         for(int i = 0; i < localPlayer.buildings.Count; i++) //per cada edifici
         {
             int x = 1;
@@ -673,6 +678,7 @@ public class mainGame : MonoBehaviour
                                                 gotFirst = true;
                                                 first = k;
                                                 killIndex = j;
+                                                
                                             }
                                             else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.CAMMO) //te la propietat
                                             {
@@ -680,6 +686,7 @@ public class mainGame : MonoBehaviour
                                                 first = k;
                                                 killIndex = j;
                                                 pt = Troop.propertyType.CAMMO;
+                                                
                                             }
                                             else if (localPlayer.buildings[i].getUpgrades()[1] && localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.ARMOR) //te la propietat
                                             {
@@ -687,6 +694,7 @@ public class mainGame : MonoBehaviour
                                                 first = k;
                                                 killIndex = j;
                                                 pt = Troop.propertyType.ARMOR;
+                                                
                                             }
                                             else if (localPlayer.buildings[i].getUpgrades()[0] && localPlayer.buildings[i].getUpgrades()[1] &&
                                                 localPlayer.buildings[i].targets[k].getTroops()[g].p_type == Troop.propertyType.BOTH) //te la propietat
@@ -695,6 +703,7 @@ public class mainGame : MonoBehaviour
                                                 first = k;
                                                 killIndex = j;
                                                 pt = Troop.propertyType.BOTH;
+                                                
                                             }
                                         }
                                     }
@@ -743,7 +752,8 @@ public class mainGame : MonoBehaviour
 
                         if (localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
                         {
-
+                            results[localPlayer.buildings[i].targets[first].getPathIndex()].i1++;
+                            results[localPlayer.buildings[i].targets[first].getPathIndex()].i2 += getMoney(localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].type, localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i].p_type);
                             localPlayer.troops.Remove(localPlayer.buildings[i].targets[first].getTroops()[auxList[rand].i]);
                             mainMap.killTroop(killIndex, auxList[rand].i, true);
                         }
@@ -751,6 +761,15 @@ public class mainGame : MonoBehaviour
                     }
                 }
             }
+        }
+        for(int i = 0; i < Constants.Map.path_size; i++)
+        {
+            if(results[i].i1 > 0)
+            {
+                localPlayer.result.Add(resultRoutine(mainMap.getLocalPath[i], results[i]));
+                StartCoroutine(localPlayer.result[localPlayer.result.Count - 1]);
+            }
+                
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -873,6 +892,42 @@ public class mainGame : MonoBehaviour
                 }
             }
         }
+    }
+    int getMoney(Troop.troopType _t, Troop.propertyType _p)
+    {
+        int baseCost = 0;
+        float propertyMult = 0;
+        switch (_t)
+        {
+            case Troop.troopType.SOLDIER:
+                baseCost = Constants.Entity.Troop.Soldier.cost;
+                break;
+            case Troop.troopType.CAR:
+                baseCost = Constants.Entity.Troop.Car.cost;
+                break;
+            case Troop.troopType.TANK:
+                baseCost = Constants.Entity.Troop.Tank.cost;
+                break;
+            case Troop.troopType.PLANE:
+                baseCost = Constants.Entity.Troop.Plane.cost;
+                break;
+        }
+        switch (_p)
+        {
+            case Troop.propertyType.NOTHING:
+                propertyMult = 0;
+                break;
+            case Troop.propertyType.CAMMO:
+                propertyMult = Constants.Entity.Troop.property_cost;
+                break;
+            case Troop.propertyType.ARMOR:
+                propertyMult = Constants.Entity.Troop.property_cost;
+                break;
+            case Troop.propertyType.BOTH:
+                propertyMult = Constants.Entity.Troop.property_cost * 2;
+                break;
+        }
+        return (int)(baseCost * (1 + propertyMult) / 2);
     }
     #endregion
 
@@ -1354,5 +1409,23 @@ public class mainGame : MonoBehaviour
         yield return null;
     }
 
+    private IEnumerator resultRoutine(Ficha target, Utilities.Pair_IntInt pair)
+    {
+        float duration = Constants.Entity.Building.Animation.duration;
+        int steps = Constants.Entity.Building.Animation.steps;
+        float acumulator = 0;
+
+        //while (acumulator < duration)
+        //{
+        //    troop.GetComponent<SpriteRenderer>().color = nowColor;
+        //    acumulator += duration / steps;
+        //    float mapped = Utilities.Maths.mapping(acumulator, 0, duration, 0, 1);
+        //    nowColor = Utilities.Maths.lerpColor(startColor, endColor, mapped);
+        //    yield return new WaitForSeconds(duration / steps);
+        //}
+        //toUpdate.updateFicha();
+
+        yield return null;
+    }
     #endregion
 }

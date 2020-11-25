@@ -21,6 +21,10 @@ public class Tierra : Ficha
     public static List<Sprite> tank_sprites;
     public static List<Sprite> plane_sprites;
 
+    public int path_index;
+    public GameObject textTroops;
+    public GameObject textMoney;
+
     #region constructor
     protected Tierra()
     {
@@ -84,8 +88,23 @@ public class Tierra : Ficha
         carCount = 0;
         tankCount = 0;
         planeCount = 0;
+
+        textTroops = new GameObject();
+        textTroops.AddComponent<TMPro.TextMeshPro>();
+        textMoney = new GameObject();
+        textMoney.AddComponent<TMPro.TextMeshPro>();
+
     }
     #endregion
+
+    public override int getPathIndex()
+    {
+        return path_index;
+    }
+    public override void setPathIndex(int i)
+    {
+        path_index = i;
+    }
 
     public override void addTroopToFicha(Troop _t)
     {
