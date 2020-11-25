@@ -1278,6 +1278,8 @@ public class mainGame : MonoBehaviour
                     localPlayer.MCamo = true;
                     hud.MCAMMO_BUTTON.GetComponent<Button>().interactable = false;
                     localPlayer.attack += Constants.Entity.City.MCammo;
+                    hud.TROOPS_CAMMO.GetComponent<Button>().interactable = true;
+                    if(hud.TROOPS_ARMOR.GetComponent<Button>().interactable) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
                 }
                 break;
             case 4:
@@ -1287,6 +1289,8 @@ public class mainGame : MonoBehaviour
                     localPlayer.MArmor = true;
                     hud.MBLINDAJE_BUTTON.GetComponent<Button>().interactable = false;
                     localPlayer.attack += Constants.Entity.City.MArmor;
+                    hud.TROOPS_ARMOR.GetComponent<Button>().interactable = true;
+                    if (hud.TROOPS_CAMMO.GetComponent<Button>().interactable) hud.TROOPS_BOTH.GetComponent<Button>().interactable = true;
                 }
                 break;
             case 5:
