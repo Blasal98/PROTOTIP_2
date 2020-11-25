@@ -480,6 +480,7 @@ public class mainGame : MonoBehaviour
 
     void defenseCity()
     {
+        Utilities.Pair_IntInt auxIntInt = new Utilities.Pair_IntInt(0, 0);
         int x = 1;
         if (localPlayer.MX2) x = 2;
         if(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops() != null)
@@ -546,9 +547,12 @@ public class mainGame : MonoBehaviour
                         }
                         StartCoroutine(localPlayer.shootings[localPlayer.shootings.Count - 1]);
 
+
                         if (mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health <= 0)
                         {
-
+                            auxIntInt.i1++;
+                            auxIntInt.i2 += getMoney(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type,
+                                                     mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i].p_type);
                             localPlayer.troops.Remove(mainMap.getLocalPath[Constants.Map.path_size - 1].getTroops()[auxList[rand].i]);
                             mainMap.killTroop(Constants.Map.path_size - 1, auxList[rand].i, true);
                         }
@@ -556,6 +560,12 @@ public class mainGame : MonoBehaviour
                 }
             }
         }
+        if (auxIntInt.i1 > 0)
+        {
+            localPlayer.result.Add(resultRoutine(mainMap.getLocalPath[Constants.Map.path_size - 1], auxIntInt));
+            StartCoroutine(localPlayer.result[localPlayer.result.Count - 1]);
+        }
+        auxIntInt = new Utilities.Pair_IntInt(0, 0);
         x = 1;
         if (othersPlayer[0].MX2) x = 2;
         if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops() != null)
@@ -626,13 +636,19 @@ public class mainGame : MonoBehaviour
 
                         if (mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].health <= 0)
                         {
-
+                            auxIntInt.i1++;
+                            auxIntInt.i2 += getMoney(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].type,
+                                                     mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i].p_type);
                             othersPlayer[0].troops.Remove(mainMap.getOthersPath[0][Constants.Map.path_size - 1].getTroops()[auxList[rand].i]);
                             mainMap.killTroop(Constants.Map.path_size - 1, auxList[rand].i, false);
                         }
                     }
                 }
             }
+        }
+        if(auxIntInt.i1 > 0) { 
+            othersPlayer[0].result.Add(resultRoutine(mainMap.getOthersPath[0][Constants.Map.path_size - 1], auxIntInt));
+            StartCoroutine(othersPlayer[0].result[othersPlayer[0].result.Count - 1]);
         }
     }
 
@@ -762,17 +778,24 @@ public class mainGame : MonoBehaviour
                 }
             }
         }
+        int earnedMoney = 0;
         for(int i = 0; i < Constants.Map.path_size; i++)
         {
             if(results[i].i1 > 0)
             {
                 localPlayer.result.Add(resultRoutine(mainMap.getLocalPath[i], results[i]));
                 StartCoroutine(localPlayer.result[localPlayer.result.Count - 1]);
+                earnedMoney += results[i].i2;
             }
                 
         }
+        localPlayer.money += earnedMoney;
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        results.Clear();
+        for (int i = 0; i < 15; i++)
+        {
+            results.Add(new Utilities.Pair_IntInt(0, 0));
+        }
         for (int i = 0; i < othersPlayer[0].buildings.Count; i++) //per cada edifici
         {
             int x = 1;
@@ -883,7 +906,8 @@ public class mainGame : MonoBehaviour
 
                         if (othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].health <= 0)
                         {
-
+                            results[othersPlayer[0].buildings[i].targets[first].getPathIndex()].i1++;
+                            results[othersPlayer[0].buildings[i].targets[first].getPathIndex()].i2 += getMoney(othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].type, othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i].p_type);
                             othersPlayer[0].troops.Remove(othersPlayer[0].buildings[i].targets[first].getTroops()[auxList[rand].i]);
                             mainMap.killTroop(killIndex, auxList[rand].i, false);
                         }
@@ -891,6 +915,15 @@ public class mainGame : MonoBehaviour
                     }
                 }
             }
+        }
+        for (int i = 0; i < Constants.Map.path_size; i++)
+        {
+            if (results[i].i1 > 0)
+            {
+                othersPlayer[0].result.Add(resultRoutine(mainMap.getOthersPath[0][i], results[i]));
+                StartCoroutine(othersPlayer[0].result[othersPlayer[0].result.Count - 1]);
+            }
+
         }
     }
     int getMoney(Troop.troopType _t, Troop.propertyType _p)
