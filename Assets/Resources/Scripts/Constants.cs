@@ -168,7 +168,7 @@ namespace Constants
             public static int FPlanes_Cost = 2000;
             public static int FPlanes_Plus = 300;
 
-            public static int Milloras = 750;
+            public static int Milloras = 1500;
             public static int MCammo = 1;
             public static int MArmor = 2;
             public static int MAir = 4;
