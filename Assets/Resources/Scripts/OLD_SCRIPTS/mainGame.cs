@@ -19,9 +19,9 @@ public class mainGame : MonoBehaviour
 
     [SerializeField] private GameObject HUD;
     private Hud hud;
- 
 
-    Map mainMap;
+
+    OldMap mainMap;
 
     private Player localPlayer;
     private List<Player> othersPlayer;
@@ -66,7 +66,7 @@ public class mainGame : MonoBehaviour
         cursorCollider.AddComponent<Rigidbody2D>();
         cursorCollider.GetComponent<Rigidbody2D>().gravityScale = 0;
 
-        mainMap = new Map();
+        mainMap = new OldMap();
   
         
         ended = false;

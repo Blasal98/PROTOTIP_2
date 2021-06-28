@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Map
+class OldMap
 {
     #region Variables
     private FichaSelector[][] selectorMap;
@@ -25,7 +25,7 @@ class Map
     #endregion
 
     #region Map Initialization
-    public Map() {
+    public OldMap() {
         created = false;
         justCreated = true;
         pathCount = 0;
