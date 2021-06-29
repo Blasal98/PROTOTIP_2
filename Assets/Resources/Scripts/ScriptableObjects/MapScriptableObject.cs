@@ -6,4 +6,6 @@ using UnityEngine;
 public class MapScriptableObject : ScriptableObject
 {
     public int width, height;
+    public GameObject cellPrefab;
+    public GameObject floorPrefab;
 }

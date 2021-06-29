@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213d01b4f99dedf4b968f739cbf31b35, type: 3}
   m_Name: MapDefault
   m_EditorClassIdentifier: 
-  base_Prefab: {fileID: 0}
-  base_base_unfilled_Prefab: {fileID: 4709865951996344910, guid: d1b46f3a85468804ca8067b1065c5118,
-    type: 3}
-  base_base_filled_Prefab: {fileID: 0}
   width: 5
   height: 5
+  cellPrefab: {fileID: 1535757215502391259, guid: 66de159b3edb7ae4d94fca61acef4449,
+    type: 3}
+  floorPrefab: {fileID: 6088352824132762128, guid: 368ce066c4164334f9f7dd5b46e7bd01,
+    type: 3}
